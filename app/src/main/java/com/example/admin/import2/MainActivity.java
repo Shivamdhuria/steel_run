@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private Button signOut;
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
-    private FirebaseAuth auth;
+    public static FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

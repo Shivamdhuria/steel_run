@@ -21,7 +21,12 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".NewReminderActivity"></activity>
+        <activity android:name=".NewReminderActivity" />
+        <activity android:name=".SelectDateActivity" />
+        <activity
+            android:name=".SelectTimeActivity"
+            android:label="@string/title_activity_select_time"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

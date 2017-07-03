@@ -169,7 +169,8 @@ public class Tab1 extends Fragment {
 //Passing value of receiver's Name and UID to New Reminder Activity
 
        intent.putExtra("ReceiverUID",receiverUID);
-      // extra.putString("ReceiverName","shivam");
+      intent.putExtra("ReceiverName",name);
+        MainActivity.recepientUID = receiverUID;
         Log.d("reuid",receiverUID);
         Log.d("rename",name);
 

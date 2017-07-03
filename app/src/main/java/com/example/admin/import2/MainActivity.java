@@ -20,7 +20,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     //This is our viewPager
     private ViewPager viewPager;
-
+    //Setting reminderMessage
+    protected static String reminderMessage;
+    protected static String recepientUID;
+    protected static String reminderDate;
+    protected static String reminderTime;
 
     private Button signOut;
     private ProgressBar progressBar;

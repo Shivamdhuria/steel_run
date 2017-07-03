@@ -165,12 +165,16 @@ public class Tab1 extends Fragment {
     public void NewReminder() {
 
        Intent intent = new Intent(getActivity(),NewReminderActivity.class);
+
+//Passing value of receiver's Name and UID to New Reminder Activity
+
        intent.putExtra("ReceiverUID",receiverUID);
-       intent.putExtra("ReceiverName",name);
+      // extra.putString("ReceiverName","shivam");
         Log.d("reuid",receiverUID);
         Log.d("rename",name);
 
         startActivity(intent);
+        getActivity().finish();
 
     }
 }

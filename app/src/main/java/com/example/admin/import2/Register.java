@@ -71,7 +71,7 @@ public class Register extends AppCompatActivity {
 
 
 
-
+                // Creating new user node,
                     User user = new User(name, phone);
 
                     mDatabase.child("users").child(userID).setValue(user);
@@ -85,20 +85,6 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public class User {
 
-        public String username;
-        public String phone;
-
-        public User() {
-            // Default constructor required for calls to DataSnapshot.getValue(User.class)
-        }
-
-        public User(String username, String phone) {
-            this.username = username;
-            this.phone = phone;
-        }
-
-    }
 
 }

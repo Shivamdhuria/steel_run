@@ -26,7 +26,8 @@
         <activity
             android:name=".SelectTimeActivity"
             android:label="@string/title_activity_select_time"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".PreviewActivity"></activity>
     </application>
 
 </manifest>

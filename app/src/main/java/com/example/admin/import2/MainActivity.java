@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static String recepientUID;
     protected static String reminderDate;
     protected static String reminderTime;
+    protected static String recepientName;
 
     private Button signOut;
     private ProgressBar progressBar;

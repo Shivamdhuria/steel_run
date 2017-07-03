@@ -31,7 +31,7 @@ public class NewReminderActivity extends AppCompatActivity {
 
 
        // String receiverUIDKey = getIntent().getExtras().getString("ReceiverUID");
-        String receiverName = getIntent().getExtras().getString("ReceiverName");
+        String receiverName = MainActivity.recepientName;
         textView.setText(receiverName);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override

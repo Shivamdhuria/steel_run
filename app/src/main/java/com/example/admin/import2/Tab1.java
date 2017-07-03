@@ -171,6 +171,7 @@ public class Tab1 extends Fragment {
        intent.putExtra("ReceiverUID",receiverUID);
       intent.putExtra("ReceiverName",name);
         MainActivity.recepientUID = receiverUID;
+        MainActivity.recepientName=name;
         Log.d("reuid",receiverUID);
         Log.d("rename",name);
 

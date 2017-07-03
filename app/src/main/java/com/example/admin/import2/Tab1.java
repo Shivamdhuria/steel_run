@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -94,9 +95,24 @@ public class Tab1 extends Fragment {
 
         } );
 
-        signOut = (Button) v.findViewById(R.id.sign_out);
 
-        signOut.setOnClickListener(new View.OnClickListener() {
+        //Getting username from listview
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> a, View v, int position,
+                                    long id) {
+                String s =Integer.toString(position);
+
+                Toast.makeText(getContext(),s , Toast.LENGTH_SHORT).show();
+                Log.v("log_tag", "List Item Click");
+            }
+        });
+
+
+
+
+         signOut = (Button) v.findViewById(R.id.sign_out);
+         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut();
@@ -118,12 +134,19 @@ public class Tab1 extends Fragment {
 
             //Get user map
             Map singleUser = (Map) entry.getValue();
-            //Get phone field and append to list
-           userNames.add((String) singleUser.get("username"));
+            //Getting UID of every user and adding to the Array
+            String Key = entry.getKey();
+            uid.add(Key);
+
+            //Get usernames and append to list and array
+            userNames.add((String) singleUser.get("username"));
+
+           //Display all usernames
             ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
             listView.setAdapter(adapter);
         }
-
+            Log.d("List of UID",uid.toString());
+        Log.d("List of usernames",userNames.toString());
 
     }
 

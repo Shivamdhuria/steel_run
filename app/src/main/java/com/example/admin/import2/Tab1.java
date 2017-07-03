@@ -45,7 +45,9 @@ public class Tab1 extends Fragment {
      ListView listView;
     private DatabaseReference mDatabase;
     String userID;
-    ArrayList array = new ArrayList<>();
+    ArrayList<String> userNames = new ArrayList<>();
+    ArrayList<String> uid = new ArrayList<>();
+    String receiverUID,name;
 
 
     //Overriden method onCreateView
@@ -102,9 +104,12 @@ public class Tab1 extends Fragment {
             public void onItemClick(AdapterView<?> a, View v, int position,
                                     long id) {
                 String s =Integer.toString(position);
+                receiverUID = uid.get(position);
+                name = userNames.get(position);
 
                 Toast.makeText(getContext(),s , Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
+                 NewReminder();
             }
         });
 
@@ -126,8 +131,7 @@ public class Tab1 extends Fragment {
 
     private void collectUserNames(Map<String, Object> users) {
 
-        ArrayList<String> userNames = new ArrayList<>();
-        ArrayList<String> uid = new ArrayList<>();
+
 
         //iterate through each user, ignoring their UID
         for (Map.Entry<String, Object> entry : users.entrySet()){
@@ -154,6 +158,20 @@ public class Tab1 extends Fragment {
         auth.signOut();
         startActivity(new Intent(getActivity(), LoginActivity.class));
         getActivity().finish();
+    }
+
+
+
+    public void NewReminder() {
+
+       Intent intent = new Intent(getActivity(),NewReminderActivity.class);
+       intent.putExtra("ReceiverUID",receiverUID);
+       intent.putExtra("ReceiverName",name);
+        Log.d("reuid",receiverUID);
+        Log.d("rename",name);
+
+        startActivity(intent);
+
     }
 }
 

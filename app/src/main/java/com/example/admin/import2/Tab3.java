@@ -6,6 +6,9 @@ package com.example.admin.import2;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -30,6 +34,11 @@ import java.util.Map;
 
 //Our class extending fragment
 public class Tab3 extends Fragment {
+
+    private static RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private static RecyclerView recyclerView;
+    private static ArrayList<String> reminderMessages;
     String senderUID;
     private DatabaseReference mDatabase;
     //Overriden method onCreateView
@@ -41,9 +50,19 @@ public class Tab3 extends Fragment {
         View v = inflater.inflate(R.layout.tab3, container, false);
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        reminderMessages = new ArrayList<>();
         senderUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").orderByChild("senderUID").equalTo(senderUID);
+
+        //Setting size of recycler view as constant
+        recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        //Setting Linear Layout
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,9 +71,13 @@ public class Tab3 extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     // do something with the individual "issues"
                     String message = ds.child("reminderMessage").getValue(String.class);
-                    Log.d("isues",message);
+
+                    reminderMessages.add(message);
 
                 }
+                Log.d("messages",reminderMessages.toString());
+                adapter = new DataAdapter(reminderMessages);
+                recyclerView.setAdapter(adapter);
 
             }
 

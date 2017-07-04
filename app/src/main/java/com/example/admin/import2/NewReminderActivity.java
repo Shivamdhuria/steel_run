@@ -1,6 +1,5 @@
 package com.example.admin.import2;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ public class NewReminderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_reminder);
         btn_next = (Button)findViewById(R.id.next);
         textView = (TextView)findViewById(R.id.recepientname);
-        editReminderMessage = (EditText)findViewById(R.id.reminderMessage);
+        editReminderMessage = (EditText)findViewById(R.id.reminderDisplay);
 
 
        // String receiverUIDKey = getIntent().getExtras().getString("ReceiverUID");
@@ -37,7 +36,9 @@ public class NewReminderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                MainActivity.reminderMessage = editReminderMessage.toString();
+                MainActivity.reminderMessage = editReminderMessage.getText().toString();
+                Log.d("Reminder message",MainActivity.reminderMessage);
+                Toast.makeText(getApplication(), MainActivity.reminderMessage, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(NewReminderActivity.this, SelectDateActivity.class));
 
             }

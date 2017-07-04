@@ -62,7 +62,7 @@ public class Tab1 extends Fragment {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userID=user.getUid();
         Log.v(TAG, "UID gotten" );
-       /* authListener = new FirebaseAuth.AuthStateListener() {
+       authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -73,7 +73,7 @@ public class Tab1 extends Fragment {
                     getActivity().finish();
                 }
             }
-        };*/
+        };
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         listView = (ListView) v.findViewById(R.id.listview);

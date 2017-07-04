@@ -27,7 +27,7 @@ public class SelectDateActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
                 dateDisplay.setText("Date: " + i2 + " / " + i1 + " / " + i);
-                date = i2+"/"+i1+"/"+i;
+                date = Integer.toString(i2)+"/"+Integer.toString(i1)+"/"+Integer.toString(i2);
 
             }
         });
@@ -35,6 +35,7 @@ public class SelectDateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.reminderDate = date;
+                Toast.makeText(getApplication(), date, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SelectDateActivity.this, SelectTimeActivity.class));
             }
         });

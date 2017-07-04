@@ -32,7 +32,7 @@
         android:text="Reminder"
         android:layout_width="213dp"
         android:layout_height="wrap_content"
-        android:id="@+id/reminderMessage"
+        android:id="@+id/reminderDisplay"
         android:textSize="30sp"
         android:layout_below="@+id/recepientName"
         android:layout_alignParentLeft="true"
@@ -40,13 +40,13 @@
         android:layout_marginTop="84dp" />
 
     <Button
-        android:text="Button"
+        android:text="Approve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_approve"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/reminderMessage"
-        android:layout_alignEnd="@+id/reminderMessage"
+        android:layout_alignRight="@+id/reminderDisplay"
+        android:layout_alignEnd="@+id/reminderDisplay"
         android:layout_marginBottom="97dp" />
 
     <TextView
@@ -54,11 +54,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/reminderMessage"
-        android:layout_toEndOf="@+id/reminderMessage"
+        android:layout_toRightOf="@+id/reminderDisplay"
+        android:layout_toEndOf="@+id/reminderDisplay"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:id="@+id/dataDisplay"
+        android:id="@+id/dateDisplay"
         android:textSize="24sp" />
 
 </RelativeLayout>

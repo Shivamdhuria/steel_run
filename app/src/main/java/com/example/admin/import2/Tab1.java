@@ -61,7 +61,8 @@ public class Tab1 extends Fragment {
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userID=user.getUid();
-        Log.v(TAG, "UID gotten" );
+
+        Log.v("userUID", userID );
        authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -140,11 +141,16 @@ public class Tab1 extends Fragment {
             Map singleUser = (Map) entry.getValue();
             //Getting UID of every user and adding to the Array
             String Key = entry.getKey();
-            uid.add(Key);
+            Log.d("KEy Value",Key);
+            //Removing the Current User's ID from the Display List
+            
+            if(!Key.equals(userID)) {
+                uid.add(Key);
 
-            //Get usernames and append to list and array
-            userNames.add((String) singleUser.get("username"));
 
+                //Get usernames and append to list and array
+                userNames.add((String) singleUser.get("username"));
+            }
            //Display all usernames
             ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
             listView.setAdapter(adapter);

@@ -75,7 +75,7 @@ public class Tab3 extends Fragment {
                     reminderMessages.add(message);
 
                 }
-                Log.d("messages",reminderMessages.toString());
+
                 adapter = new DataAdapter(reminderMessages);
                 recyclerView.setAdapter(adapter);
 

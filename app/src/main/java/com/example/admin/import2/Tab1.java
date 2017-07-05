@@ -143,7 +143,7 @@ public class Tab1 extends Fragment {
             String Key = entry.getKey();
             Log.d("KEy Value",Key);
             //Removing the Current User's ID from the Display List
-            
+
             if(!Key.equals(userID)) {
                 uid.add(Key);
 

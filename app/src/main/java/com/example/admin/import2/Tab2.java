@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static com.example.admin.import2.Tab3.receiverNames;
 
 /**
  * Created by Belal on 2/3/2016.
@@ -76,11 +79,13 @@ public class Tab2 extends Fragment {
 
                 for (DataSnapshot dssender : dataSnapshot.getChildren()) {
                     // do something with the individual "issues"
-
+                    String sUID = dssender.child("senderUID").getValue(String.class);
+                    getSenderUsername(sUID);
+                    senderName.add("Sasa");
                     String message = dssender.child("reminderMessage").getValue(String.class);
-                    senderName.add("lm");
+
                     reminderMessages.add(message);
-                   String sUID = dssender.child("senderUID").getValue(String.class);
+
                     //Getting corresponding username of the ReceiverUID
                    // getSenderUsername(sUID);
 
@@ -123,6 +128,30 @@ public class Tab2 extends Fragment {
     }
     public void getSenderUsername(String UID){
 
+        DatabaseReference mDatabase2;
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users");
+
+        Query query = mDatabase2.orderByKey().equalTo(UID);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                // dataSnapshot is the "issue" node with all children with id 0
+                for (DataSnapshot users : dataSnapshot2.getChildren()) {
+                     String name = users.child("username").getValue(String.class);
+
+                   // receiverNames.add(name);
+                    Log.d("name retrieved",name);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

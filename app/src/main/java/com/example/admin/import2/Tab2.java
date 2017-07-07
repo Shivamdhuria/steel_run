@@ -53,8 +53,7 @@ public class Tab2 extends Fragment {
         View v =inflater.inflate(R.layout.tab2, container, false);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
-        senderName = new ArrayList<>();
-        senderName.add("lop");
+
         receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").orderByChild("receiverUID").equalTo(receiverUID);
@@ -71,11 +70,14 @@ public class Tab2 extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                senderName = new ArrayList<>();
+
+
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     // do something with the individual "issues"
                     String message = ds.child("reminderMessage").getValue(String.class);
-
+                    senderName.add("lop");
                     reminderMessages.add(message);
 
                 }

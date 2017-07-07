@@ -52,7 +52,9 @@ public class Tab3 extends Fragment {
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
-        receiverNames = new ArrayList<>();
+
+
+
         senderUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").orderByChild("senderUID").equalTo(senderUID);
@@ -69,25 +71,25 @@ public class Tab3 extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                receiverNames = new ArrayList<>();
+
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    // do something with the individual "issues"
+                    //Getting message from database
                     String message = ds.child("reminderMessage").getValue(String.class);
+                    //Adding database to ArrayList
+                    reminderMessages.add(message);
+                    //Getting ReceiverUID
                     String rUID = ds.child("receiverUID").getValue(String.class);
-
+                    //Getting corresponding username of the ReceiverUID
                     GetName getName = new GetName();
                     getName.GetName(rUID);
-
-
-
-
-
                     reminderMessages.add(message);
                    // Log.d("String names", receiverNames.toString());
                 }
 
 
-                adapter = new DataAdapter(reminderMessages);
+                adapter = new DataAdapter(reminderMessages,receiverNames);
                 recyclerView.setAdapter(adapter);
 
             }

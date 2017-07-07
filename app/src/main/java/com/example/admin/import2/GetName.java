@@ -37,12 +37,11 @@ public class GetName {
                 // dataSnapshot is the "issue" node with all children with id 0
                 for (DataSnapshot users : dataSnapshot2.getChildren()) {
                     receiverName = users.child("username").getValue(String.class);
-                    Log.d("name retrieved",receiverName.toString());
+
                     receiverNames.add(receiverName);
-
-
+                    Log.d("name retrieved",receiverNames.toString());
                 }
-                Log.d("String names", receiverNames.toString());
+
 
             }
 

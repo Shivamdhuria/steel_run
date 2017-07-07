@@ -15,9 +15,12 @@ import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private ArrayList<String> reminderMessage;
+    private ArrayList<String> receiverName;
 
-    public DataAdapter(ArrayList<String> reminderMessage) {
+    public DataAdapter(ArrayList<String> reminderMessage,ArrayList<String> receiverName) {
+
         this.reminderMessage = reminderMessage;
+        this.receiverName = receiverName;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
 
         viewHolder.reminderText.setText(reminderMessage.get(i));
+        viewHolder.receiverName.setText(receiverName.get(i));
     }
 
     @Override
@@ -40,10 +44,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView reminderText;
+        private TextView receiverName;
         public ViewHolder(View view) {
             super(view);
 
             reminderText = (TextView)view.findViewById(R.id.remindertext);
+            receiverName = (TextView)view.findViewById(R.id.receiverName);
         }
     }
 

@@ -51,14 +51,16 @@ public class Tab2 extends Fragment {
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         View v =inflater.inflate(R.layout.tab2, container, false);
-    /*     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
+        senderName = new ArrayList<>();
+        senderName.add("lop");
         receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-       Query query = mDatabase.child("reminders").orderByChild("receiverUID").equalTo(receiverUID);
+        Query query = mDatabase.child("reminders").orderByChild("receiverUID").equalTo(receiverUID);
 
         //Setting size of recycler view as constant
-        recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
+        recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view2);
         recyclerView.setHasFixedSize(true);
 
         //Setting Linear Layout
@@ -74,12 +76,11 @@ public class Tab2 extends Fragment {
                     // do something with the individual "issues"
                     String message = ds.child("reminderMessage").getValue(String.class);
 
-
                     reminderMessages.add(message);
 
                 }
 
-                adapter = new DataAdapter(reminderMessages);
+               adapter = new DataAdapter(reminderMessages,senderName);
                 recyclerView.setAdapter(adapter);
 
             }
@@ -94,7 +95,7 @@ public class Tab2 extends Fragment {
 
         });
 
-*/
+
         profile = (Button)v.findViewById(R.id.btn_profile);
 
         profile.setOnClickListener(new View.OnClickListener() {

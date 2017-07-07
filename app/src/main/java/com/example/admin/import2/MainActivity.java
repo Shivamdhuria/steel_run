@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     //This is our tablayout
     private TabLayout tabLayout;
 
+    //
+
     //This is our viewPager
     private ViewPager viewPager;
     //Setting reminderMessage

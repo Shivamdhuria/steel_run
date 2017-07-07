@@ -11,7 +11,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.admin.import2.R.id.receiverName;
+import static com.example.admin.import2.Tab3.receiverNames;
+
 
 /**
  * Created by Admin on 7/7/2017.
@@ -21,10 +22,11 @@ public class GetName {
     private FirebaseAuth auth;
     ListView listView;
     private DatabaseReference mDatabase;
+    String receiverName;
 
 
 
-    public GetName(String UID){
+    public void GetName(String UID){
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         Query query = mDatabase.orderByKey().equalTo(UID);
@@ -34,12 +36,13 @@ public class GetName {
 
                 // dataSnapshot is the "issue" node with all children with id 0
                 for (DataSnapshot users : dataSnapshot2.getChildren()) {
-                    String receiverName = users.child("username").getValue(String.class);
+                    receiverName = users.child("username").getValue(String.class);
                     Log.d("name retrieved",receiverName.toString());
+                    receiverNames.add(receiverName);
 
 
                 }
-
+                Log.d("String names", receiverNames.toString());
 
             }
 
@@ -48,6 +51,8 @@ public class GetName {
 
             }
         });
+
+
 
 
     }

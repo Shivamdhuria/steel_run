@@ -39,7 +39,7 @@ public class Tab3 extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private static ArrayList<String> reminderMessages;
-    private static ArrayList<String> receiverUIDs;
+    protected static ArrayList<String> receiverNames;
     String senderUID;
     private DatabaseReference mDatabase;
     //Overriden method onCreateView
@@ -52,7 +52,7 @@ public class Tab3 extends Fragment {
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
-        receiverUIDs = new ArrayList<>();
+        receiverNames = new ArrayList<>();
         senderUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").orderByChild("senderUID").equalTo(senderUID);
@@ -74,11 +74,16 @@ public class Tab3 extends Fragment {
                     // do something with the individual "issues"
                     String message = ds.child("reminderMessage").getValue(String.class);
                     String rUID = ds.child("receiverUID").getValue(String.class);
-                    receiverUIDs.add(rUID);
-                    GetName getName = new GetName(rUID);
+
+                    GetName getName = new GetName();
+                    getName.GetName(rUID);
+
+
+
+
 
                     reminderMessages.add(message);
-                    Log.d("String UIDs",receiverUIDs.toString());
+                   // Log.d("String names", receiverNames.toString());
                 }
 
 

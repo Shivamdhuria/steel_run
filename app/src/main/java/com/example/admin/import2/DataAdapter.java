@@ -34,7 +34,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        Log.d("adapter Array Size",reminderMessage.toString());
+
         return reminderMessage.size();
     }
 

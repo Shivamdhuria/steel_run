@@ -28,7 +28,9 @@
                 android:id="@+id/receiverName"
 
 
-                android:text="Josh" />
+                android:text="Josh"
+                android:layout_marginTop="120dp"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,11 +39,11 @@
 
                 android:textSize="18sp"
                 android:text="Your reminder message will appear here"
-                android:layout_marginLeft="98dp"
-                android:layout_marginStart="98dp"
-                android:layout_alignParentTop="true"
+                android:layout_marginBottom="50dp"
+                android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/receiverName"
-                android:layout_toEndOf="@+id/receiverName" />
+                android:layout_toEndOf="@+id/receiverName"
+                android:layout_marginLeft="60dp" />
 
         </RelativeLayout>
 

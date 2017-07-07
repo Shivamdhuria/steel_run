@@ -155,8 +155,7 @@ public class Tab1 extends Fragment {
             ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
             listView.setAdapter(adapter);
         }
-            Log.d("List of UID",uid.toString());
-        Log.d("List of usernames",userNames.toString());
+
 
     }
 
@@ -178,8 +177,6 @@ public class Tab1 extends Fragment {
       intent.putExtra("ReceiverName",name);
         MainActivity.recepientUID = receiverUID;
         MainActivity.recepientName=name;
-        Log.d("reuid",receiverUID);
-        Log.d("rename",name);
 
         startActivity(intent);
         getActivity().finish();

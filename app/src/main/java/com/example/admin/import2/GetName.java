@@ -22,7 +22,7 @@ public class GetName {
     private FirebaseAuth auth;
     ListView listView;
     private DatabaseReference mDatabase;
-    String receiverName;
+    private String receiverName;
 
 
 

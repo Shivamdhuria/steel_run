@@ -74,11 +74,17 @@ public class Tab2 extends Fragment {
 
 
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                for (DataSnapshot dssender : dataSnapshot.getChildren()) {
                     // do something with the individual "issues"
-                    String message = ds.child("reminderMessage").getValue(String.class);
-                    senderName.add("lop");
+
+                    String message = dssender.child("reminderMessage").getValue(String.class);
+                    senderName.add("lm");
                     reminderMessages.add(message);
+                   String sUID = dssender.child("senderUID").getValue(String.class);
+                    //Getting corresponding username of the ReceiverUID
+                   // getSenderUsername(sUID);
+
+                   // senderName.add("lm");
 
                 }
 
@@ -114,5 +120,9 @@ public class Tab2 extends Fragment {
 
         startActivity(new Intent(getActivity(), Register.class));
         getActivity().finish();
+    }
+    public void getSenderUsername(String UID){
+
+
     }
 }

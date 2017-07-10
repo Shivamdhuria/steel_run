@@ -78,18 +78,19 @@ public class Tab2 extends Fragment {
 
 
                 for (DataSnapshot dssender : dataSnapshot.getChildren()) {
-                    // do something with the individual "issues"
+
                     String sUID = dssender.child("senderUID").getValue(String.class);
-                    getSenderUsername(sUID);
+                    GetSenderName getSenderName = new GetSenderName();
+                    getSenderName.GetSenderssName(sUID);
+                  //  getSenderUsername(sUID);
                     senderName.add("Sasa");
                     String message = dssender.child("reminderMessage").getValue(String.class);
 
                     reminderMessages.add(message);
 
-                    //Getting corresponding username of the ReceiverUID
-                   // getSenderUsername(sUID);
+                    ;
 
-                   // senderName.add("lm");
+
 
                 }
 
@@ -126,11 +127,11 @@ public class Tab2 extends Fragment {
         startActivity(new Intent(getActivity(), Register.class));
         getActivity().finish();
     }
-    public void getSenderUsername(String UID){
+  /*  public void getSenderUsername(String UID){
 
         DatabaseReference mDatabase2;
         mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users");
-
+        Log.d("name  nbjknjkretrieved","inloop");
         Query query = mDatabase2.orderByKey().equalTo(UID);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -141,7 +142,7 @@ public class Tab2 extends Fragment {
                      String name = users.child("username").getValue(String.class);
 
                    // receiverNames.add(name);
-                    Log.d("name retrieved",name);
+
                 }
 
 
@@ -152,6 +153,6 @@ public class Tab2 extends Fragment {
 
             }
         });
+*/
 
-    }
 }

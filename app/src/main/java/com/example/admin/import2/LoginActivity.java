@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
-                                            Toast.makeText(LoginActivity.this, "SOmething went wrong", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                                         }
                                     });
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);

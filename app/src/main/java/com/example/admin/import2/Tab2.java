@@ -42,6 +42,7 @@ public class Tab2 extends Fragment {
     private static RecyclerView recyclerView;
     private static ArrayList<String> reminderMessages;
     protected static ArrayList<String> senderNames;
+
     String receiverUID;
     private DatabaseReference mDatabase;
 
@@ -57,9 +58,9 @@ public class Tab2 extends Fragment {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
 
-        receiverUID = user.getUid();
+        //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabase.child("reminders").orderByChild("receiverUID").equalTo(receiverUID);
+        Query query = mDatabase.child("reminders").orderByChild("receiverUID").equalTo(MainActivity.userID);
 
         //Setting size of recycler view as constant
         recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view2);
@@ -79,16 +80,15 @@ public class Tab2 extends Fragment {
 
                 for (DataSnapshot dssender : dataSnapshot.getChildren()) {
 
-                    String sUID = dssender.child("senderUID").getValue(String.class);
-                    GetSenderName getSenderName = new GetSenderName();
-                    getSenderName.GetSenderssName(sUID);
+                    String senderName = dssender.child("senderName").getValue(String.class);
+
+                   // getSenderName.GetSenderssName(sUID);
                   //  getSenderUsername(sUID);
-                    senderNames.add("Sasa");
+                    senderNames.add(senderName);
                     String message = dssender.child("reminderMessage").getValue(String.class);
 
                     reminderMessages.add(message);
 
-                    ;
 
 
 

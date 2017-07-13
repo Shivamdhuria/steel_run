@@ -77,9 +77,8 @@ public class Tab3 extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //Getting corresponding username of the ReceiverUID
                     //Getting ReceiverUID
-                    String rUID = ds.child("receiverUID").getValue(String.class);
-                    GetName getName = new GetName();
-                    getName.GetName(rUID);
+                    String receiverName = ds.child("receiverName").getValue(String.class);
+                    receiverNames.add(receiverName);
                     //Getting message from database
                     String message = ds.child("reminderMessage").getValue(String.class);
                     //Adding database to ArrayList

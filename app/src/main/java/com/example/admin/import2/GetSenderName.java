@@ -11,11 +11,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.admin.import2.Tab3.receiverNames;
+import java.util.ArrayList;
 
-/**
- * Created by Admin on 7/10/2017.
- */
+import static com.example.admin.import2.Tab2.senderNames;
+
+
+
 
 public class GetSenderName {private FirebaseAuth auth;
     ListView listView;
@@ -26,18 +27,18 @@ public class GetSenderName {private FirebaseAuth auth;
 
     public void GetSenderssName(String UID){
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-
+        //Running a query to find matching UID
         Query query = mDatabase.orderByKey().equalTo(UID);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot2) {
 
-                // dataSnapshot is the "issue" node with all children with id 0
+                // Getting user name with matching UID
                 for (DataSnapshot users : dataSnapshot2.getChildren()) {
                     senderName = users.child("username").getValue(String.class);
 
-
-                    Log.d("sendername retrieved",senderName);
+                    senderNames.add(senderName);
+                    Log.d("sendername retrieved",senderNames.toString());
                 }
 
 

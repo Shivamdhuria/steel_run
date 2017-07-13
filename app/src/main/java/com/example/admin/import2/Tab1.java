@@ -47,7 +47,7 @@ public class Tab1 extends Fragment {
     String userID;
     ArrayList<String> userNames = new ArrayList<>();
     ArrayList<String> uid = new ArrayList<>();
-    String receiverUID,name;
+    String receiverUID,receivername;
 
 
     //Overriden method onCreateView
@@ -106,7 +106,7 @@ public class Tab1 extends Fragment {
                                     long id) {
                 String s =Integer.toString(position);
                 receiverUID = uid.get(position);
-                name = userNames.get(position);
+                receivername = userNames.get(position);
 
                 Toast.makeText(getContext(),s , Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
@@ -174,9 +174,9 @@ public class Tab1 extends Fragment {
 //Passing value of receiver's Name and UID to New Reminder Activity
 
        intent.putExtra("ReceiverUID",receiverUID);
-      intent.putExtra("ReceiverName",name);
+      intent.putExtra("ReceiverName",receivername);
         MainActivity.recepientUID = receiverUID;
-        MainActivity.recepientName=name;
+        MainActivity.recepientName=receivername;
 
         startActivity(intent);
         getActivity().finish();

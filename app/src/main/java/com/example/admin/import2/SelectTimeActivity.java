@@ -26,6 +26,7 @@ public class SelectTimeActivity extends AppCompatActivity {
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                //Setting time
                 MainActivity.reminderTime= Integer.toString(hourOfDay)+":"+Integer.toString(minute);
                 Toast.makeText(getApplicationContext(), MainActivity.reminderTime, Toast.LENGTH_SHORT).show();
                 timeDisplay.setText("Time"+"   " +MainActivity.reminderTime);

@@ -21,13 +21,19 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     //
 
     //This is our viewPager
+
     private ViewPager viewPager;
-    //Setting reminderMessage
+    //Setting global reminder message,receiver name,uid
     protected static String reminderMessage;
     protected static String recepientUID;
+    protected static String recipientName;
     protected static String reminderDate;
     protected static String reminderTime;
     protected static String recepientName;
+
+    //Setting global Username and ID
+    protected static String userName;
+    protected static String userID;
 
     private Button signOut;
     private ProgressBar progressBar;
@@ -80,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 }
             }
         };
+        userID = user.getUid();
        /*signOut = (Button) findViewById(R.id.sign_out);
 
         signOut.setOnClickListener(new View.OnClickListener() {

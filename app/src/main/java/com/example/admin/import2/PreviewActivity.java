@@ -14,6 +14,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class PreviewActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -55,7 +58,10 @@ public class PreviewActivity extends AppCompatActivity {
         btn_approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Reminder reminder = new Reminder(MainActivity.reminderMessage,senderUID,MainActivity.recepientUID,MainActivity.reminderTime,"0");
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+                String format = simpleDateFormat.format(new Date());
+                Reminder reminder = new Reminder(MainActivity.reminderMessage,MainActivity.userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,format,"0");
 
                 mDatabase.child("reminders").push().setValue(reminder);
                 Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();

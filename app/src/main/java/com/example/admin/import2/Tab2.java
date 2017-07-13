@@ -41,7 +41,7 @@ public class Tab2 extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private static ArrayList<String> reminderMessages;
-    private static ArrayList<String> senderName;
+    protected static ArrayList<String> senderNames;
     String receiverUID;
     private DatabaseReference mDatabase;
 
@@ -73,7 +73,7 @@ public class Tab2 extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                senderName = new ArrayList<>();
+                senderNames = new ArrayList<>();
 
 
 
@@ -83,7 +83,7 @@ public class Tab2 extends Fragment {
                     GetSenderName getSenderName = new GetSenderName();
                     getSenderName.GetSenderssName(sUID);
                   //  getSenderUsername(sUID);
-                    senderName.add("Sasa");
+                    senderNames.add("Sasa");
                     String message = dssender.child("reminderMessage").getValue(String.class);
 
                     reminderMessages.add(message);
@@ -94,7 +94,7 @@ public class Tab2 extends Fragment {
 
                 }
 
-               adapter = new DataAdapter(reminderMessages,senderName);
+               adapter = new DataAdapter(reminderMessages,senderNames);
                 recyclerView.setAdapter(adapter);
 
             }

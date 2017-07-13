@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:layout_height="230dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="5dp"
+        android:layout_height="187dp"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="20dp"
         card_view:cardBackgroundColor="#FBF7DB"
         android:id="@+id/cv"
         >
 
         <RelativeLayout
-            android:layout_width="285dp"
-            android:layout_height="179dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:padding="16dp"
             >
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/receiverName"
-
-
-                android:text="Josh"
-                android:layout_marginTop="120dp"
-                android:layout_marginLeft="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="261dp"
+                android:layout_height="105dp"
                 android:id="@+id/remindertext"
 
                 android:textSize="18sp"
                 android:text="Your reminder message will appear here"
-                android:layout_marginBottom="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/receiverName"
-                android:layout_toEndOf="@+id/receiverName"
-                android:layout_marginLeft="60dp" />
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/receiverName"
+
+
+                android:text="Joshua"
+                android:layout_height="94dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/remindertext" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

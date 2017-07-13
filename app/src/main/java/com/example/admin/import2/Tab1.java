@@ -55,6 +55,7 @@ public class Tab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.tab1, container, false);
+
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
@@ -77,6 +78,7 @@ public class Tab1 extends Fragment {
         };
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase.keepSynced(true);
         listView = (ListView) v.findViewById(R.id.listview);
 
         mDatabase.addValueEventListener(new ValueEventListener() {

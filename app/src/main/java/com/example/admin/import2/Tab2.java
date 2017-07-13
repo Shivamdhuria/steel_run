@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,8 @@ import static com.example.admin.import2.Tab3.receiverNames;
 //Our class extending fragment
 public class Tab2 extends Fragment {
 
+    protected static TextView textview_greet;
+
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
@@ -55,6 +58,9 @@ public class Tab2 extends Fragment {
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         View v =inflater.inflate(R.layout.tab2, container, false);
+
+        textview_greet=(TextView)v.findViewById(R.id.greet);
+        textview_greet.setText("Hey There," +MainActivity.userName);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
 

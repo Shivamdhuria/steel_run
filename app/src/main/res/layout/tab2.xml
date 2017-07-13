@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scrollbars="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/btn_profile" />
 
     <Button
         android:id="@+id/btn_profile"
@@ -29,5 +19,35 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scrollbars="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        app:srcCompat="@color/colorPrimary"
+        android:id="@+id/imageView"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:id="@+id/greet"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        tools:text="Hey There "
+        android:layout_above="@+id/my_recycler_view2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="31dp" />
 
 </RelativeLayout>

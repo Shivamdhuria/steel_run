@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,10 +32,17 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, final int i) {
 
         viewHolder.reminderText.setText(reminderMessage.get(i));
         viewHolder.receiverName.setText(receiverName.get(i));
+        viewHolder.button_reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("rejectc","rejected");
+                deleteItem(i);
+            }
+        });
     }
 
     @Override
@@ -45,12 +54,21 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView reminderText;
         private TextView receiverName;
+        Button button_reject;
         public ViewHolder(View view) {
             super(view);
 
             reminderText = (TextView)view.findViewById(R.id.remindertext);
             receiverName = (TextView)view.findViewById(R.id.receiverName);
+            button_reject=(Button)view.findViewById(R.id.button_reject);
         }
+    }
+
+    private void deleteItem(int position) {
+        reminderMessage.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, reminderMessage.size());
+
     }
 
 }

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,8 @@ import static com.example.admin.import2.Tab3.receiverNames;
 
 //Our class extending fragment
 public class Tab2 extends Fragment {
+
+
 
     protected static TextView textview_greet;
 
@@ -58,6 +61,8 @@ public class Tab2 extends Fragment {
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         View v =inflater.inflate(R.layout.tab2, container, false);
+        //Intializing button
+
 
         textview_greet=(TextView)v.findViewById(R.id.greet);
         textview_greet.setText("Hey There," +MainActivity.userName);
@@ -114,6 +119,8 @@ public class Tab2 extends Fragment {
 
 
         });
+        //Swipe Behaviour
+
 
 
         profile = (Button)v.findViewById(R.id.btn_profile);
@@ -132,6 +139,11 @@ public class Tab2 extends Fragment {
 
         startActivity(new Intent(getActivity(), Register.class));
         getActivity().finish();
+    }
+    public void update(){
+
+
+
     }
   /*  public void getSenderUsername(String UID){
 

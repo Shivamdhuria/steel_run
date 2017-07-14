@@ -25,10 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scrollbars="vertical"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView" />
+        android:layout_below="@+id/imageView"
+        android:layout_above="@+id/btn_profile" />
 
     <ImageView
         android:layout_width="match_parent"

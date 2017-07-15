@@ -48,6 +48,7 @@ public class Tab2 extends Fragment {
     private static RecyclerView recyclerView;
     private static ArrayList<String> reminderMessages;
     protected static ArrayList<String> senderNames;
+    protected static ArrayList<String> messageKeys;
 
     String receiverUID;
     private DatabaseReference mDatabase;
@@ -86,21 +87,24 @@ public class Tab2 extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 senderNames = new ArrayList<>();
+                messageKeys=new ArrayList<>();
 
 
 
                 for (DataSnapshot dssender : dataSnapshot.getChildren()) {
+                    String status = dssender.child("status").getValue(String.class);
+                    if(!status.equals("accept") && (!status.equals("reject"))) {
+                        String senderName = dssender.child("senderName").getValue(String.class);
+                        String messageKey = dssender.getKey();
+                        messageKeys.add(messageKey);
+                        // getSenderName.GetSenderssName(sUID);
+                        //  getSenderUsername(sUID);
+                        senderNames.add(senderName);
+                        String message = dssender.child("reminderMessage").getValue(String.class);
 
-                    String senderName = dssender.child("senderName").getValue(String.class);
+                        reminderMessages.add(message);
 
-                   // getSenderName.GetSenderssName(sUID);
-                  //  getSenderUsername(sUID);
-                    senderNames.add(senderName);
-                    String message = dssender.child("reminderMessage").getValue(String.class);
-
-                    reminderMessages.add(message);
-
-
+                    }
 
 
                 }

@@ -49,13 +49,12 @@ public class Tab3 extends Fragment {
 
         //Change R.layout.tab1 in you classes
         View v = inflater.inflate(R.layout.tab3, container, false);
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         reminderMessages = new ArrayList<>();
 
 
 
-        senderUID = user.getUid();
+        senderUID = MainActivity.userID;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").orderByChild("senderUID").equalTo(senderUID);
 
@@ -100,7 +99,7 @@ public class Tab3 extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Error in Reaching Database
-                Toast.makeText(getContext(), "Something went Wrong!", Toast.LENGTH_SHORT).show();
+                Log.d("tb3","something went wrong");
             }
 
 

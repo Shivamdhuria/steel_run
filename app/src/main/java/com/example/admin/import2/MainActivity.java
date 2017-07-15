@@ -84,9 +84,22 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                 }
+                else{
+                    userID = user.getUid();
+                }
             }
         };
-        userID = user.getUid();
+
+        if (user == null) {
+            // user auth state is changed - user is null
+            // launch login activity
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        }
+        else{
+            userID = user.getUid();
+        }
+
        /*signOut = (Button) findViewById(R.id.sign_out);
 
         signOut.setOnClickListener(new View.OnClickListener() {

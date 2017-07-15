@@ -61,9 +61,9 @@ public class Tab1 extends Fragment {
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        userID=user.getUid();
 
-        Log.v("userUID", userID );
+
+
        authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -94,7 +94,7 @@ public class Tab1 extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Error in Reaching Database
-                Toast.makeText(getContext(), "Something went Wrong!", Toast.LENGTH_SHORT).show();
+                Log.d("TAB1","tab1 error");
             }
 
 

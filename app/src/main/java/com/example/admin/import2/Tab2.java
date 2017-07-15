@@ -118,7 +118,7 @@ public class Tab2 extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Error in Reaching Database
-                Toast.makeText(getContext(), "Something went Wrong!", Toast.LENGTH_SHORT).show();
+                Log.d("Something went Wrong!"," Tab1");
             }
 
 

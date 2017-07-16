@@ -72,7 +72,7 @@ public class Tab2 extends Fragment {
 
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabase.child("reminders").orderByChild("receiverUID").equalTo(MainActivity.userID);
+        Query query = mDatabase.child("reminders").orderByChild("receiverUID_status").equalTo(MainActivity.userID+"_"+"active");
 
         //Setting size of recycler view as constant
         recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view2);
@@ -92,14 +92,28 @@ public class Tab2 extends Fragment {
 
 
             @Override
-            protected void populateViewHolder(ReminderHolder holder, Reminder reminder, int position) {
+            protected void populateViewHolder(ReminderHolder holder, Reminder reminder, final int position) {
                 holder.setName(reminder.getSenderName());
                 holder.setMessage(reminder.getReminderMessage());
+                holder.button_reject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        adapter.getRef(position).child("receiverUID_status").setValue("reject");
+                        adapter.notifyItemRemoved(position);
+
+                    }
+                });
+
 
             }
         };
 
+
+
         recyclerView.setAdapter(adapter);
+
+
+
 
 
 

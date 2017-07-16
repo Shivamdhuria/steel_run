@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.example.admin.import2.MainActivity.userID;
+
 /**
  * Created by Belal on 2/3/2016.
  */
@@ -35,11 +38,11 @@ import java.util.Map;
 //Our class extending fragment
 public class Tab3 extends Fragment {
 
-    private static RecyclerView.Adapter adapter;
+    FirebaseRecyclerAdapter <Reminder,ReminderResponseHolder>adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<String> reminderMessages;
-    protected static ArrayList<String> receiverNames;
+
+
     String senderUID;
     private DatabaseReference mDatabase;
     //Overriden method onCreateView
@@ -50,11 +53,11 @@ public class Tab3 extends Fragment {
         //Change R.layout.tab1 in you classes
         View v = inflater.inflate(R.layout.tab3, container, false);
 
-        reminderMessages = new ArrayList<>();
 
 
 
-        senderUID = MainActivity.userID;
+
+        senderUID = userID;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").orderByChild("senderUID").equalTo(senderUID);
 
@@ -67,43 +70,32 @@ public class Tab3 extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                receiverNames = new ArrayList<>();
-
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    //Getting corresponding username of the ReceiverUID
-                    //Getting ReceiverUID
-                    String receiverName = ds.child("receiverName").getValue(String.class);
-                    receiverNames.add(receiverName);
-                    //Getting message from database
-                    String message = ds.child("reminderMessage").getValue(String.class);
-                    //Adding database to ArrayList
-                    reminderMessages.add(message);
-
-                    //Getting corresponding username of the ReceiverUID
-
-                    
-                   // Log.d("String names", receiverNames.toString());
-                }
-
-
-               // adapter = new DataAdapter(reminderMessages,receiverNames);
-                //recyclerView.setAdapter(adapter);
-
-            }
+        adapter = new FirebaseRecyclerAdapter<Reminder,ReminderResponseHolder>(
+                Reminder.class,
+                R.layout.cards_layout_tab3,
+                ReminderResponseHolder.class,
+                query){
 
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Error in Reaching Database
-                Log.d("tb3","something went wrong");
-            }
+            protected void populateViewHolder(ReminderResponseHolder holder2, Reminder reminder, final int position) {
+                Log.d("int he loop",senderUID);
+                holder2.setMessage(reminder.getReminderMessage());
+                holder2.setStatus(reminder.getReceiverUID_status());
+                holder2.setName(reminder.getReceiverName());
 
 
-        });
+                    }
+
+
+
+
+        };
+
+
+
+        recyclerView.setAdapter(adapter);
+
         //Returning the layout file after inflating
         return v;
     }

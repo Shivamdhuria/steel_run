@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:weightSum="1"
+    android:layout_height="230dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="341dp"
+        android:layout_height="187dp"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="5dp"
+        card_view:cardBackgroundColor="#FBF7DB"
+        android:id="@+id/cv"
+        android:paddingRight="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="16dp"
+            >
+
+
+            <TextView
+                android:layout_width="261dp"
+                android:layout_height="105dp"
+                android:id="@+id/responsetext"
+
+                android:textSize="18sp"
+                android:text="Your reminder message will appear here"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/status"
+                 android:text="Status"
+                android:layout_height="30dp"
+                android:layout_below="@+id/responsetext"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:text="receiverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/receiverName" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.admin.import2.Tab3.receiverNames;
+
 
 /**
  * Created by Belal on 2/3/2016.
@@ -46,9 +46,7 @@ public class Tab2 extends Fragment {
 
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<String> reminderMessages;
-    protected static ArrayList<String> senderNames;
-    protected static ArrayList<String> messageKeys;
+
 
     String receiverUID;
     private DatabaseReference mDatabase;
@@ -68,7 +66,7 @@ public class Tab2 extends Fragment {
         textview_greet = (TextView) v.findViewById(R.id.greet);
         //textview_greet.setText("Hey There," + MainActivity.userName);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        reminderMessages = new ArrayList<>();
+
 
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();

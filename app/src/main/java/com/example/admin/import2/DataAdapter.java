@@ -41,7 +41,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(final DataAdapter.ViewHolder viewHolder, final int i) {
 
         viewHolder.reminderText.setText(reminderMessage.get(i));
         viewHolder.receiverName.setText(receiverName.get(i));
@@ -49,7 +49,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                rejectItem(i);
+                rejectItem(viewHolder.getAdapterPosition());
             }
         });
     }
@@ -86,7 +86,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         }
 
         reminderMessage.remove(position);
+        receiverName.remove(position);
+        messageKeys.remove(position);
+
         notifyItemRemoved(position);
+
         notifyItemRangeChanged(position, reminderMessage.size());
 
     }

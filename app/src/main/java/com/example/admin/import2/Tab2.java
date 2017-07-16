@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -118,7 +118,7 @@ public class Tab2 extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Error in Reaching Database
-                Log.d("Something went Wrong!"," Tab1");
+
             }
 
 

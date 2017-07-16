@@ -90,8 +90,8 @@ public class Tab3 extends Fragment {
                 }
 
 
-                adapter = new DataAdapter(reminderMessages,receiverNames);
-                recyclerView.setAdapter(adapter);
+               // adapter = new DataAdapter(reminderMessages,receiverNames);
+                //recyclerView.setAdapter(adapter);
 
             }
 

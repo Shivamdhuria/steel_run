@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,10 +41,9 @@ import static com.example.admin.import2.Tab3.receiverNames;
 public class Tab2 extends Fragment {
 
 
-
     protected static TextView textview_greet;
+    FirebaseRecyclerAdapter <Reminder,ReminderHolder>adapter;
 
-    private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private static ArrayList<String> reminderMessages;
@@ -61,12 +61,12 @@ public class Tab2 extends Fragment {
 
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
-        View v =inflater.inflate(R.layout.tab2, container, false);
+        View v = inflater.inflate(R.layout.tab2, container, false);
         //Intializing button
 
 
-        textview_greet=(TextView)v.findViewById(R.id.greet);
-        textview_greet.setText("Hey There," +MainActivity.userName);
+        textview_greet = (TextView) v.findViewById(R.id.greet);
+        //textview_greet.setText("Hey There," + MainActivity.userName);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         reminderMessages = new ArrayList<>();
 
@@ -83,46 +83,29 @@ public class Tab2 extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                senderNames = new ArrayList<>();
-                messageKeys=new ArrayList<>();
 
-
-
-                for (DataSnapshot dssender : dataSnapshot.getChildren()) {
-                    String status = dssender.child("status").getValue(String.class);
-                    if(!status.equals("accept") && (!status.equals("reject"))) {
-                        String senderName = dssender.child("senderName").getValue(String.class);
-                        String messageKey = dssender.getKey();
-                        messageKeys.add(messageKey);
-                        // getSenderName.GetSenderssName(sUID);
-                        //  getSenderUsername(sUID);
-                        senderNames.add(senderName);
-                        String message = dssender.child("reminderMessage").getValue(String.class);
-
-                        reminderMessages.add(message);
-
-                    }
-
-
-                }
-
-               adapter = new DataAdapter(reminderMessages,senderNames);
-                recyclerView.setAdapter(adapter);
-
-            }
+        adapter = new FirebaseRecyclerAdapter<Reminder,ReminderHolder>(
+                Reminder.class,
+                R.layout.cards_layout,
+                ReminderHolder.class,
+                query){
 
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Error in Reaching Database
+            protected void populateViewHolder(ReminderHolder holder, Reminder reminder, int position) {
+                holder.setName(reminder.getSenderName());
+                holder.setMessage(reminder.getReminderMessage());
 
             }
+        };
+
+        recyclerView.setAdapter(adapter);
 
 
-        });
+
+
+
+
         //Swipe Behaviour
 
 
@@ -139,6 +122,8 @@ public class Tab2 extends Fragment {
 
         return v;
     }
+
+
     public void profile() {
 
         startActivity(new Intent(getActivity(), Register.class));

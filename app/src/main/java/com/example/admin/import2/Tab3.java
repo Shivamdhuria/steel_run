@@ -59,7 +59,7 @@ public class Tab3 extends Fragment {
 
         senderUID = userID;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabase.child("reminders").orderByChild("senderUID").equalTo(senderUID);
+        Query query = mDatabase.child("reminders").child(userID).child("responses");
 
         //Setting size of recycler view as constant
         recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
@@ -81,7 +81,7 @@ public class Tab3 extends Fragment {
             protected void populateViewHolder(ReminderResponseHolder holder2, Reminder reminder, final int position) {
                 Log.d("int he loop",senderUID);
                 holder2.setMessage(reminder.getReminderMessage());
-                holder2.setStatus(reminder.getReceiverUID_status());
+                holder2.setStatus(reminder.getStatus());
                 holder2.setName(reminder.getReceiverName());
 
 

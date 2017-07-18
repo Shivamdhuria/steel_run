@@ -2,7 +2,6 @@ package com.example.admin.import2;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -18,20 +17,22 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
 
     public ReminderResponseHolder(View itemView) {
         super(itemView);
-        mTextField = (TextView) itemView.findViewById(R.id.responsetext);
+        mTextField = (TextView) itemView.findViewById(R.id.responseText);
         mStatusField = (TextView) itemView.findViewById(R.id.status);
         mReceiverNameField=(TextView)itemView.findViewById(R.id.receiverName);
 
     }
     public void setName(String name) {
-        mTextField.setText(name);
+        mReceiverNameField.setText(name);
     }
 
     public void setMessage(String message) {
-        mStatusField.setText(message);
+
+        mTextField.setText(message);
     }
 
     public void setStatus(String status) {
+
         mStatusField.setText(status);
     }
 }

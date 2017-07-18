@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="261dp"
                 android:layout_height="105dp"
-                android:id="@+id/responsetext"
+                android:id="@+id/responseText"
 
                 android:textSize="18sp"
                 android:text="Your reminder message will appear here"
@@ -38,7 +38,7 @@
                 android:id="@+id/status"
                  android:text="Status"
                 android:layout_height="30dp"
-                android:layout_below="@+id/responsetext"
+                android:layout_below="@+id/responseText"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 

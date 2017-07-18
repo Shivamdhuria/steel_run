@@ -74,9 +74,9 @@ public class PreviewActivity extends AppCompatActivity {
 
 
                 Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting",receiverUID_status);
-
-                mDatabase.child("reminders").child(userID).child("responses").push().setValue(reminder);
-                mDatabase.child("reminders").child(recepientUID).child("active_reminders").push().setValue(reminder);
+                String Key = mDatabase.child("reminders").child(userID).child("responses").push().getKey();
+                mDatabase.child("reminders").child(userID).child("responses").child(Key).setValue(reminder);
+                mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);
                 Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PreviewActivity.this,MainActivity.class));
             }

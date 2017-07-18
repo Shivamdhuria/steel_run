@@ -38,6 +38,7 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
 
 
     public void setName(String name) {
+
         mNameField.setText(name);
     }
 

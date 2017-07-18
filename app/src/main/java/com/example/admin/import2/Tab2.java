@@ -70,7 +70,7 @@ public class Tab2 extends Fragment {
 
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabase.child("reminders").orderByChild("receiverUID_status").equalTo(MainActivity.userID+"_"+"active");
+        Query query = mDatabase.child("reminders").child(MainActivity.userID).child("active_reminders");
 
         //Setting size of recycler view as constant
         recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view2);
@@ -90,15 +90,19 @@ public class Tab2 extends Fragment {
 
 
             @Override
-            protected void populateViewHolder(ReminderHolder holder, Reminder reminder, final int position) {
+            protected void populateViewHolder(ReminderHolder holder, final Reminder reminder, final int position) {
                 //Setting the name,message and time
                 holder.setName(reminder.getSenderName());
                 holder.setMessage(reminder.getReminderMessage());
                 holder.button_reject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        adapter.getRef(position).child("receiverUID_status").setValue("reject");
-                        adapter.notifyItemRemoved(position);
+                        String reminderKey = adapter.getRef(position).getKey();
+                        String senderKey = reminder.getSenderUID();
+                        update(senderKey,reminderKey,"reject");
+                        Log.d("senderKEy",senderKey);
+                        //adapter.getRef(position).child("receiverUID_status").setValue("reject");
+                        //adapter.notifyItemRemoved(position);
 
                     }
                 });
@@ -130,7 +134,10 @@ public class Tab2 extends Fragment {
         startActivity(new Intent(getActivity(), Register.class));
         getActivity().finish();
     }
-    public void update(){
+    public void update(String senderKey,String reminderKey,String status){
+
+       DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+       mDatabase.child("reminders").child(senderKey).child("responses").child(reminderKey).child("status").setValue(status);
 
 
 

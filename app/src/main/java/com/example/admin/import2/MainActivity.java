@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        //Initializing viewPager
+        viewPager = (ViewPager) findViewById(R.id.pager);
+
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -56,17 +62,39 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.addTab(tabLayout.newTab().setText("Response"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        //Initializing viewPager
-        viewPager = (ViewPager) findViewById(R.id.pager);
+
 
         //Creating our pager adapter
         Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
 
         //Adding adapter to pager
-        viewPager.setAdapter(adapter);
+
 
         //Adding onTabSelectedListener to swipe views
-        tabLayout.setOnTabSelectedListener(this);
+        tabLayout.addOnTabSelectedListener(this);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                //THIS!!
+                if (viewPager != null) {
+                    viewPager.setCurrentItem(tab.getPosition());
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        viewPager.setAdapter(adapter);
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();

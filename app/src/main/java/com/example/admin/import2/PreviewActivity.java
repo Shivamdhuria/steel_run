@@ -14,10 +14,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.example.admin.import2.MainActivity.recepientUID;
+import static com.example.admin.import2.MainActivity.reminderDate;
+import static com.example.admin.import2.MainActivity.reminderMessage;
+import static com.example.admin.import2.MainActivity.reminderTime;
 import static com.example.admin.import2.MainActivity.userID;
 
 public class PreviewActivity extends AppCompatActivity {
@@ -58,20 +62,39 @@ public class PreviewActivity extends AppCompatActivity {
           dateDisplay.setText(MainActivity.reminderDate);
           timeDisplay.setText(MainActivity.reminderTime);
           reminderDisplay.setText(MainActivity.reminderMessage);
+           final String reminderTimeTimestamp =reminderDate+" "+reminderTime;
+        Log.d("reminderdate",reminderTimeTimestamp);
+
+           convertTime(reminderTimeTimestamp);
 
 
         btn_approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                String format = simpleDateFormat.format(new Date());
-                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,format,"0",receiverUID_status);
 
-                mDatabase.child("reminders").push().setValue(reminder);
+                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting",receiverUID_status);
+
+                mDatabase.child("reminders").child(userID).child("responses").push().setValue(reminder);
+                mDatabase.child("reminders").child(recepientUID).child("active_reminders").push().setValue(reminder);
                 Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PreviewActivity.this,MainActivity.class));
             }
         });
     }
+
+    private String convertTime(String str)  {
+
+        SimpleDateFormat sdf  = new SimpleDateFormat("dd/MM/yyyy kk:mm");
+        Date date = null;
+        try {
+            date = sdf.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } Log.d("time in Epoch",Long.toString(date.getTime()));
+        return Long.toString(date.getTime());
+
+    }
+
+
 }

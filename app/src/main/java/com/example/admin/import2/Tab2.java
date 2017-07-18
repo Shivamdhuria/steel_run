@@ -91,6 +91,7 @@ public class Tab2 extends Fragment {
 
             @Override
             protected void populateViewHolder(ReminderHolder holder, Reminder reminder, final int position) {
+                //Setting the name,message and time
                 holder.setName(reminder.getSenderName());
                 holder.setMessage(reminder.getReminderMessage());
                 holder.button_reject.setOnClickListener(new View.OnClickListener() {
@@ -109,18 +110,6 @@ public class Tab2 extends Fragment {
 
 
         recyclerView.setAdapter(adapter);
-
-
-
-
-
-
-
-
-
-        //Swipe Behaviour
-
-
 
         profile = (Button)v.findViewById(R.id.btn_profile);
 
@@ -146,32 +135,6 @@ public class Tab2 extends Fragment {
 
 
     }
-  /*  public void getSenderUsername(String UID){
 
-        DatabaseReference mDatabase2;
-        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users");
-        Log.d("name  nbjknjkretrieved","inloop");
-        Query query = mDatabase2.orderByKey().equalTo(UID);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot2) {
-
-                // dataSnapshot is the "issue" node with all children with id 0
-                for (DataSnapshot users : dataSnapshot2.getChildren()) {
-                     String name = users.child("username").getValue(String.class);
-
-                   // receiverNames.add(name);
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-*/
 
 }

@@ -27,15 +27,7 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
         mNameField = (TextView) itemView.findViewById(R.id.name);
         mMessageField = (TextView) itemView.findViewById(R.id.text);
         button_reject=(Button)itemView.findViewById(R.id.button_reject);
-       /* button_reject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rejectreminder(getAdapterPosition());
-                Log.d("Button ",Integer.toString(getAdapterPosition()));
-            }
 
-
-        });*/
     }
 
     private void rejectreminder(int adapterPosition) {
@@ -53,9 +45,7 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
         mMessageField.setText(message);
     }
 
-    public Button getButton_reject() {
-        return button_reject;
-    }
+
 }
 
 

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
-
+        viewPager.setOffscreenPageLimit(3);
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -61,17 +61,19 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.addTab(tabLayout.newTab().setText("Notifications"));
         tabLayout.addTab(tabLayout.newTab().setText("Response"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setupWithViewPager(viewPager);
 
 
 
         //Creating our pager adapter
         Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
 
-        //Adding adapter to pager
+
 
 
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this);
+
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -128,22 +130,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             userID = user.getUid();
         }
 
-       /*signOut = (Button) findViewById(R.id.sign_out);
 
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
-    }
-    //sign out method
-    public void signOut() {
-        auth.signOut();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        finish();
-    }
-*/
     }
     @Override
     public void onTabSelected(TabLayout.Tab tab) {

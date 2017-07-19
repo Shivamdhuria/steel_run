@@ -10,38 +10,38 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 //Extending FragmentStatePagerAdapter
 public class Pager extends FragmentStatePagerAdapter {
 
-    //integer to count number of tabs
-    int tabCount;
+    // tab titles
+    private String[] tabTitles = new String[]{"Contacts", "Reminders", "Responses"};
 
-    //Constructor to the class
-    public Pager(FragmentManager fm, int tabCount) {
+    public Pager(FragmentManager fm) {
         super(fm);
-        //Initializing tab count
-        this.tabCount= tabCount;
     }
 
-    //Overriding method getItem
+    // overriding getPageTitle()
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabTitles[position];
+    }
+
     @Override
     public Fragment getItem(int position) {
-        //Returning the current tabs
         switch (position) {
             case 0:
-                Tab1 tab1 = new Tab1();
-                return tab1;
+                return new Tab1();
             case 1:
-                Tab2 tab2 = new Tab2();
-                return tab2;
+                return new Tab2();
             case 2:
-                Tab3 tab3 = new Tab3();
-                return tab3;
+                return new Tab3();
             default:
                 return null;
         }
     }
 
-    //Overriden method getCount to get the number of tabs
     @Override
     public int getCount() {
-        return tabCount;
+        return tabTitles.length;
     }
+
+
+
 }

@@ -52,21 +52,18 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setOffscreenPageLimit(3);
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("Contacts"));
-        tabLayout.addTab(tabLayout.newTab().setText("Notifications"));
-        tabLayout.addTab(tabLayout.newTab().setText("Response"));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
 
 
 
         //Creating our pager adapter
-        Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
+        Pager adapter = new Pager(getSupportFragmentManager());
 
 
 

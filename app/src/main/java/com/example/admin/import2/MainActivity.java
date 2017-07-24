@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
+
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 

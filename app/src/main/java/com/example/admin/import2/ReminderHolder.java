@@ -20,13 +20,18 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
 
     private final TextView mNameField;
     private final TextView mMessageField;
+    private final TextView mReminderTimeField;
     public final Button button_reject;
+    public final Button button_accept;
 
     public ReminderHolder(View itemView) {
         super(itemView);
         mNameField = (TextView) itemView.findViewById(R.id.name);
         mMessageField = (TextView) itemView.findViewById(R.id.text);
+        mReminderTimeField = (TextView)itemView.findViewById(R.id.reminderTime);
         button_reject=(Button)itemView.findViewById(R.id.button_reject);
+        button_accept=(Button)itemView.findViewById(R.id.button_confirm);
+
 
     }
 
@@ -46,6 +51,9 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
         mMessageField.setText(message);
     }
 
+    public void setmReminderTime(String reminderTime){
+        mReminderTimeField.setText(reminderTime);
+    }
 
 }
 

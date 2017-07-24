@@ -80,7 +80,7 @@ public class Tab2 extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
+        query.keepSynced(true);
 
         adapter = new FirebaseRecyclerAdapter<Reminder,ReminderHolder>(
                 Reminder.class,
@@ -94,12 +94,27 @@ public class Tab2 extends Fragment {
                 //Setting the name,message and time
                 holder.setName(reminder.getSenderName());
                 holder.setMessage(reminder.getReminderMessage());
+                holder.setmReminderTime(reminder.getReminderTime());
                 holder.button_reject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String reminderKey = adapter.getRef(position).getKey();
                         String senderKey = reminder.getSenderUID();
-                        update(senderKey,reminderKey,"reject");
+                        update(senderKey,reminderKey,"rejected");
+                        Log.d("senderKEy",senderKey);
+                        adapter.getRef(position).removeValue();
+
+
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+                holder.button_accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String reminderKey = adapter.getRef(position).getKey();
+                        String senderKey = reminder.getSenderUID();
+                        update(senderKey,reminderKey,"accepted");
                         Log.d("senderKEy",senderKey);
                         adapter.getRef(position).removeValue();
 

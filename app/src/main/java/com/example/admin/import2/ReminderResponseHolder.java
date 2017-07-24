@@ -1,5 +1,6 @@
 package com.example.admin.import2;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +33,13 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
     }
 
     public void setStatus(String status) {
+        if(status.equals("accept")){
+            mStatusField.setTextColor(Color.BLUE);
+        }
+        if(status.equals("reject")){
+            mStatusField.setTextColor(Color.RED);
+        }
+
 
         mStatusField.setText(status);
     }

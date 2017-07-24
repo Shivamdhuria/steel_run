@@ -73,7 +73,7 @@ public class PreviewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting",receiverUID_status);
+                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting...",receiverUID_status);
                 String Key = mDatabase.child("reminders").child(userID).child("responses").push().getKey();
                 mDatabase.child("reminders").child(userID).child("responses").child(Key).setValue(reminder);
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);

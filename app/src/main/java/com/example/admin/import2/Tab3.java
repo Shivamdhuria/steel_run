@@ -69,6 +69,7 @@ public class Tab3 extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        query.keepSynced(true);
 
         adapter = new FirebaseRecyclerAdapter<Reminder,ReminderResponseHolder>(
                 Reminder.class,

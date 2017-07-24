@@ -16,11 +16,33 @@
         android:paddingRight="0dp">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="374dp"
             android:layout_height="200dp"
             android:padding="16dp"
             >
 
+
+            <TextView
+                android:text="receiverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/receiverName"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/status"
+                android:layout_alignEnd="@+id/status"
+                android:layout_marginRight="21dp"
+                android:layout_marginEnd="21dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/status"
+                 android:text="Status"
+                android:layout_height="30dp"
+                android:layout_marginRight="49dp"
+                android:layout_marginEnd="49dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:layout_width="261dp"
@@ -30,26 +52,8 @@
                 android:textSize="18sp"
                 android:text="Your reminder message will appear here"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/status"
-                 android:text="Status"
-                android:layout_height="30dp"
-                android:layout_below="@+id/responseText"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <TextView
-                android:text="receiverName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/receiverName" />
+                android:layout_alignRight="@+id/status"
+                android:layout_alignEnd="@+id/status" />
 
         </RelativeLayout>
 

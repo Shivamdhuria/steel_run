@@ -4,9 +4,17 @@ package com.example.admin.import2;
  * Created by Admin on 6/25/2017.
  */
 
+import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.R.attr.delay;
 
 
 /**
@@ -137,7 +146,8 @@ public class Tab2 extends Fragment {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profile();
+              //  profile();
+                setAlarm();
             }
         });
 
@@ -157,6 +167,26 @@ public class Tab2 extends Fragment {
        mDatabase.child("reminders").child(senderKey).child("responses").child(reminderKey).child("status").setValue(status);
 
 
+
+    }
+
+    public void setAlarm(){
+        Toast.makeText(getActivity(), "Setting", Toast.LENGTH_LONG).show();
+
+        Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long TimeInMillis = SystemClock.elapsedRealtime() + 15000;
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= 23) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, TimeInMillis, pendingIntent);
+        }else if (Build.VERSION.SDK_INT >= 19) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, TimeInMillis, pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, TimeInMillis, pendingIntent);
+        }
+            Log.d("alarm","set");
 
     }
 

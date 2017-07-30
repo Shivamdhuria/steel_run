@@ -3,6 +3,9 @@
     package="com.example.admin.import2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -28,6 +31,8 @@
             android:label="@string/title_activity_select_time"
             android:theme="@style/AppTheme" />
         <activity android:name=".PreviewActivity"></activity>
+        <receiver android:name=".AlarmReceiver" >
+        </receiver>
     </application>
 
 </manifest>

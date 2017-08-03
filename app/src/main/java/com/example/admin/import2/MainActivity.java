@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
     //This is our tablayout
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
 
+        String username = "puf";
+       FirebaseMessaging.getInstance().subscribeToTopic("user_"+username);
 
 
         //Creating our pager adapter

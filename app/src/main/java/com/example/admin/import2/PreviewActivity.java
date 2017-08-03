@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.admin.import2.MainActivity.recepientUID;
 import static com.example.admin.import2.MainActivity.reminderDate;
@@ -79,6 +81,7 @@ public class PreviewActivity extends AppCompatActivity {
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);
                 Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PreviewActivity.this,MainActivity.class));
+                sendNotificationToUser("puf", "Hi there puf!");
             }
         });
     }
@@ -95,6 +98,19 @@ public class PreviewActivity extends AppCompatActivity {
         return Long.toString(date.getTime());
 
     }
+
+    public static void sendNotificationToUser(String receiver, final String message) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+       String Key2= ref.child("notificationRequests").push().getKey();
+        ref.child("notificationRequests").child(userID).child("responses").child(Key2).setValue(receiver);
+        ref.child("reminders").child(recepientUID).child("active_reminders").child(Key2).setValue(message);
+
+
+
+
+    }
+
+
 
 
 }

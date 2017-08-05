@@ -33,11 +33,14 @@
         <activity android:name=".PreviewActivity"></activity>
         <receiver android:name=".AlarmReceiver" >
         </receiver>
-
-        <service
-            android:name=".TokenService">
+        <service android:name=".TokenService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FCMCallbackService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 

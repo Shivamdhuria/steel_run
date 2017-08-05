@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static String reminderDate;
     protected static String reminderTime;
     protected static String recepientName;
+    protected static  String tokenID;
 
     //Setting global Username and ID
     protected static String userName;
@@ -64,8 +65,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
 
-        String username = "puf";
-       FirebaseMessaging.getInstance().subscribeToTopic("user_"+username);
+
+      //FirebaseMessaging.getInstance().subscribeToTopic("user_"+username);
+        //FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
 
         //Creating our pager adapter

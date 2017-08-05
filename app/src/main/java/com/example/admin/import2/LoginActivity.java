@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import static com.example.admin.import2.MainActivity.userID;
 import static com.example.admin.import2.MainActivity.userName;
@@ -111,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     userID=auth.getCurrentUser().getUid();
+                                    FirebaseMessaging.getInstance().subscribeToTopic(userID);
+
                                      DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                                     Query query = mDatabase.child("users").orderByKey().equalTo(userID);
                                     query.addValueEventListener(new ValueEventListener() {

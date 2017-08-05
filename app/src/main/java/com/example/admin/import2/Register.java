@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Register extends AppCompatActivity {
 
@@ -58,6 +61,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 String name = inputName.getText().toString();
                 String phone = inputPhone.getText().toString();
+                 MainActivity.tokenID = FirebaseInstanceId.getInstance().getToken();
                 //Handling exceptions
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(getApplicationContext(), "Enter name!", Toast.LENGTH_SHORT).show();
@@ -72,10 +76,13 @@ public class Register extends AppCompatActivity {
 
 
                 // Creating new user node,
-                    User user = new User(name, phone);
+                    User user = new User(name, phone,MainActivity.tokenID);
 
                     mDatabase.child("users").child(userID).setValue(user);
                     Toast.makeText(getApplicationContext(),"Info Updated",Toast.LENGTH_SHORT).show();
+
+                Log.d("fcm ",MainActivity.tokenID);
+                FirebaseMessaging.getInstance().subscribeToTopic(userID);
                     startActivity(new Intent(Register.this, MainActivity.class));
                      finish();
 

@@ -81,7 +81,7 @@ public class PreviewActivity extends AppCompatActivity {
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);
                 Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PreviewActivity.this,MainActivity.class));
-                sendNotificationToUser("puf", "Hi there puf!,try message");
+                sendNotificationToUser(recepientUID, "You have new Reminders");
             }
         });
     }
@@ -102,8 +102,9 @@ public class PreviewActivity extends AppCompatActivity {
     public static void sendNotificationToUser(String receiver, final String message) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("notificationRequests");
         Map notification = new HashMap<>();
-        notification.put("username", receiver);
+        notification.put("receiverUID", receiver);
         notification.put("message", message);
+
 
         ref.push().setValue(notification);
 

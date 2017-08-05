@@ -36,10 +36,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
 import static android.R.attr.delay;
+import static com.example.admin.import2.MainActivity.userID;
 
 
 /**
@@ -75,11 +77,12 @@ public class Tab2 extends Fragment {
         textview_greet = (TextView) v.findViewById(R.id.greet);
         //textview_greet.setText("Hey There," + MainActivity.userName);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
 
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabase.child("reminders").child(MainActivity.userID).child("active_reminders").orderByChild("timestamp").startAt(System.currentTimeMillis());
+        Query query = mDatabase.child("reminders").child(userID).child("active_reminders").orderByChild("timestamp").startAt(System.currentTimeMillis());
 
         //Setting size of recycler view as constant
         recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view2);

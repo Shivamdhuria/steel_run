@@ -143,10 +143,10 @@ public class Tab1 extends Fragment {
             Map singleUser = (Map) entry.getValue();
             //Getting UID of every user and adding to the Array
             String Key = entry.getKey();
-            Log.d("KEy Value",Key);
+
             //Removing the Current User's ID from the Display List
 
-            if(!Key.equals(userID)) {
+            if(!Key.equals(MainActivity.userID)) {
                 uid.add(Key);
 
 

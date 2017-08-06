@@ -25,7 +25,7 @@ public class TokenService extends FirebaseInstanceIdService {
     }
     public void sendTokenToDatabase(String token){
 
-        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-        mData.child("users").child(MainActivity.userID).child("TokenID").setValue(token);
+      //  DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+      //  mData.child("users").child(MainActivity.userID).child("TokenID").setValue(token);
     }
 }

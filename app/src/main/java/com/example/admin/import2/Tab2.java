@@ -79,7 +79,7 @@ public class Tab2 extends Fragment {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
-
+        Log.d("Setting UID",userID);
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query query = mDatabase.child("reminders").child(userID).child("active_reminders").orderByChild("timestamp").startAt(System.currentTimeMillis());

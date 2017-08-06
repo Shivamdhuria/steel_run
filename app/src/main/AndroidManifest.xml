@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -31,8 +32,18 @@
             android:label="@string/title_activity_select_time"
             android:theme="@style/AppTheme" />
         <activity android:name=".PreviewActivity"></activity>
+
+
         <receiver android:name=".AlarmReceiver" >
         </receiver>
+        <receiver android:enabled="true" android:name=".BootUpReceiver"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".TokenService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

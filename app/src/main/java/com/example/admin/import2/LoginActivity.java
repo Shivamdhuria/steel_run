@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     userID=auth.getCurrentUser().getUid();
+                                    Log.d("cuid",userID);
                                     FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
                                      DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

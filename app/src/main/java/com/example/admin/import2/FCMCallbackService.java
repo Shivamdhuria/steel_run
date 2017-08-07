@@ -21,12 +21,26 @@ public class FCMCallbackService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "From:" + remoteMessage.getFrom());
+        /*Log.d(TAG, "From:" + remoteMessage.getFrom());
         Log.d(TAG, "Message Body:" + remoteMessage.getNotification().getBody());
-        sendNotification(remoteMessage.getNotification());
-    }
+        //sendNotification(remoteMessage.getNotification());
+        if (remoteMessage == null)
+            return;
+        if (remoteMessage.getNotification() != null) {
+            Log.i(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
+        }*/
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            Log.i(TAG, "Data Payload: " + remoteMessage.getData().toString());
+            String DataTitle = remoteMessage.getData().get("title");
+            String body = remoteMessage.getData().get("body");
+            Log.i(TAG, "Data Payload: " + DataTitle);
+            sendNotification(DataTitle,body);
 
-    private void sendNotification(RemoteMessage.Notification notification) {
+          //  sendNotification(remoteMessage.getData().toString());
+    }}
+
+    private void sendNotification(String title,String body) {
         int color = getResources().getColor(R.color.colorPrimary);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
@@ -36,12 +50,12 @@ public class FCMCallbackService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setContentTitle(notification.getTitle())
-                .setContentText(notification.getBody())
+                .setContentTitle(title)
+                .setContentText(body)
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setColor(color)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(notification.getBody()))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 

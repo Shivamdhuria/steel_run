@@ -153,6 +153,7 @@ public class Tab1 extends Fragment {
                 //Get usernames and append to list and array
                 userNames.add((String) singleUser.get("username"));
             }
+            Log.d("usernames",userNames.toString());
            //Display all usernames
             ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
             listView.setAdapter(adapter);

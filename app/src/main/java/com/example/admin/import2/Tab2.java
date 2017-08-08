@@ -39,6 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.R.attr.delay;
 import static com.example.admin.import2.MainActivity.userID;
@@ -115,7 +117,7 @@ public class Tab2 extends Fragment {
                         update(senderKey,reminderKey,"rejected");
                         Log.d("senderKEy",senderKey);
                         adapter.getRef(position).removeValue();
-
+                        sendNotificationToUser(senderKey,"You have a new Response");
 
                         adapter.notifyDataSetChanged();
 
@@ -129,6 +131,7 @@ public class Tab2 extends Fragment {
                         update(senderKey,reminderKey,"accepted");
                         Log.d("senderKEy",senderKey);
                         adapter.getRef(position).removeValue();
+                        sendNotificationToUser(senderKey,"You have a new Response");
 
 
                         adapter.notifyDataSetChanged();
@@ -190,6 +193,22 @@ public class Tab2 extends Fragment {
             alarmManager.set(AlarmManager.RTC_WAKEUP, TimeInMillis, pendingIntent);
         }
             Log.d("alarm","set");
+
+    }
+
+    public static void sendNotificationToUser(String receiver, final String message) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("notificationRequests");
+        Map notification = new HashMap<>();
+        notification.put("title","New Response");
+        notification.put("receiverUID", receiver);
+        notification.put("body", message);
+
+
+        ref.push().setValue(notification);
+
+
+
+
 
     }
 

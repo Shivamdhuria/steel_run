@@ -5,8 +5,10 @@ package com.example.admin.import2;
  */
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -28,9 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static android.R.attr.name;
+import static com.example.admin.import2.MainActivity.map;
 
 /**
  * Created by Belal on 2/3/2016.
@@ -47,6 +51,7 @@ public class Tab1 extends Fragment {
     String userID;
     ArrayList<String> userNames = new ArrayList<>();
     ArrayList<String> uid = new ArrayList<>();
+    ArrayList<String> phoneContactNumbers = new ArrayList<>();
     String receiverUID,receivername;
 
 
@@ -55,6 +60,7 @@ public class Tab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.tab1, container, false);
+        getContacts();
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -141,20 +147,27 @@ public class Tab1 extends Fragment {
 
             //Get user map
             Map singleUser = (Map) entry.getValue();
-            //Getting UID of every user and adding to the Array
-            String Key = entry.getKey();
 
-            //Removing the Current User's ID from the Display List
+            String phone = (String) singleUser.get("phone");
+            Log.d("phone",phone);
 
-            if(!Key.equals(MainActivity.userID)) {
-                uid.add(Key);
+            for(int i=0;i<phoneContactNumbers.size();i++) {
+                        Log.d("phonecntnumb",phoneContactNumbers.get(i));
+                if(phone.equals(phoneContactNumbers.get(i))) {
+                    //Getting UID of every user and adding to the Array
+                    String Key = entry.getKey();
 
+                    //Removing the Current User's ID from the Display List
 
-                //Get usernames and append to list and array
-                userNames.add((String) singleUser.get("username"));
+                    if (!Key.equals(MainActivity.userID)) {
+                        uid.add(Key);
+                        //Get usernames and append to list and array
+                        userNames.add((String) singleUser.get("username"));
+                    }
+                }
             }
             Log.d("usernames",userNames.toString());
-           //Display all usernames
+           //Display a ll usernames
             ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
             listView.setAdapter(adapter);
         }
@@ -183,6 +196,26 @@ public class Tab1 extends Fragment {
 
         startActivity(intent);
         getActivity().finish();
+
+    }
+
+    public void getContacts(){
+        map = new HashMap<>();
+        Cursor phones = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
+        while (phones.moveToNext())
+        {
+            String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            Log.d("Names",name);
+            if( phoneNumber != null ){
+                map.put("name", name);
+                map.put("phone", phoneNumber);
+                phoneContactNumbers.add(phoneNumber);
+
+            }
+        }
+        phones.close();
 
     }
 }

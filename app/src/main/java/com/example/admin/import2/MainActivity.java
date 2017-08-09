@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
     //This is our tablayout
     private TabLayout tabLayout;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static String reminderTime;
     protected static String recepientName;
     protected static  String tokenID;
+    protected static HashMap<String, String> map;
 
     //Setting global Username and ID
     protected static String userName;

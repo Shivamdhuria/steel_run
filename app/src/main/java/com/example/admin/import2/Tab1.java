@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +37,9 @@ import java.util.Map;
 
 import static android.R.attr.name;
 import static com.example.admin.import2.MainActivity.map;
+import static com.example.admin.import2.MainActivity.phoneContactNumbers;
+import static com.example.admin.import2.MainActivity.uid;
+import static com.example.admin.import2.MainActivity.userNames;
 
 /**
  * Created by Belal on 2/3/2016.
@@ -46,13 +51,13 @@ public class Tab1 extends Fragment {
     private Button signOut;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
-     ListView listView;
+    protected static ListView listView;
     private DatabaseReference mDatabase;
     String userID;
-    ArrayList<String> userNames = new ArrayList<>();
-    ArrayList<String> uid = new ArrayList<>();
-    ArrayList<String> phoneContactNumbers = new ArrayList<>();
-    String receiverUID,receivername;
+    private SwipeRefreshLayout swipeContainer;
+
+
+    String receiverUID, receivername;
 
 
     //Overriden method onCreateView
@@ -69,8 +74,7 @@ public class Tab1 extends Fragment {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-
-       authListener = new FirebaseAuth.AuthStateListener() {
+        authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -86,25 +90,46 @@ public class Tab1 extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.keepSynced(true);
         listView = (ListView) v.findViewById(R.id.listview);
+        setAdapter();
+        // Lookup the swipe container view
+                swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+                // Your code to refresh the list here.
+                swipeContainer.setRefreshing(false);
+                // once the network request has completed successfully.
+
+
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //User user = dataSnapshot.getValue(User.class);
                 //Get map of users in datasnapshot
-                collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+                phoneContactNumbers.clear();
+                getContacts();
+               collectUserNames((Map<String, Object>) dataSnapshot.getValue());
             }
 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Error in Reaching Database
-                Log.d("TAB1","tab1 error");
+                Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
             }
 
 
-        } );
+        });
+     }
+
+
+   });
+
 
 
         //Getting username from listview
@@ -112,21 +137,19 @@ public class Tab1 extends Fragment {
 
             public void onItemClick(AdapterView<?> a, View v, int position,
                                     long id) {
-                String s =Integer.toString(position);
+                String s = Integer.toString(position);
                 receiverUID = uid.get(position);
                 receivername = userNames.get(position);
 
-                Toast.makeText(getContext(),s , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
-                 NewReminder();
+                NewReminder();
             }
         });
 
 
-
-
-         signOut = (Button) v.findViewById(R.id.sign_out);
-         signOut.setOnClickListener(new View.OnClickListener() {
+        signOut = (Button) v.findViewById(R.id.sign_out);
+        signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut();
@@ -138,22 +161,67 @@ public class Tab1 extends Fragment {
         return v;
     }
 
+
+    public void signOut() {
+        auth.signOut();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        getActivity().finish();
+    }
+
+
+    public void NewReminder() {
+
+        Intent intent = new Intent(getActivity(), NewReminderActivity.class);
+
+//Passing value of receiver's Name and UID to New Reminder Activity
+
+        intent.putExtra("ReceiverUID", receiverUID);
+        intent.putExtra("ReceiverName", receivername);
+        MainActivity.recepientUID = receiverUID;
+        MainActivity.recepientName = receivername;
+
+        startActivity(intent);
+        getActivity().finish();
+
+    }
+
+    public void getContacts() {
+        map = new HashMap<>();
+        Cursor phones = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+        while (phones.moveToNext()) {
+            String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            Log.d("Names", name);
+            if (phoneNumber != null) {
+                map.put("name", name);
+                map.put("phone", phoneNumber);
+                phoneContactNumbers.add(phoneNumber);
+
+            }
+        }
+        phones.close();
+
+    }
+
     private void collectUserNames(Map<String, Object> users) {
 
+        uid.clear();
+        userNames.clear();
 
 
         //iterate through each user, ignoring their UID
-        for (Map.Entry<String, Object> entry : users.entrySet()){
+        for (Map.Entry<String, Object> entry : users.entrySet()) {
 
             //Get user map
             Map singleUser = (Map) entry.getValue();
 
             String phone = (String) singleUser.get("phone");
-            Log.d("phone",phone);
+            Log.d("phone", phone);
 
-            for(int i=0;i<phoneContactNumbers.size();i++) {
-                        Log.d("phonecntnumb",phoneContactNumbers.get(i));
-                if(phone.equals(phoneContactNumbers.get(i))) {
+            for (int i = 0; i < phoneContactNumbers.size(); i++) {
+                Log.d("phonecntnumb", phoneContactNumbers.get(i));
+                if (phone.equals(phoneContactNumbers.get(i))) {
                     //Getting UID of every user and adding to the Array
                     String Key = entry.getKey();
 
@@ -166,56 +234,17 @@ public class Tab1 extends Fragment {
                     }
                 }
             }
-            Log.d("usernames",userNames.toString());
-           //Display a ll usernames
-            ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
-            listView.setAdapter(adapter);
+
+            Log.d("usernames", userNames.toString());
+            //Display a ll usernames
+           setAdapter();
         }
-
-
     }
 
-    public void signOut() {
-        auth.signOut();
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().finish();
-    }
+    private void setAdapter(){
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
+        listView.setAdapter(adapter);
 
-
-
-    public void NewReminder() {
-
-       Intent intent = new Intent(getActivity(),NewReminderActivity.class);
-
-//Passing value of receiver's Name and UID to New Reminder Activity
-
-       intent.putExtra("ReceiverUID",receiverUID);
-      intent.putExtra("ReceiverName",receivername);
-        MainActivity.recepientUID = receiverUID;
-        MainActivity.recepientName=receivername;
-
-        startActivity(intent);
-        getActivity().finish();
-
-    }
-
-    public void getContacts(){
-        map = new HashMap<>();
-        Cursor phones = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
-        while (phones.moveToNext())
-        {
-            String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-            Log.d("Names",name);
-            if( phoneNumber != null ){
-                map.put("name", name);
-                map.put("phone", phoneNumber);
-                phoneContactNumbers.add(phoneNumber);
-
-            }
-        }
-        phones.close();
 
     }
 }

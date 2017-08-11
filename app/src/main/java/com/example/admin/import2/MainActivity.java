@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mukesh.tinydb.TinyDB;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static ArrayList<String> userNames = new ArrayList<>();
     protected static ArrayList<String> uid = new ArrayList<>();
     protected static ArrayList<String> phoneContactNumbers = new ArrayList<>();
+    protected static TinyDB tinyDB;
 
     //Setting global Username and ID
     protected static String userName;
@@ -65,12 +67,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static FirebaseAuth auth;
     DatabaseReference mDatabase;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!FirebaseApp.getApps(this).isEmpty()) {
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+
 
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -157,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             }
 
         }
-    }
+
 
 
     @Override

@@ -4,7 +4,9 @@ package com.example.admin.import2;
  * Created by Admin on 6/25/2017.
  */
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
@@ -30,6 +33,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mukesh.tinydb.TinyDB;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +44,7 @@ import java.util.Map;
 import static android.R.attr.name;
 import static com.example.admin.import2.MainActivity.map;
 import static com.example.admin.import2.MainActivity.phoneContactNumbers;
+import static com.example.admin.import2.MainActivity.tinyDB;
 import static com.example.admin.import2.MainActivity.uid;
 import static com.example.admin.import2.MainActivity.userNames;
 
@@ -55,6 +62,11 @@ public class Tab1 extends Fragment {
     private DatabaseReference mDatabase;
     String userID;
     private SwipeRefreshLayout swipeContainer;
+    SharedPreferences prefs;
+    TextView textview_empty;
+
+    protected static ArrayList<String> cachedUsernames = new ArrayList<>();
+    protected static ArrayList<String> cachedUIDs = new ArrayList<>();
 
 
     String receiverUID, receivername;
@@ -66,6 +78,17 @@ public class Tab1 extends Fragment {
 
         View v = inflater.inflate(R.layout.tab1, container, false);
         getContacts();
+        //Create a new instance of TinyDB
+
+        //use that instance to save data
+       tinyDB = new TinyDB(getActivity());
+        textview_empty= (TextView)v.findViewById(R.id.empty);
+
+
+        cachedUsernames=tinyDB.getListString("usernames");
+        cachedUIDs=tinyDB.getListString("uids");
+        Log.d("catche u name",cachedUsernames.toString());
+
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -91,6 +114,13 @@ public class Tab1 extends Fragment {
         mDatabase.keepSynced(true);
         listView = (ListView) v.findViewById(R.id.listview);
         setAdapter();
+
+        //If no cached numes than collect names
+        if(cachedUsernames.size()==0){
+            RefreshContacts();
+
+
+        }
         // Lookup the swipe container view
                 swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -104,27 +134,7 @@ public class Tab1 extends Fragment {
 
 
 
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //User user = dataSnapshot.getValue(User.class);
-                //Get map of users in datasnapshot
-                phoneContactNumbers.clear();
-                getContacts();
-               collectUserNames((Map<String, Object>) dataSnapshot.getValue());
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Error in Reaching Database
-                Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
-            }
-
-
-        });
+                RefreshContacts();
      }
 
 
@@ -138,8 +148,8 @@ public class Tab1 extends Fragment {
             public void onItemClick(AdapterView<?> a, View v, int position,
                                     long id) {
                 String s = Integer.toString(position);
-                receiverUID = uid.get(position);
-                receivername = userNames.get(position);
+                receiverUID = cachedUIDs.get(position);
+                receivername = cachedUsernames.get(position);
 
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
@@ -159,6 +169,31 @@ public class Tab1 extends Fragment {
         //Change R.layout.tab1 in you classes
 
         return v;
+    }
+
+    private void RefreshContacts() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //User user = dataSnapshot.getValue(User.class);
+                //Get map of users in datasnapshot
+                phoneContactNumbers.clear();
+                Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
+                getContacts();
+                collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Error in Reaching Database
+                Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
     }
 
 
@@ -220,7 +255,7 @@ public class Tab1 extends Fragment {
             Log.d("phone", phone);
 
             for (int i = 0; i < phoneContactNumbers.size(); i++) {
-                Log.d("phonecntnumb", phoneContactNumbers.get(i));
+
                 if (phone.equals(phoneContactNumbers.get(i))) {
                     //Getting UID of every user and adding to the Array
                     String Key = entry.getKey();
@@ -229,20 +264,45 @@ public class Tab1 extends Fragment {
 
                     if (!Key.equals(MainActivity.userID)) {
                         uid.add(Key);
+                        //use that instance to save data
+
+
                         //Get usernames and append to list and array
                         userNames.add((String) singleUser.get("username"));
+
+
                     }
                 }
             }
 
-            Log.d("usernames", userNames.toString());
+
+
+
+
+
             //Display a ll usernames
            setAdapter();
         }
+        tinyDB.putListString("usernames",userNames);
+        tinyDB.putListString("uids",uid);
+        cachedUsernames= userNames;
+        cachedUIDs=uid;
+
+        Log.d("cached Username ",cachedUsernames.toString());
+        Log.d("cached UIDs",cachedUIDs.toString());
+        //Display a ll usernames
+        setAdapter();
+
     }
 
     private void setAdapter(){
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, userNames);
+
+        //if still empty
+        if(cachedUsernames.size()==0){
+            textview_empty.setVisibility(View.VISIBLE);
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames);
         listView.setAdapter(adapter);
 
 

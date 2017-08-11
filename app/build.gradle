@@ -35,8 +35,8 @@ dependencies {
 
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.firebaseui:firebase-ui-database:0.4.1'
-    
 
+    compile 'com.github.mukeshsolanki:Android-Shared-Preferences-TinyDB-:1.0.3'
 
 }
 

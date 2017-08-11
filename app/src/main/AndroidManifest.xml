@@ -11,6 +11,7 @@
 
 
     <application
+        android:name=".Persistance"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,6 +30,7 @@
         <activity android:name=".Register" />
         <activity android:name=".NewReminderActivity" />
         <activity android:name=".SelectDateActivity" />
+
         <activity
             android:name=".SelectTimeActivity"
             android:label="@string/title_activity_select_time"

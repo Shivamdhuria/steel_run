@@ -4,11 +4,9 @@ package com.example.admin.import2;
  * Created by Admin on 6/25/2017.
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -25,7 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,13 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mukesh.tinydb.TinyDB;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.R.attr.name;
 import static com.example.admin.import2.MainActivity.map;
 import static com.example.admin.import2.MainActivity.phoneContactNumbers;
 import static com.example.admin.import2.MainActivity.tinyDB;
@@ -55,7 +49,7 @@ import static com.example.admin.import2.MainActivity.userNames;
 //Our class extending fragment
 public class Tab1 extends Fragment {
     private static final String TAG = "MyActivity";
-    private Button signOut;
+    private Button invite;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     protected static ListView listView;
@@ -158,10 +152,11 @@ public class Tab1 extends Fragment {
         });
 
 
-        signOut = (Button) v.findViewById(R.id.sign_out);
-        signOut.setOnClickListener(new View.OnClickListener() {
+        invite = (Button) v.findViewById(R.id.invitebutton);
+        invite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 signOut();
             }
         });

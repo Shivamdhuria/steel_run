@@ -17,18 +17,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/sign_out"
+        android:layout_above="@+id/invitebutton"
         android:id="@+id/listview" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
-        android:id="@+id/sign_out"
+        android:id="@+id/invitebutton"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="@string/btn_sign_out"
+        android:text="Invite"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"

@@ -200,22 +200,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             return true;
         }
         //Add Below if you want to do actions when you click action_home
-        else if (id == R.id.action_refreshContacts) {
+        else if (id == R.id.action_signout) {
             //Actions here
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-           mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // ...
-                 //   collectUserNames((Map<String, Object>) dataSnapshot.getValue());
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // ...
-                    Toast.makeText(getApplicationContext(), "Sync failed", Toast.LENGTH_SHORT).show();
-                }
-            });
+            Tab1 tab1 = new Tab1();
+            tab1.signOut();
             return true;
         }
 

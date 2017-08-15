@@ -301,6 +301,9 @@ public class Tab1 extends Fragment {
         if(cachedUsernames.size()==0){
             textview_empty.setVisibility(View.VISIBLE);
         }
+        else{
+            textview_empty.setVisibility(View.INVISIBLE);
+        }
 
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames);
         listView.setAdapter(adapter);

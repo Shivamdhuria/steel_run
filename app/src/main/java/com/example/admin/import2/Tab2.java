@@ -79,6 +79,9 @@ public class Tab2 extends Fragment {
 
         textview_greet = (TextView) v.findViewById(R.id.greet);
         //textview_greet.setText("Hey There," + MainActivity.userName);
+        //initializing empty textview
+        final TextView emptyTextView = (TextView)v.findViewById(R.id.emptytextview);
+
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
@@ -90,7 +93,7 @@ public class Tab2 extends Fragment {
 
             //Setting size of recycler view as constant
             recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view2);
-            recyclerView.setHasFixedSize(true);
+            //recyclerView.setHasFixedSize(true);
 
             //Setting Linear Layout
             layoutManager = new LinearLayoutManager(getActivity());
@@ -104,42 +107,66 @@ public class Tab2 extends Fragment {
                     ReminderHolder.class,
                     query) {
 
+               
 
                 @Override
-                protected void populateViewHolder(final ReminderHolder holder, final Reminder reminder, final int position) {
+                protected void populateViewHolder(final ReminderHolder holder, final Reminder reminder, final int index) {
+                    //Making textview Dissapear
+
                     //Setting the name,message and time
                     holder.setName(reminder.getSenderName());
                     holder.setMessage(reminder.getReminderMessage());
                     holder.setmReminderTime(reminder.getReminderTime());
+
                     holder.button_reject.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            int position = holder.getAdapterPosition();
+                            Log.d("index", String.valueOf((position)));
+
+
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
                             update(senderKey, reminderKey, "Rejected");
                             Log.d("senderKEy", senderKey);
                             adapter.getRef(position).removeValue();
                             sendNotificationToUser(senderKey, "You have a new Response");
-
+                            adapter.notifyItemRemoved(position);
 
                             // adapter.notifyItemRangeChanged(position, adapter.getItemCount());
 
-                           // adapter.notifyDataSetChanged();
+
+                            adapter.notifyDataSetChanged();
+                            if (adapter.getItemCount()==0){
+                                emptyTextView.setVisibility(View.VISIBLE);
+                            }
 
                         }
                     });
                     holder.button_accept.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            int position = holder.getAdapterPosition();
+                            Log.d("index", String.valueOf((position)));
+
+
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
                             update(senderKey, reminderKey, "Accepted");
                             Log.d("senderKEy", senderKey);
                             adapter.getRef(position).removeValue();
                             sendNotificationToUser(senderKey, "You have a new Response");
+                            adapter.notifyItemRemoved(position);
 
-                            recyclerView.getRecycledViewPool().clear();
-                            //adapter.notifyDataSetChanged();
+                            // adapter.notifyItemRangeChanged(position, adapter.getItemCount());
+
+
+                            adapter.notifyDataSetChanged();
+                            if (adapter.getItemCount()==0){
+                                emptyTextView.setVisibility(View.VISIBLE);
+                            }
 
                         }
                     });

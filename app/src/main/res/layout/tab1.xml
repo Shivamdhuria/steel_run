@@ -48,7 +48,7 @@
         android:textSize="14sp"
         android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_light_default"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="120dp"
         android:visibility="invisible" />
 
 </RelativeLayout>

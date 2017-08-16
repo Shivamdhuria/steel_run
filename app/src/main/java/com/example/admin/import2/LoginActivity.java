@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 userName = ds.child("username").getValue(String.class);
                                                 Log.d("Getting username",userName);
-                                                Tab2.textview_greet.setText("Hey There," +MainActivity.userName);
+                                               // Tab2.textview_greet.setText("Hey There," +MainActivity.userName);
                                             }
                                         }
 

@@ -35,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mukesh.tinydb.TinyDB;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -301,6 +302,7 @@ public class Tab1 extends Fragment {
         tinyDB.putListString("uids",uid);
         cachedUsernames= userNames;
         cachedUIDs=uid;
+     //   sort();
 
         Log.d("cached Username ",cachedUsernames.toString());
         Log.d("cached UIDs",cachedUIDs.toString());
@@ -318,11 +320,39 @@ public class Tab1 extends Fragment {
         else{
             textview_empty.setVisibility(View.INVISIBLE);
         }
-
+        sort();
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames);
         listView.setAdapter(adapter);
 
 
+    }
+
+    //functions to sort alphatically
+    private  void sort(){
+
+        String temp;
+        String tempUid;
+        for(int i=0;i<cachedUsernames.size();i++){
+
+            for(int j=i+1;j<cachedUsernames.size();j++){
+
+                if(cachedUsernames.get(i).compareTo(cachedUsernames.get(j))<0){
+
+                    temp=cachedUsernames.get(i);
+                    cachedUsernames.set(i, cachedUsernames.get(j));
+                    cachedUsernames.set(j,temp );
+
+                    //Sort UID
+                    tempUid=cachedUIDs.get(i);
+                    cachedUIDs.set(i, cachedUIDs.get(j));
+                    cachedUIDs.set(j,tempUid );
+
+                }
+            }
+        }
+        Collections.reverse(cachedUsernames);
+        Collections.reverse(cachedUIDs);
+        Log.d("sorted",cachedUsernames.toString());
     }
 }
 

@@ -65,7 +65,7 @@ public class Tab2 extends Fragment {
     String receiverUID;
     private DatabaseReference mDatabase;
 
-    private Button profile;
+
 
     //Overriden method onCreateView
     @Override
@@ -77,8 +77,8 @@ public class Tab2 extends Fragment {
         //Intializing button
 
 
-        textview_greet = (TextView) v.findViewById(R.id.greet);
-        //textview_greet.setText("Hey There," + MainActivity.userName);
+       // textview_greet = (TextView) v.findViewById(R.id.greet);
+        ///textview_greet.setText("Hey There," + MainActivity.userName);
         //initializing empty textview
         final TextView emptyTextView = (TextView)v.findViewById(R.id.emptytextview);
 
@@ -198,11 +198,7 @@ public class Tab2 extends Fragment {
 
 
 
-    public void profile() {
 
-        startActivity(new Intent(getActivity(), Register.class));
-        getActivity().finish();
-    }
     public void update(String senderKey,String reminderKey,String status){
 
        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

@@ -7,6 +7,7 @@ package com.example.admin.import2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +51,7 @@ import static com.example.admin.import2.MainActivity.userNames;
 //Our class extending fragment
 public class Tab1 extends Fragment {
     private static final String TAG = "MyActivity";
+    private static final int REQUEST_CODE = 100;
     private Button invite;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
@@ -157,7 +160,27 @@ public class Tab1 extends Fragment {
             @Override
             public void onClick(View v) {
 
+                /*Intent intent = new AppInviteInvitation.IntentBuilder("Reminder App")
+                        .setMessage("Download reminder App at ")
+                       .setDeepLink(Uri.parse("https://stackoverflow.com/questions/43086226/android-how-to-send-app-invite-message-using-whatsapp-facebook-gmail-etc-from"))
+                      // .setCustomImage(Uri.parse(getString(R.string.invitation_custom_image)))
+                        //.setCallToActionText(getString(R.string.invitation_cta))
+                        .build();
 
+               startActivityForResult(intent,REQUEST_CODE);
+
+            */
+                try {
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.setType("text/plain");
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Reminder App");
+                    String sAux = "\nTry This Amazing application\n\n";
+                    sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
+                    i.putExtra(Intent.EXTRA_TEXT, sAux);
+                    startActivity(Intent.createChooser(i, "Choose one"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
             }
         });
         //Returning the layout file after inflating

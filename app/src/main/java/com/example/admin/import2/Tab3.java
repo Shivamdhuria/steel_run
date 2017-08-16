@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -41,6 +42,7 @@ public class Tab3 extends Fragment {
     FirebaseRecyclerAdapter <Reminder,ReminderResponseHolder>adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
+    TextView textviewEmpty;
 
 
     String senderUID;
@@ -55,7 +57,7 @@ public class Tab3 extends Fragment {
 
 
 
-
+        textviewEmpty = (TextView)v.findViewById(R.id.textViewEmpty);
 
         senderUID = userID;
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -75,27 +77,45 @@ public class Tab3 extends Fragment {
                 Reminder.class,
                 R.layout.cards_layout_tab3,
                 ReminderResponseHolder.class,
-                query){
+                query) {
 
 
             @Override
-            protected void populateViewHolder(ReminderResponseHolder holder2, Reminder reminder, final int position) {
-                Log.d("int he loop",senderUID);
+            protected void populateViewHolder(final ReminderResponseHolder holder2, final Reminder reminder, final int position) {
+                Log.d("int he loop", senderUID);
+
                 holder2.setMessage(reminder.getReminderMessage());
                 holder2.setStatus(reminder.getStatus());
                 holder2.setName(reminder.getReceiverName());
+                holder2.button_remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int position = holder2.getAdapterPosition();
+                        Log.d("index", String.valueOf((position)));
+
+
+                        adapter.getRef(position).removeValue();
+
+                        adapter.notifyItemRemoved(position);
+
+
+                        adapter.notifyDataSetChanged();
+
 
 
                     }
+                });
 
 
-
-
+            }
         };
 
+        if (adapter.getItemCount() == 0) {
+            textviewEmpty.setVisibility(View.VISIBLE);
+        }
 
-
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
 
         //Returning the layout file after inflating
         return v;

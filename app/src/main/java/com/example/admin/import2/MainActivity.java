@@ -202,12 +202,17 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         //Add Below if you want to do actions when you click action_home
         else if (id == R.id.action_signout) {
             //Actions here
-            Tab1 tab1 = new Tab1();
-            tab1.signOut();
+
+           signOut();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void signOut() {
+        auth.signOut();
+        startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.admin.import2;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -14,6 +15,7 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
     private final TextView mTextField;
     private final TextView mStatusField;
     private final TextView mReceiverNameField;
+    public final Button button_remove;
 
 
     public ReminderResponseHolder(View itemView) {
@@ -21,6 +23,7 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
         mTextField = (TextView) itemView.findViewById(R.id.responseText);
         mStatusField = (TextView) itemView.findViewById(R.id.status);
         mReceiverNameField=(TextView)itemView.findViewById(R.id.receiverName);
+        button_remove=(Button)itemView.findViewById(R.id.button_remove);
 
     }
     public void setName(String name) {

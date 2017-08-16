@@ -157,7 +157,7 @@ public class Tab1 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                signOut();
+
             }
         });
         //Returning the layout file after inflating
@@ -192,11 +192,7 @@ public class Tab1 extends Fragment {
     }
 
 
-    public void signOut() {
-        auth.signOut();
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().finish();
-    }
+
 
 
     public void NewReminder() {

@@ -117,6 +117,9 @@ public class Tab2 extends Fragment {
                     holder.setName(reminder.getSenderName());
                     holder.setMessage(reminder.getReminderMessage());
                     holder.setmReminderTime(reminder.getReminderTime());
+                    if (adapter.getItemCount()==0){
+                        emptyTextView.setVisibility(View.VISIBLE);
+                    }
 
                     holder.button_reject.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -138,9 +141,7 @@ public class Tab2 extends Fragment {
 
 
                             adapter.notifyDataSetChanged();
-                            if (adapter.getItemCount()==0){
-                                emptyTextView.setVisibility(View.VISIBLE);
-                            }
+
 
                         }
                     });
@@ -164,9 +165,7 @@ public class Tab2 extends Fragment {
 
 
                             adapter.notifyDataSetChanged();
-                            if (adapter.getItemCount()==0){
-                                emptyTextView.setVisibility(View.VISIBLE);
-                            }
+
 
                         }
                     });
@@ -175,10 +174,12 @@ public class Tab2 extends Fragment {
                 }
             };
 
-
+        if (adapter.getItemCount()==0){
+            emptyTextView.setVisibility(View.VISIBLE);
+        }
             recyclerView.setAdapter(adapter);
 
-            profile = (Button) v.findViewById(R.id.btn_profile);
+           /* profile = (Button) v.findViewById(R.id.btn_profile);
 
             profile.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -187,6 +188,7 @@ public class Tab2 extends Fragment {
                     setAlarm();
                 }
             });
+            */
 
 
 

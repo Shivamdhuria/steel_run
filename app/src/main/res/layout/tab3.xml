@@ -8,6 +8,15 @@
 
     >
 
+    <TextView
+        android:text="No reminders found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewEmpty"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:layout_marginTop="150dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"

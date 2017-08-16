@@ -14,17 +14,8 @@
         android:layout_marginTop="120dp"
         android:textSize="14sp"
         android:text="You have no new Reminders"
-        android:textAlignment="center" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scrollbars="vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/btn_profile"
-        android:layout_below="@+id/imageView" />
+        android:textAlignment="center"
+        android:visibility="invisible" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -59,17 +50,14 @@
         android:layout_alignParentStart="true"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/btn_profile"
-        style="?android:textAppearanceSmall"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Profile"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
+        android:layout_height="200dp"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

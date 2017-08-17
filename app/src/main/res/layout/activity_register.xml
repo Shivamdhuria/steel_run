@@ -83,9 +83,13 @@
         android:selectAllOnFocus="false"
         android:textColor="@android:color/white"
         android:layout_weight="0.03"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/ccp"
-        android:layout_alignEnd="@+id/ccp"
-        android:textSize="14sp" />
+        android:textSize="16sp"
+        android:layout_alignBottom="@+id/inputPhone"
+        android:layout_toRightOf="@+id/progressBar"
+        android:layout_toEndOf="@+id/progressBar"
+        android:layout_marginEnd="270dp"
+        android:layout_marginRight="270dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
 
 </RelativeLayout>

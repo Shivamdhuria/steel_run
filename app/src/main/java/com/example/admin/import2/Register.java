@@ -1,9 +1,11 @@
 package com.example.admin.import2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hbb20.CountryCodePicker;
+
+import static java.security.AccessController.getContext;
 
 public class Register extends AppCompatActivity {
 
@@ -29,9 +34,10 @@ public class Register extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     private Button btn_submit;
-    private EditText inputName, inputPhone;
+    private EditText inputName, inputPhone,inputCountryCode;
     String userID;
-
+    CountryCodePicker ccp;
+    String countryCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +58,13 @@ public class Register extends AppCompatActivity {
         userID = user.getUid();
         inputName=(EditText)findViewById(R.id.inputName);
         inputPhone=(EditText)findViewById(R.id.inputPhone);
+        inputCountryCode=(EditText)findViewById(R.id.inputCountryCode);
         btn_submit=(Button)findViewById(R.id.btn_submit);
+        String countryCode = GetCountryZipCode();
+        Log.d("country code",countryCode);
+        inputCountryCode.setText("+"+GetCountryZipCode());
+
+
 
 
 
@@ -72,11 +84,16 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (phone.length()<=9) {
+                    Toast.makeText(getApplicationContext(), "Phone Number should be 10 digits long", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
-
+                    String phoneUpdated = ccp.getSelectedCountryName();
+                Log.d("phone nmber update",phoneUpdated);
                 // Creating new user node,
-                    User user = new User(name, phone,MainActivity.tokenID);
+                    User user = new User(name, phoneUpdated,MainActivity.tokenID);
 
                     mDatabase.child("users").child(userID).setValue(user);
                     Toast.makeText(getApplicationContext(),"Info Updated",Toast.LENGTH_SHORT).show();
@@ -90,6 +107,23 @@ public class Register extends AppCompatActivity {
 
             }
         });
+    }
+    public String GetCountryZipCode(){
+        String CountryID="";
+        String CountryZipCode="";
+
+        TelephonyManager manager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        //getNetworkCountryIso
+        CountryID=manager.getSimCountryIso().toUpperCase();
+        String[] rl=this.getResources().getStringArray(R.array.CountryCodes);
+        for(int i=0;i<rl.length;i++){
+            String[] g=rl[i].split(",");
+            if(g[1].trim().equals(CountryID.trim())){
+                CountryZipCode=g[0];
+                break;
+            }
+        }
+        return CountryZipCode;
     }
 
 

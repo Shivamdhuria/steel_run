@@ -4,6 +4,7 @@ package com.example.admin.import2;
  * Created by Admin on 6/25/2017.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +39,10 @@ import com.mukesh.tinydb.TinyDB;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import static android.telephony.PhoneNumberUtils.formatNumber;
 import static com.example.admin.import2.MainActivity.map;
 import static com.example.admin.import2.MainActivity.phoneContactNumbers;
 import static com.example.admin.import2.MainActivity.tinyDB;
@@ -161,16 +165,7 @@ public class Tab1 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /*Intent intent = new AppInviteInvitation.IntentBuilder("Reminder App")
-                        .setMessage("Download reminder App at ")
-                       .setDeepLink(Uri.parse("https://stackoverflow.com/questions/43086226/android-how-to-send-app-invite-message-using-whatsapp-facebook-gmail-etc-from"))
-                      // .setCustomImage(Uri.parse(getString(R.string.invitation_custom_image)))
-                        //.setCallToActionText(getString(R.string.invitation_cta))
-                        .build();
 
-               startActivityForResult(intent,REQUEST_CODE);
-
-            */
                 try {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("text/plain");
@@ -241,16 +236,29 @@ public class Tab1 extends Fragment {
         while (phones.moveToNext()) {
             String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            String locale = GetCountryZipCode();
 
+
+            Log.d("Phone formates",locale);
+        // String for =   formatNumber(phoneNumber,locale);
+            phoneNumber = phoneNumber.replaceAll("[()\\-\\s]", "").trim();
+            Log.d("Phone formates",phoneNumber);
+
+            if (phoneNumber.length() == 10) {
+                phoneNumber = locale + phoneNumber;
+            }
+                //formatNumber(phoneNumber, String defaultCountryIso);
             Log.d("Names", name);
             if (phoneNumber != null) {
                 map.put("name", name);
                 map.put("phone", phoneNumber);
                 phoneContactNumbers.add(phoneNumber);
 
+
             }
         }
         phones.close();
+        Log.d("Phone nmbers",phoneContactNumbers.toString());
 
     }
 
@@ -353,6 +361,26 @@ public class Tab1 extends Fragment {
         Collections.reverse(cachedUsernames);
         Collections.reverse(cachedUIDs);
         Log.d("sorted",cachedUsernames.toString());
+    }
+
+    public String GetCountryZipCode(){
+        String CountryID="";
+        String CountryZipCode="";
+
+        TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        //getNetworkCountryIso
+        CountryID= "IN"; //manager.getSimCountryIso().toUpperCase();
+        String[] rl=this.getResources().getStringArray(R.array.CountryCodes);
+        for(int i=0;i<rl.length;i++){
+            String[] g=rl[i].split(",");
+            if(g[1].trim().equals(CountryID.trim())){
+                CountryZipCode=g[0];
+                break;
+            }
+        }
+        String add="+"+CountryZipCode;
+        Log.d("add",add);
+        return add;
     }
 }
 

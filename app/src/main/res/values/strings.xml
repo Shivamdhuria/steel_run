@@ -31,7 +31,7 @@
     <string name="title_activity_select_time">SelectTimeActivity</string>
 
     <string name="action_settings">Settings</string>
-    <string-array name="CountryCodes" >
+    <string-array name="CountryCodes">
         <item>93,AF</item>
         <item>355,AL</item>
         <item>213,DZ</item>

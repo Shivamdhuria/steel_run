@@ -226,7 +226,7 @@ public class Tab1 extends Fragment {
         MainActivity.recepientName = receivername;
 
         startActivity(intent);
-        getActivity().finish();
+
 
     }
 
@@ -379,7 +379,7 @@ public class Tab1 extends Fragment {
             }
         }
         String add="+"+CountryZipCode;
-        Log.d("add",add);
+
         return add;
     }
 }

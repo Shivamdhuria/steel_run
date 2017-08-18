@@ -25,6 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import static com.example.admin.import2.MainActivity.tinyDB;
+import static com.example.admin.import2.MainActivity.tinyDBM;
 import static com.example.admin.import2.MainActivity.userID;
 import static com.example.admin.import2.MainActivity.userName;
 
@@ -124,6 +126,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 userName = ds.child("username").getValue(String.class);
                                                 Log.d("Getting username",userName);
+
+
                                                // Tab2.textview_greet.setText("Hey There," +MainActivity.userName);
                                             }
                                         }

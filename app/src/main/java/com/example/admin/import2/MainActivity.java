@@ -55,10 +55,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static ArrayList<String> userNames = new ArrayList<>();
     protected static ArrayList<String> uid = new ArrayList<>();
     protected static ArrayList<String> phoneContactNumbers = new ArrayList<>();
+    protected static ArrayList<String> nameDiplay = new ArrayList<>();
+    protected static ArrayList<String> phoneNumberDisplay = new ArrayList<>();
     protected static TinyDB tinyDB;
 
     //Setting global Username and ID
     protected static String userName;
+    protected static String phoneNumber;
     protected static String userID;
 
     private Button signOut;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private FirebaseAuth.AuthStateListener authListener;
     protected static FirebaseAuth auth;
     DatabaseReference mDatabase;
+    protected static TinyDB tinyDBM;
 
 
     @Override
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             setSupportActionBar(toolbar);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            tinyDBM=new TinyDB(this);
 
 
             //Initializing viewPager
@@ -195,8 +200,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_profile) {
             //Actions here
-            startActivity(new Intent(this, Register.class));
-            this.finish();
+            startActivity(new Intent(this, ReviewActivity.class));
+
             return true;
         }
         //Add Below if you want to do actions when you click action_home

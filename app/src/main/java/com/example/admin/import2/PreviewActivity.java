@@ -80,7 +80,10 @@ public class PreviewActivity extends AppCompatActivity {
                 mDatabase.child("reminders").child(userID).child("responses").child(Key).setValue(reminder);
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);
                 Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PreviewActivity.this,MainActivity.class));
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 sendNotificationToUser(recepientUID,"You have a new Reminders");
             }
         });

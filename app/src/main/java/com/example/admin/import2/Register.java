@@ -2,7 +2,6 @@ package com.example.admin.import2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -13,18 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.hbb20.CountryCodePicker;
 
-import static java.security.AccessController.getContext;
+
+import static com.example.admin.import2.MainActivity.tinyDBM;
 
 public class Register extends AppCompatActivity {
 
@@ -36,13 +32,17 @@ public class Register extends AppCompatActivity {
     private Button btn_submit;
     private EditText inputName, inputPhone,inputCountryCode;
     String userID;
-    CountryCodePicker ccp;
+
     String countryCode;
+    String phoneUpdated;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        //initialze tinyDB
+
 
       if (auth.getCurrentUser() == null) {
             startActivity(new Intent(Register.this, MainActivity.class));
@@ -56,8 +56,8 @@ public class Register extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user=auth.getCurrentUser();
         userID = user.getUid();
-        inputName=(EditText)findViewById(R.id.inputName);
-        inputPhone=(EditText)findViewById(R.id.inputPhone);
+        inputName=(EditText)findViewById(R.id.displayName);
+        inputPhone=(EditText)findViewById(R.id.displayPhone);
         inputCountryCode=(EditText)findViewById(R.id.inputCountryCode);
         btn_submit=(Button)findViewById(R.id.btn_submit);
         String countryCode = GetCountryZipCode();
@@ -90,10 +90,16 @@ public class Register extends AppCompatActivity {
                 }
 
 
-                    String phoneUpdated = ccp.getSelectedCountryName();
+                    String countryCodeInput = inputCountryCode.getText().toString();
+                    phoneUpdated=countryCodeInput+phone;
+                //Saving name and phonen umber in Database
+                 tinyDBM.putString("userNameDisplay",name);
+                 tinyDBM.putString("phoneNumberDisplay",phoneUpdated);
+                Log.d("phone upload",phoneUpdated);
                 Log.d("phone nmber update",phoneUpdated);
                 // Creating new user node,
                     User user = new User(name, phoneUpdated,MainActivity.tokenID);
+
 
                     mDatabase.child("users").child(userID).setValue(user);
                     Toast.makeText(getApplicationContext(),"Info Updated",Toast.LENGTH_SHORT).show();

@@ -69,9 +69,10 @@ public class Tab1 extends Fragment {
 
     protected static ArrayList<String> cachedUsernames = new ArrayList<>();
     protected static ArrayList<String> cachedUIDs = new ArrayList<>();
+    protected static ArrayList<String> cachedPictures = new ArrayList<>();
 
 
-    String receiverUID, receivername;
+    String receiverUID, receivername,senderPicture;
 
 
     //Overriden method onCreateView
@@ -258,7 +259,7 @@ public class Tab1 extends Fragment {
             }
         }
         phones.close();
-        Log.d("Phone nmbers",phoneContactNumbers.toString());
+
 
     }
 
@@ -275,7 +276,7 @@ public class Tab1 extends Fragment {
             Map singleUser = (Map) entry.getValue();
 
             String phone = (String) singleUser.get("phone");
-            Log.d("phone", phone);
+
 
             for (int i = 0; i < phoneContactNumbers.size(); i++) {
 
@@ -360,7 +361,7 @@ public class Tab1 extends Fragment {
         }
         Collections.reverse(cachedUsernames);
         Collections.reverse(cachedUIDs);
-        Log.d("sorted",cachedUsernames.toString());
+
     }
 
     public String GetCountryZipCode(){

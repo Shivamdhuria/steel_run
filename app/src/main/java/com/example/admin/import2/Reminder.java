@@ -10,6 +10,9 @@ public class Reminder {
     public String reminderMessage;
     public String senderUID;
     public String senderName;
+    public  String senderPicture;
+
+
     public  String receiverUID;
     public  String receiverName;
     public  String reminderTime;
@@ -17,15 +20,16 @@ public class Reminder {
     public String status;
     public  String receiverUID_status;
 
+
     public Reminder() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Reminder(String reminderMessage,String senderUID,String senderName,String receiverUID,String receiverName,String reminderTime,String timestamp,String status,String receiverUID_status) {
+    public Reminder(String reminderMessage,String senderUID,String senderName,String senderPicture,String receiverUID,String receiverName,String reminderTime,String timestamp,String status,String receiverUID_status) {
         this.reminderMessage = reminderMessage;
         this.senderUID =senderUID ;
         this.senderName=senderName;
-
+        this.senderPicture = senderPicture;
 
         this.receiverUID=receiverUID;
         this.receiverName=receiverName;
@@ -98,6 +102,14 @@ public class Reminder {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getSenderPicture() {
+        return senderPicture;
+    }
+
+    public void setSenderPicture(String senderPicture) {
+        this.senderPicture = senderPicture;
     }
 
     public String getStatus() {

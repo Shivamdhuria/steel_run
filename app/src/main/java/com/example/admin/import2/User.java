@@ -11,15 +11,17 @@ public class User {
     public String username;
     public String phone;
     public String tokenID;
+    public String userpicture;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String phone,String tokenID) {
+    public User(String username, String phone,String tokenID,String userpicture) {
         this.username = username;
         this.phone = phone;
         this.tokenID = tokenID;
+        this.userpicture = userpicture;
     }
 
     public String getUsername() {

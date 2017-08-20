@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static String userName;
     protected static String phoneNumber;
     protected static String userID;
+    protected static String userPicture;
 
     private Button signOut;
     private ProgressBar progressBar;

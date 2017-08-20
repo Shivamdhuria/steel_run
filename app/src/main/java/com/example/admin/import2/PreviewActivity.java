@@ -25,6 +25,7 @@ import static com.example.admin.import2.MainActivity.reminderDate;
 import static com.example.admin.import2.MainActivity.reminderMessage;
 import static com.example.admin.import2.MainActivity.reminderTime;
 import static com.example.admin.import2.MainActivity.userID;
+import static com.example.admin.import2.MainActivity.userPicture;
 
 public class PreviewActivity extends AppCompatActivity {
 
@@ -75,7 +76,8 @@ public class PreviewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting...",receiverUID_status);
+                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName, MainActivity.userPicture,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting...",receiverUID_status);
+                Log.d("senderdisplay",userPicture);
                 String Key = mDatabase.child("reminders").child(userID).child("responses").push().getKey();
                 mDatabase.child("reminders").child(userID).child("responses").child(Key).setValue(reminder);
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);

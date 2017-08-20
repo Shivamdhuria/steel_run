@@ -29,6 +29,7 @@ import static com.example.admin.import2.MainActivity.tinyDB;
 import static com.example.admin.import2.MainActivity.tinyDBM;
 import static com.example.admin.import2.MainActivity.userID;
 import static com.example.admin.import2.MainActivity.userName;
+import static com.example.admin.import2.MainActivity.userPicture;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -123,9 +124,12 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                                                userName = ds.child("username").getValue(String.class);
                                                 Log.d("Getting username",userName);
+                                                userName = ds.child("username").getValue(String.class);
+                                                Log.d("Getting userPicture","user pic");
+                                                userPicture = ds.child("picture").getValue(String.class);
+
+
 
 
                                                // Tab2.textview_greet.setText("Hey There," +MainActivity.userName);

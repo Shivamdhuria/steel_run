@@ -50,12 +50,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static String reminderDate;
     protected static String reminderTime;
     protected static String recepientName;
+    protected static String receieverPicture;
     protected static  String tokenID;
     protected static HashMap<String, String> map;
     protected static ArrayList<String> userNames = new ArrayList<>();
     protected static ArrayList<String> uid = new ArrayList<>();
     protected static ArrayList<String> phoneContactNumbers = new ArrayList<>();
-    protected static ArrayList<String> displayPicture = new ArrayList<>();
+    protected static ArrayList<String> userPictures = new ArrayList<>();
     protected static ArrayList<String> nameDiplay = new ArrayList<>();
     protected static ArrayList<String> phoneNumberDisplay = new ArrayList<>();
     protected static TinyDB tinyDB;

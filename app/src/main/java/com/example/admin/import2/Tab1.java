@@ -48,6 +48,7 @@ import static com.example.admin.import2.MainActivity.phoneContactNumbers;
 import static com.example.admin.import2.MainActivity.tinyDB;
 import static com.example.admin.import2.MainActivity.uid;
 import static com.example.admin.import2.MainActivity.userNames;
+import static com.example.admin.import2.MainActivity.userPictures;
 
 /**
  * Created by Belal on 2/3/2016.
@@ -72,7 +73,7 @@ public class Tab1 extends Fragment {
     protected static ArrayList<String> cachedPictures = new ArrayList<>();
 
 
-    String receiverUID, receivername,senderPicture;
+    String receiverUID, receivername,receiverPicture;
 
 
     //Overriden method onCreateView
@@ -90,6 +91,7 @@ public class Tab1 extends Fragment {
 
         cachedUsernames=tinyDB.getListString("usernames");
         cachedUIDs=tinyDB.getListString("uids");
+        cachedPictures= tinyDB.getListString("userpictures");
         Log.d("catche u name",cachedUsernames.toString());
 
 
@@ -153,6 +155,7 @@ public class Tab1 extends Fragment {
                 String s = Integer.toString(position);
                 receiverUID = cachedUIDs.get(position);
                 receivername = cachedUsernames.get(position);
+                receiverPicture=cachedPictures.get(position);
 
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
@@ -225,6 +228,7 @@ public class Tab1 extends Fragment {
         intent.putExtra("ReceiverName", receivername);
         MainActivity.recepientUID = receiverUID;
         MainActivity.recepientName = receivername;
+        MainActivity.receieverPicture= receiverPicture;
 
         startActivity(intent);
 
@@ -294,6 +298,7 @@ public class Tab1 extends Fragment {
 
                         //Get usernames and append to list and array
                         userNames.add((String) singleUser.get("username"));
+                        userPictures.add((String)singleUser.get("userpicture"));
 
 
                     }
@@ -310,8 +315,10 @@ public class Tab1 extends Fragment {
         }
         tinyDB.putListString("usernames",userNames);
         tinyDB.putListString("uids",uid);
+        tinyDB.putListString("userpicture",userPictures);
         cachedUsernames= userNames;
         cachedUIDs=uid;
+        cachedPictures=userPictures;
      //   sort();
 
         Log.d("cached Username ",cachedUsernames.toString());
@@ -342,6 +349,7 @@ public class Tab1 extends Fragment {
 
         String temp;
         String tempUid;
+        String tempPic;
         for(int i=0;i<cachedUsernames.size();i++){
 
             for(int j=i+1;j<cachedUsernames.size();j++){
@@ -356,6 +364,10 @@ public class Tab1 extends Fragment {
                     tempUid=cachedUIDs.get(i);
                     cachedUIDs.set(i, cachedUIDs.get(j));
                     cachedUIDs.set(j,tempUid );
+
+                    tempPic=cachedPictures.get(i);
+                    cachedPictures.set(i, cachedPictures.get(j));
+                    cachedPictures.set(j,tempPic );
 
                 }
             }

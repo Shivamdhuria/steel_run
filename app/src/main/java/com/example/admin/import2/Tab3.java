@@ -87,6 +87,8 @@ public class Tab3 extends Fragment {
                 holder2.setMessage(reminder.getReminderMessage());
                 holder2.setStatus(reminder.getStatus());
                 holder2.setName(reminder.getReceiverName());
+
+                holder2.setReceiver_image(reminder.getReceiverPicture());
                 holder2.button_remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

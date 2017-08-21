@@ -85,7 +85,7 @@ public class Register extends AppCompatActivity {
     private StorageReference mStorageRef;
     Bitmap ThumbImage;
     Uri imageUri;
-    protected String base64Image;
+    protected String base64Image="null";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -205,8 +205,9 @@ public class Register extends AppCompatActivity {
                 ThumbImage = ThumbnailUtils.extractThumbnail(selectedImage, 320, 320);
                 imageview_profliepicture=(ImageView)findViewById(R.id.profile_image);
                 imageview_profliepicture.setImageBitmap(ThumbImage);
-
                 ConvertAndUpload(ThumbImage);
+
+
 
 
 

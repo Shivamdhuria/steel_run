@@ -53,9 +53,14 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
         mNameField.setText(name);
     }
     public void setSender_image(String encodedImage) {
-        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        sender_image.setImageBitmap(decodedByte);
+        if (!encodedImage.equals("null")) {
+
+
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            sender_image.setImageBitmap(decodedByte);
+
+        }
     }
 
     public void setMessage(String message) {

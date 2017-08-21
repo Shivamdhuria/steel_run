@@ -243,7 +243,7 @@ public class Tab1 extends Fragment {
             Log.d("Phone formates",locale);
         // String for =   formatNumber(phoneNumber,locale);
             phoneNumber = phoneNumber.replaceAll("[()\\-\\s]", "").trim();
-            Log.d("Phone formates",phoneNumber);
+
 
             if (phoneNumber.length() == 10) {
                 phoneNumber = locale + phoneNumber;
@@ -258,6 +258,7 @@ public class Tab1 extends Fragment {
 
             }
         }
+        Log.d("phoneContactNumbers",phoneContactNumbers.toString());
         phones.close();
 
 

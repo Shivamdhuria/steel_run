@@ -24,6 +24,7 @@ import static com.example.admin.import2.MainActivity.recepientUID;
 import static com.example.admin.import2.MainActivity.reminderDate;
 import static com.example.admin.import2.MainActivity.reminderMessage;
 import static com.example.admin.import2.MainActivity.reminderTime;
+import static com.example.admin.import2.MainActivity.tinyDBM;
 import static com.example.admin.import2.MainActivity.userID;
 import static com.example.admin.import2.MainActivity.userPicture;
 
@@ -66,6 +67,7 @@ public class PreviewActivity extends AppCompatActivity {
           timeDisplay.setText(MainActivity.reminderTime);
           reminderDisplay.setText(MainActivity.reminderMessage);
            final String reminderTimeTimestamp =reminderDate+" "+reminderTime;
+        final String picture = tinyDBM.getString("displayPicture");
         Log.d("reminderdate",reminderTimeTimestamp);
 
            convertTime(reminderTimeTimestamp);
@@ -76,8 +78,8 @@ public class PreviewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName, MainActivity.userPicture,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting...",receiverUID_status);
-                Log.d("senderdisplay",userPicture);
+                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID,MainActivity.userName, picture,MainActivity.recepientUID,MainActivity.recepientName,MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting...",receiverUID_status);
+
                 String Key = mDatabase.child("reminders").child(userID).child("responses").push().getKey();
                 mDatabase.child("reminders").child(userID).child("responses").child(Key).setValue(reminder);
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);

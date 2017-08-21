@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static ArrayList<String> userNames = new ArrayList<>();
     protected static ArrayList<String> uid = new ArrayList<>();
     protected static ArrayList<String> phoneContactNumbers = new ArrayList<>();
+    protected static ArrayList<String> displayPicture = new ArrayList<>();
     protected static ArrayList<String> nameDiplay = new ArrayList<>();
     protected static ArrayList<String> phoneNumberDisplay = new ArrayList<>();
     protected static TinyDB tinyDB;

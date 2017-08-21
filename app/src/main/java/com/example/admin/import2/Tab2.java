@@ -117,7 +117,9 @@ public class Tab2 extends Fragment {
                     holder.setName(reminder.getSenderName());
                     holder.setMessage(reminder.getReminderMessage());
                     holder.setmReminderTime(reminder.getReminderTime());
-                    holder.setSender_image(reminder.getSenderPicture());
+
+                            holder.setSender_image(reminder.getSenderPicture());
+
                     if (adapter.getItemCount()==0){
                         emptyTextView.setVisibility(View.VISIBLE);
                     }

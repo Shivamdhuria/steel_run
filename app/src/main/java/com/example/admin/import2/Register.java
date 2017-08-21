@@ -122,6 +122,8 @@ public class Register extends AppCompatActivity {
         String countryCode = GetCountryZipCode();
         Log.d("country code", countryCode);
         inputCountryCode.setText("+" + GetCountryZipCode());
+        tinyDBM.putString("displayPicture","null");
+
 
 
 
@@ -188,17 +190,7 @@ public class Register extends AppCompatActivity {
 
         //handling the image chooser activity result
 
-
-
-
-
-
-
-
-
-
-
-    // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -213,7 +205,7 @@ public class Register extends AppCompatActivity {
                 ThumbImage = ThumbnailUtils.extractThumbnail(selectedImage, 320, 320);
                 imageview_profliepicture=(ImageView)findViewById(R.id.profile_image);
                 imageview_profliepicture.setImageBitmap(ThumbImage);
-                SaveImage(ThumbImage);
+
                 ConvertAndUpload(ThumbImage);
 
 
@@ -254,37 +246,14 @@ public class Register extends AppCompatActivity {
         // we finally have our base64 string version of the image, save it.
         mDatabase.child("users").child(userID).setValue(base64Image);
         userPicture = base64Image;
+        tinyDBM.putString("displayPicture",base64Image);
 
         System.out.println("Stored image with length: " + bytes.length);
         Log.d("userID",userID);
     }
 
 
-    private void SaveImage(Bitmap finalBitmap) {
 
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/saved_images");
-        myDir.mkdirs();
-
-
-        String fname = "Image" +".jpg";
-        File file = new File (myDir, fname);
-        if (file.exists ()) file.delete ();
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-            String path = myDir+"Image.png";
-            imageUri = Uri.fromFile(file);
-
-            return ;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        uploadFile();
-    }
 
 
     public void ChooseApp(){
@@ -301,57 +270,7 @@ public class Register extends AppCompatActivity {
     }
 
 
-    //this method will upload the file
-    private void uploadFile() {
-        //if there is a file to upload
-        if (filePath != null) {
-            mStorageRef = FirebaseStorage.getInstance().getReference();
-            //displaying a progress dialog while upload is going on
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            Log.d("firebase storag","storing");
-            progressDialog.setTitle("Uploading");
-            progressDialog.show();
 
-            StorageReference riversRef = mStorageRef.child("images/pic.jpg");
-            riversRef.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //if the upload is successfull
-                            //hiding the progress dialog
-                            progressDialog.dismiss();
-
-                            //and displaying a success toast
-                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            //if the upload is not successfull
-                            //hiding the progress dialog
-                            progressDialog.dismiss();
-
-                            //and displaying error message
-                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //calculating progress percentage
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                            //displaying percentage in progress dialog
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-                        }
-                    });
-        }
-        //if there is not any file
-        else {
-            //you can display an error toast
-        }
-    }
 
     public String GetCountryZipCode() {
         String CountryID = "";

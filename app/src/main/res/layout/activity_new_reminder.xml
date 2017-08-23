@@ -11,28 +11,35 @@
     tools:context="com.example.admin.import2.NewReminderActivity">
 
 
-    <TextView
-        android:text="TextView"
+    <Button
+        android:text="Next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recepientname"
-        android:textSize="30sp"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
+        android:id="@+id/next"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/reminderDisplay"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Recepient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
         android:id="@+id/textView3"
         android:autoText="false"
-        android:textSize="36sp"
+        android:textSize="20sp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recepientname"
+        android:textSize="28sp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -42,21 +49,12 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/reminderDisplay"
-        android:layout_marginTop="86dp"
+        android:layout_marginTop="34dp"
         android:hint="Reminder"
-        android:textSize="24sp"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="93dp"
-        android:id="@+id/next"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/recepientname"
-        android:layout_toStartOf="@+id/recepientname" />
+        android:textSize="22sp"
+        android:layout_below="@+id/recepientname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

@@ -49,7 +49,7 @@
         android:id="@+id/displayName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapWords"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:layout_marginBottom="19dp"
@@ -58,7 +58,8 @@
         android:layout_toEndOf="@+id/textviewName"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        />
 
     <TextView
         android:text="Name"

@@ -90,9 +90,7 @@ public class Tab1 extends Fragment {
         textview_empty= (TextView)v.findViewById(R.id.empty);
 
 
-     //   cachedUsernames=tinyDB.getListString("usernames");
-       // cachedUIDs=tinyDB.getListString("uids");
-       // cachedPictures= tinyDB.getListString("userpictures");
+
        // Log.d("catched Pictures ",cachedPictures.toString());
 
 
@@ -119,11 +117,14 @@ public class Tab1 extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.keepSynced(true);
         listView = (ListView) v.findViewById(R.id.listview);
-        //setAdapter();
+        cachedUsernames=tinyDB.getListString("usernames");
+        cachedUIDs=tinyDB.getListString("uids");
+        cachedPictures= tinyDB.getListString("userpictures");
+        setAdapter();
 
         //If no cached numes than collect names
         if(cachedUsernames.size()==0){
-            //RefreshContacts();
+          RefreshContacts();
 
 
         }
@@ -323,7 +324,7 @@ public class Tab1 extends Fragment {
         cachedUsernames= userNames;
         cachedUIDs=uid;
         cachedPictures=userPictures;
-     //   sort();
+        sort();
 
         Log.d("cached Username ",cachedUsernames.toString());
         Log.d("cached UIDs",cachedUIDs.toString());
@@ -342,7 +343,7 @@ public class Tab1 extends Fragment {
         else{
             textview_empty.setVisibility(View.INVISIBLE);
         }
-        sort();
+       // sort();
       // ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames,cachedPictures);
 
        CustomAdapter adapter = new CustomAdapter(getActivity(),cachedUsernames,cachedPictures);

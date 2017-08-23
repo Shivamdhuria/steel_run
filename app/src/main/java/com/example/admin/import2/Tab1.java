@@ -48,6 +48,7 @@ import static com.example.admin.import2.MainActivity.phoneContactNumbers;
 import static com.example.admin.import2.MainActivity.tinyDB;
 import static com.example.admin.import2.MainActivity.uid;
 import static com.example.admin.import2.MainActivity.userNames;
+import static com.example.admin.import2.MainActivity.userPicture;
 import static com.example.admin.import2.MainActivity.userPictures;
 
 /**
@@ -81,7 +82,7 @@ public class Tab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.tab1, container, false);
-        getContacts();
+
         //Create a new instance of TinyDB
 
         //use that instance to save data
@@ -89,10 +90,10 @@ public class Tab1 extends Fragment {
         textview_empty= (TextView)v.findViewById(R.id.empty);
 
 
-        cachedUsernames=tinyDB.getListString("usernames");
-        cachedUIDs=tinyDB.getListString("uids");
-        cachedPictures= tinyDB.getListString("userpictures");
-        Log.d("catche u name",cachedUsernames.toString());
+     //   cachedUsernames=tinyDB.getListString("usernames");
+       // cachedUIDs=tinyDB.getListString("uids");
+       // cachedPictures= tinyDB.getListString("userpictures");
+       // Log.d("catched Pictures ",cachedPictures.toString());
 
 
         //get firebase auth instance
@@ -118,11 +119,11 @@ public class Tab1 extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.keepSynced(true);
         listView = (ListView) v.findViewById(R.id.listview);
-        setAdapter();
+        //setAdapter();
 
         //If no cached numes than collect names
         if(cachedUsernames.size()==0){
-            RefreshContacts();
+            //RefreshContacts();
 
 
         }
@@ -272,6 +273,7 @@ public class Tab1 extends Fragment {
 
         uid.clear();
         userNames.clear();
+        userPictures.clear();
 
 
         //iterate through each user, ignoring their UID
@@ -298,12 +300,14 @@ public class Tab1 extends Fragment {
 
                         //Get usernames and append to list and array
                         userNames.add((String) singleUser.get("username"));
+                        //get User Picures in byte 64 format string
                         userPictures.add((String)singleUser.get("userpicture"));
-
+                        Log.d("collecte user picture",userPictures.toString());
 
                     }
                 }
             }
+
 
 
 
@@ -315,7 +319,7 @@ public class Tab1 extends Fragment {
         }
         tinyDB.putListString("usernames",userNames);
         tinyDB.putListString("uids",uid);
-        tinyDB.putListString("userpicture",userPictures);
+        tinyDB.putListString("userpictures",userPictures);
         cachedUsernames= userNames;
         cachedUIDs=uid;
         cachedPictures=userPictures;
@@ -323,6 +327,7 @@ public class Tab1 extends Fragment {
 
         Log.d("cached Username ",cachedUsernames.toString());
         Log.d("cached UIDs",cachedUIDs.toString());
+        Log.d("cached  User Pictures",userPictures.toString());
         //Display a ll usernames
         setAdapter();
 
@@ -338,7 +343,9 @@ public class Tab1 extends Fragment {
             textview_empty.setVisibility(View.INVISIBLE);
         }
         sort();
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames);
+      // ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames,cachedPictures);
+
+       CustomAdapter adapter = new CustomAdapter(getActivity(),cachedUsernames,cachedPictures);
         listView.setAdapter(adapter);
 
 
@@ -374,6 +381,7 @@ public class Tab1 extends Fragment {
         }
         Collections.reverse(cachedUsernames);
         Collections.reverse(cachedUIDs);
+        Collections.reverse(cachedPictures);
 
     }
 

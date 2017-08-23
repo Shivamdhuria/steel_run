@@ -120,6 +120,7 @@ public class Tab1 extends Fragment {
         cachedUsernames=tinyDB.getListString("usernames");
         cachedUIDs=tinyDB.getListString("uids");
         cachedPictures= tinyDB.getListString("userpictures");
+        sort();
         setAdapter();
 
         //If no cached numes than collect names
@@ -199,9 +200,11 @@ public class Tab1 extends Fragment {
                 //User user = dataSnapshot.getValue(User.class);
                 //Get map of users in datasnapshot
                 phoneContactNumbers.clear();
-                Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
                 getContacts();
                 collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+                 sort();
+                setAdapter();
             }
 
 
@@ -315,8 +318,7 @@ public class Tab1 extends Fragment {
 
 
 
-            //Display a ll usernames
-           setAdapter();
+
         }
         tinyDB.putListString("usernames",userNames);
         tinyDB.putListString("uids",uid);
@@ -329,8 +331,7 @@ public class Tab1 extends Fragment {
         Log.d("cached Username ",cachedUsernames.toString());
         Log.d("cached UIDs",cachedUIDs.toString());
         Log.d("cached  User Pictures",userPictures.toString());
-        //Display a ll usernames
-        setAdapter();
+
 
     }
 

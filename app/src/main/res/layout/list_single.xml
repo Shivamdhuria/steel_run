@@ -13,16 +13,16 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:src="@drawable/profile"
-            app:civ_border_width="0.7dp"
+            app:civ_border_width="0dp"
             app:civ_border_color="#FF000000"
             android:elevation="0dp"
 
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginStart="22dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="11dp" />
+            android:layout_marginTop="18dp" />
 
         <TextView
             android:id="@+id/name"
@@ -31,10 +31,10 @@
             android:textSize="20sp"
             android:paddingTop="5dp"
             android:text="John Doe"
-            android:layout_marginLeft="29dp"
-            android:layout_marginStart="29dp"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
+            android:textColor="@color/input_login"
+            android:layout_marginBottom="12dp"
             android:layout_alignBottom="@+id/image"
             android:layout_toRightOf="@+id/image"
             android:layout_toEndOf="@+id/image" />

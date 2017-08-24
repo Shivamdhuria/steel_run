@@ -6,6 +6,7 @@ package com.example.admin.import2;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -67,6 +68,7 @@ public class Tab2 extends Fragment {
 
 
 
+
     //Overriden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +76,10 @@ public class Tab2 extends Fragment {
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         View v = inflater.inflate(R.layout.tab2, container, false);
-        //Intializing button
+
+
+
+
 
 
        // textview_greet = (TextView) v.findViewById(R.id.greet);
@@ -100,6 +105,8 @@ public class Tab2 extends Fragment {
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             query.keepSynced(true);
+
+
 
             adapter = new FirebaseRecyclerAdapter<Reminder, ReminderHolder>(
                     Reminder.class,
@@ -131,6 +138,9 @@ public class Tab2 extends Fragment {
                             int position = holder.getAdapterPosition();
                             Log.d("index", String.valueOf((position)));
 
+                            //scheduleNotification(getNotification("5 second delay"), 5000);
+                            //Setting alarm
+                            setAlarm();
 
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
@@ -159,6 +169,9 @@ public class Tab2 extends Fragment {
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
                             update(senderKey, reminderKey, "Accepted");
+
+
+
                             Log.d("senderKEy", senderKey);
                             adapter.getRef(position).removeValue();
                             sendNotificationToUser(senderKey, "You have a new Response");
@@ -201,7 +214,6 @@ public class Tab2 extends Fragment {
 
 
 
-
     public void update(String senderKey,String reminderKey,String status){
 
        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -218,7 +230,7 @@ public class Tab2 extends Fragment {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        long TimeInMillis = SystemClock.elapsedRealtime() + 15000;
+        long TimeInMillis = SystemClock.elapsedRealtime() + 10000;
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= 23) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, TimeInMillis, pendingIntent);
@@ -246,6 +258,31 @@ public class Tab2 extends Fragment {
 
 
     }
+
+    private void scheduleNotification(Notification notification, int delay) {
+        Toast.makeText(getActivity(), "set", Toast.LENGTH_LONG).show();
+
+        Intent notificationIntent = new Intent(getContext(), NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(getContext());
+        builder.setContentTitle("Scheduled Notification");
+        builder.setContentText(content);
+        //builder.setSmallIcon(R.drawable.ic_launcher);
+        return builder.build();
+    }
+
+
+
 
 
 }

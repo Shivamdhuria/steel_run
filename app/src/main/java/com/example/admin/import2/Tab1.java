@@ -393,7 +393,7 @@ public class Tab1 extends Fragment {
 
         TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         //getNetworkCountryIso
-        CountryID= "IN"; //manager.getSimCountryIso().toUpperCase();
+        CountryID= manager.getSimCountryIso().toUpperCase();
         String[] rl=this.getResources().getStringArray(R.array.CountryCodes);
         for(int i=0;i<rl.length;i++){
             String[] g=rl[i].split(",");

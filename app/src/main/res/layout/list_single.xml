@@ -17,12 +17,12 @@
             app:civ_border_color="#FF000000"
             android:elevation="0dp"
 
-            android:layout_marginLeft="22dp"
-            android:layout_marginStart="22dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="18dp" />
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:id="@+id/name"
@@ -31,8 +31,8 @@
             android:textSize="20sp"
             android:paddingTop="5dp"
             android:text="John Doe"
-            android:layout_marginLeft="21dp"
-            android:layout_marginStart="21dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
             android:textColor="@color/input_login"
             android:layout_marginBottom="12dp"
             android:layout_alignBottom="@+id/image"

@@ -26,6 +26,7 @@ public class SelectDateActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
+                i1 = i1+1;
                 dateDisplay.setText("Date: " + i2 + " / " + i1 + " / " + i);
                 date = Integer.toString(i2)+"/"+Integer.toString(i1)+"/"+Integer.toString(i);
 

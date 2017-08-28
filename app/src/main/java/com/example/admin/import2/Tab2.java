@@ -39,9 +39,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static android.R.attr.delay;
 import static android.R.id.list;
@@ -126,6 +131,7 @@ public class Tab2 extends Fragment {
                     holder.setmReminderTime(reminder.getReminderTime());
 
                             holder.setSender_image(reminder.getSenderPicture());
+                        //    setAlarm(reminder.getTimestamp());
 
                     if (adapter.getItemCount()==0){
                         emptyTextView.setVisibility(View.VISIBLE);
@@ -140,7 +146,7 @@ public class Tab2 extends Fragment {
 
                             //scheduleNotification(getNotification("5 second delay"), 5000);
                             //Setting alarm
-                            setAlarm();
+
 
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
@@ -170,6 +176,8 @@ public class Tab2 extends Fragment {
                             String senderKey = reminder.getSenderUID();
                             update(senderKey, reminderKey, "Accepted");
 
+                            setAlarm(reminder.getTimestamp());
+
 
 
                             Log.d("senderKEy", senderKey);
@@ -188,6 +196,8 @@ public class Tab2 extends Fragment {
 
 
                 }
+
+
             };
 
         if (adapter.getItemCount()==0){
@@ -223,21 +233,35 @@ public class Tab2 extends Fragment {
 
     }
 
-    public void setAlarm(){
+    public void setAlarm(String reminderTimeUnix){
         Toast.makeText(getActivity(), "Setting", Toast.LENGTH_LONG).show();
 
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
+        Long time = Long.parseLong(reminderTimeUnix);
+        Log.d("time set",time.toString());
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int intTime = time.intValue();
 
-        long TimeInMillis = SystemClock.elapsedRealtime() + 10000;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        Log.d("time setting", String.valueOf(time));
+
+
+
+
+
+
+
+        //calendar.setTimeInMillis(time);
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= 23) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, TimeInMillis, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime(), pendingIntent);
+            Log.d("alarm time set",time.toString());
         }else if (Build.VERSION.SDK_INT >= 19) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, TimeInMillis, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime(), pendingIntent);
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, TimeInMillis, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime(), pendingIntent);
         }
             Log.d("alarm","set");
 

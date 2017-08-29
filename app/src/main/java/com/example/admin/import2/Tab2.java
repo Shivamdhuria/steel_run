@@ -247,6 +247,10 @@ public class Tab2 extends Fragment {
         sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
         String formattedDate = sdf.format(date);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
@@ -261,12 +265,12 @@ public class Tab2 extends Fragment {
         //calendar.setTimeInMillis(time);
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= 23) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime(), pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
             Log.d("alarm time set",time.toString());
         }else if (Build.VERSION.SDK_INT >= 19) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime(), pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime(), pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
         }
             Log.d("alarm","set");
 

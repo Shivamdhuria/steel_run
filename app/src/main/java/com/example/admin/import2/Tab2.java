@@ -241,11 +241,16 @@ public class Tab2 extends Fragment {
         Log.d("time set",time.toString());
 
         int intTime = time.intValue();
+        Date date = new Date(time); // *1000 is to convert seconds to milliseconds
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
+        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Log.d("time setting", String.valueOf(time));
+        Log.d("time setting", formattedDate);
 
 
 

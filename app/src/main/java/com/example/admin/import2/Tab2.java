@@ -102,7 +102,7 @@ public class Tab2 extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query alarmQuery = mDatabase.child("reminders").child(userID).child("active_reminders");
         Query query = mDatabase.child("reminders").child(userID).child("active_reminders").orderByChild("timestamp").startAt(System.currentTimeMillis());
-
+        Log.d("current time", String.valueOf(System.currentTimeMillis()));
             //Setting alarms from database
         alarmQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -168,7 +168,7 @@ public class Tab2 extends Fragment {
                     holder.setMessage(reminder.getReminderMessage());
                     holder.setmReminderTime(reminder.getReminderTime());
                     holder.setSender_image(reminder.getSenderPicture());
-
+                    Log.d("holder time", reminder.getTimestamp());
 
 
 

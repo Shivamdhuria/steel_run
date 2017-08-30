@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +50,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import static android.R.attr.delay;
+import static android.R.attr.manageSpaceActivity;
 import static android.R.id.list;
 import static com.example.admin.import2.MainActivity.userID;
 
@@ -70,8 +72,7 @@ public class Tab2 extends Fragment {
 
     String receiverUID;
     private DatabaseReference mDatabase;
-
-
+    protected static ArrayList<String> alarms = new ArrayList<>();
 
 
     //Overriden method onCreateView
@@ -81,6 +82,7 @@ public class Tab2 extends Fragment {
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         View v = inflater.inflate(R.layout.tab2, container, false);
+
 
 
 
@@ -98,7 +100,43 @@ public class Tab2 extends Fragment {
         Log.d("Setting UID", userID);
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        Query alarmQuery = mDatabase.child("reminders").child(userID).child("active_reminders");
         Query query = mDatabase.child("reminders").child(userID).child("active_reminders").orderByChild("timestamp").startAt(System.currentTimeMillis());
+
+            //Setting alarms from database
+        alarmQuery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Reminder reminder = dataSnapshot.getValue(Reminder.class);
+
+                String demo = reminder.getTimestamp();
+                //email fetched from database
+                setAlarm(demo);
+                Log.d("alarms array", alarms.toString());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
             //Setting size of recycler view as constant
@@ -129,9 +167,12 @@ public class Tab2 extends Fragment {
                     holder.setName(reminder.getSenderName());
                     holder.setMessage(reminder.getReminderMessage());
                     holder.setmReminderTime(reminder.getReminderTime());
+                    holder.setSender_image(reminder.getSenderPicture());
 
-                            holder.setSender_image(reminder.getSenderPicture());
-                        //    setAlarm(reminder.getTimestamp());
+
+
+
+
 
                     if (adapter.getItemCount()==0){
                         emptyTextView.setVisibility(View.VISIBLE);
@@ -151,6 +192,7 @@ public class Tab2 extends Fragment {
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
                             update(senderKey, reminderKey, "Rejected");
+
                             Log.d("senderKEy", senderKey);
                             adapter.getRef(position).removeValue();
                             sendNotificationToUser(senderKey, "You have a new Response");
@@ -160,9 +202,11 @@ public class Tab2 extends Fragment {
 
 
                             adapter.notifyDataSetChanged();
+                            cancelAlarm(adapter.getItem(position).getTimestamp());
 
 
                         }
+
                     });
                     holder.button_accept.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -176,7 +220,7 @@ public class Tab2 extends Fragment {
                             String senderKey = reminder.getSenderUID();
                             update(senderKey, reminderKey, "Accepted");
 
-                            setAlarm(reminder.getTimestamp());
+
 
 
 
@@ -241,6 +285,7 @@ public class Tab2 extends Fragment {
         Log.d("time set",time.toString());
 
         int intTime = time.intValue();
+        Log.d("intTime", String.valueOf(intTime));
         Date date = new Date(time); // *1000 is to convert seconds to milliseconds
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
@@ -255,12 +300,6 @@ public class Tab2 extends Fragment {
 
 
         Log.d("time setting", formattedDate);
-
-
-
-
-
-
 
         //calendar.setTimeInMillis(time);
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
@@ -289,6 +328,28 @@ public class Tab2 extends Fragment {
 
 
 
+
+    }
+
+    public void cancelAlarm(String reminderTimeUnix) {
+        Toast.makeText(getActivity(), "Cancelling", Toast.LENGTH_LONG).show();
+
+        Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
+        Long time = Long.parseLong(reminderTimeUnix);
+
+
+        int intTime = time.intValue();
+        Log.d("cancelling",time.toString());
+        Log.d("int time", String.valueOf(intTime));
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        //calendar.setTimeInMillis(time);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.cancel(pendingIntent);
 
     }
 

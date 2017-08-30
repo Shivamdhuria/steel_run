@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                                Log.d("Getting username",userName);
+                                             //   Log.d("Getting username",userName);
                                                 userName = ds.child("username").getValue(String.class);
                                                 Log.d("Getting userPicture","user pic");
                                                 userPicture = ds.child("picture").getValue(String.class);

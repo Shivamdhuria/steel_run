@@ -107,7 +107,7 @@ public class Tab2 extends Fragment {
         Query query = mDatabase.child("reminders").child(userID).child("active_reminders").orderByChild("timestamp").startAt(currentTimeString);
 
             //Setting alarms from database
-        alarmQuery.addChildEventListener(new ChildEventListener() {
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Reminder reminder = dataSnapshot.getValue(Reminder.class);

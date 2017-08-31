@@ -10,10 +10,32 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/invitebutton">
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/invitebutton"/>
 
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/invitebutton"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Invite"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/empty"
@@ -30,26 +52,5 @@
         android:textColor="@color/common_google_signin_btn_text_light_default"
         android:layout_marginTop="120dp"
         android:visibility="invisible" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:id="@+id/listview"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/invitebutton" />
-
-    <Button
-        android:id="@+id/invitebutton"
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Invite"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

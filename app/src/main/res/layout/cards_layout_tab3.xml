@@ -63,7 +63,8 @@
                 android:layout_alignEnd="@+id/receiver_image"
                 android:layout_alignLeft="@+id/receiver_image"
                 android:layout_alignStart="@+id/receiver_image"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:textAlignment="center" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/receiver_image"

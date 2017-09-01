@@ -52,6 +52,7 @@ public class Reminder {
     }
 
     public String getReminderMessage() {
+
         return reminderMessage;
     }
 

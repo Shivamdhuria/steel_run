@@ -1,6 +1,9 @@
 package com.example.admin.import2;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +18,7 @@ public class SelectDateActivity extends AppCompatActivity {
     Button next2;
     String date;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,12 @@ public class SelectDateActivity extends AppCompatActivity {
         calendarView = (CalendarView)findViewById(R.id.calendarView);
         dateDisplay = (TextView)findViewById(R.id.dateDisplay);
         next2 =(Button)findViewById(R.id.button2);
+        long dates = System.currentTimeMillis();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+        String dateString = sdf.format(dates);
+        dateDisplay.setText("Date: "+dateString);
+        date = dateString;
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

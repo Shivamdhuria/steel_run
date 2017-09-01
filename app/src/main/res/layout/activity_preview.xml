@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_preview"
     android:layout_width="match_parent"
@@ -11,54 +12,137 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.admin.import2.PreviewActivity">
 
-    <TextView
-        android:text="Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/AppTheme"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/timeDisplay"
-        android:textSize="30sp" />
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:text="To:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recepientName"
-        android:textSize="24sp" />
+        <Button
+            android:text="Cancel"
+            android:layout_width="150dp"
+            android:id="@+id/btn_cancel"
+            android:background="?android:attr/colorAccent"
+            android:elevation="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btn_approve"
+            android:layout_alignBottom="@+id/btn_approve"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="30dp" />
 
-    <TextView
-        android:text="Reminder"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/reminderDisplay"
-        android:textSize="30sp"
-        android:layout_below="@+id/recepientName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="84dp" />
+        <Button
 
-    <Button
-        android:text="Approve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_approve"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/reminderDisplay"
-        android:layout_alignEnd="@+id/reminderDisplay"
-        android:layout_marginBottom="97dp" />
+            android:text="Approve"
+            android:layout_width="150dp"
+            android:id="@+id/btn_approve"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:elevation="15dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="79dp" />
 
-    <TextView
-        android:text="Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/reminderDisplay"
-        android:layout_toEndOf="@+id/reminderDisplay"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:id="@+id/dateDisplay"
-        android:textSize="24sp" />
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            card_view:cardCornerRadius="6dp"
+            card_view:cardElevation="5dp"
+            card_view:cardBackgroundColor="#FBF7DB"
+            android:id="@+id/cv"
+            android:paddingRight="0dp"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:text="26/12/2017"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dateDisplay"
+                    android:textSize="14sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignLeft="@+id/receiver_image"
+                    android:layout_alignStart="@+id/receiver_image"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignRight="@+id/receiver_image"
+                    android:layout_alignEnd="@+id/receiver_image"
+                    android:textAlignment="center" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/receiver_image"
+                    android:src="@drawable/profile"
+                    app:civ_border_color="#FF000000"
+                    android:elevation="6dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_above="@+id/recepientName"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_height="120dp"
+                    android:layout_width="120dp" />
+
+                <TextView
+                    android:text="Your reminder message will appear here"
+                    android:layout_width="250dp"
+                    android:layout_height="105dp"
+                    android:id="@+id/reminderDisplay"
+                    android:textSize="24sp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="10dp"
+                    android:layout_alignBottom="@+id/receiver_image"
+                    android:layout_toRightOf="@+id/receiver_image"
+                    android:layout_toEndOf="@+id/receiver_image" />
+
+                <TextView
+                android:text="6.60 P.M"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:id="@+id/timeDisplay"
+                android:textSize="20sp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="13dp" />
+
+                <TextView
+                    android:text="Receiver Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recepientName"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="27dp"
+                    android:layout_above="@+id/dateDisplay"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:text="Confirm Reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:layout_marginTop="33dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

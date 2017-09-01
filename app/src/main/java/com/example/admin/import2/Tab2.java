@@ -170,6 +170,8 @@ public class Tab2 extends Fragment {
                     holder.setName(reminder.getSenderName());
                     holder.setMessage(reminder.getReminderMessage());
                     holder.setmReminderTime(reminder.getReminderTime());
+                    holder.setmReminderDate(reminder.getSenderName());
+
                     holder.setSender_image(reminder.getSenderPicture());
                     Log.d("holder time", reminder.getTimestamp());
 

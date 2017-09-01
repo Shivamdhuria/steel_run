@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.api.model.StringList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,11 +38,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.mukesh.tinydb.TinyDB;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.telephony.PhoneNumberUtils.formatNumber;
 import static com.example.admin.import2.MainActivity.map;
 import static com.example.admin.import2.MainActivity.phoneContactNumbers;
@@ -124,11 +129,11 @@ public class Tab1 extends Fragment {
         setAdapter();
 
         //If no cached numes than collect names
-        if(cachedUsernames.size()==0){
+        /*if(cachedUsernames.size()==0){
           RefreshContacts();
 
 
-        }
+        }*/
         // Lookup the swipe container view
                 swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -271,6 +276,13 @@ public class Tab1 extends Fragment {
         phones.close();
 
 
+        //Removing duplicates from array
+        Set<String> hs = new HashSet<>();
+        hs.addAll(phoneContactNumbers);
+        phoneContactNumbers.clear();
+        phoneContactNumbers.addAll(hs);
+
+
     }
 
     private void collectUserNames(Map<String, Object> users) {
@@ -311,6 +323,8 @@ public class Tab1 extends Fragment {
                     }
                 }
             }
+
+
 
 
 

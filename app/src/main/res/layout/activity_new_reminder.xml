@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_new_reminder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,16 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.admin.import2.NewReminderActivity">
 
-
-    <Button
-        android:text="Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/next"
-        android:layout_marginTop="67dp"
-        android:layout_below="@+id/reminderDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Recepient"
@@ -32,14 +23,40 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/receiver_image"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/profile"
+        app:civ_border_width="0dp"
+        app:civ_border_color="#FF000000"
+        android:elevation="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
+
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/recepientname"
         android:textSize="28sp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/bg_register"
         android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/next"
+        android:layout_marginTop="44dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_below="@+id/reminderDisplay"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -49,10 +66,10 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/reminderDisplay"
-        android:layout_marginTop="34dp"
         android:hint="Reminder"
         android:textSize="22sp"
-        android:layout_below="@+id/recepientname"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/receiver_image"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

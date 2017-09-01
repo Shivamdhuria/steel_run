@@ -23,15 +23,6 @@
             >
 
 
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="105dp"
-                android:id="@+id/responseText"
-
-                android:textSize="18sp"
-                android:text="Your reminder message will appear here"
-                android:layout_alignParentTop="true" />
-
             <Button
                 android:text="Remove"
                 android:layout_width="wrap_content"
@@ -53,19 +44,6 @@
                 android:layout_alignRight="@+id/receiverName"
                 android:layout_alignEnd="@+id/receiverName" />
 
-            <TextView
-                android:text="receiverName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/receiverName"
-                android:layout_below="@+id/responseText"
-                android:layout_alignRight="@+id/receiver_image"
-                android:layout_alignEnd="@+id/receiver_image"
-                android:layout_alignLeft="@+id/receiver_image"
-                android:layout_alignStart="@+id/receiver_image"
-                android:textStyle="normal|bold"
-                android:textAlignment="center" />
-
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/receiver_image"
                 android:layout_width="90dp"
@@ -75,6 +53,30 @@
                 app:civ_border_color="#FF000000"
                 android:elevation="7dp"
                 android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="105dp"
+                android:id="@+id/responseText"
+
+                android:textSize="20sp"
+                android:text="Your reminder message will appear here"
+                android:layout_above="@+id/button_remove"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:text="receiverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/receiverName"
+                android:textStyle="normal|bold"
+                android:textAlignment="center"
+                android:layout_alignBottom="@+id/responseText"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>

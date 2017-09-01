@@ -75,7 +75,7 @@
                 android:layout_height="105dp"
                 android:id="@+id/text"
 
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="Your reminder message will appear here"
                 android:layout_above="@+id/button_reject"
                 android:layout_toEndOf="@+id/receiver_image"

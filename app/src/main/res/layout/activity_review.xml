@@ -1,92 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_review"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.admin.import2.ReviewActivity"
-    android:background="@color/colorPrimary">>
+    android:fitsSystemWindows="true"
+    tools:context="com.example.admin.import2.LoginActivity"
+    android:background="@color/colorPrimary">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btn_submit"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/profile"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#FF000000"
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
+
+    <ImageButton
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/camera"
+        android:id="@+id/button_profilepicture"
+        android:layout_alignBottom="@+id/profile_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="100dp"
+        android:layout_marginEnd="100dp" />
+
+    <TextView
+        android:text="This is not your username.This name appears to your Reminder App contacts."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_nameinfo"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_alignTop="@+id/displayName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/displayPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:text="Register"
-        android:textColor="@android:color/black"
-        android:layout_alignParentBottom="true"
+        android:hint="12 Digit Number"
+        android:inputType="none"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        android:selectAllOnFocus="false"
+        android:textAlignment="viewStart"
+
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:background="@color/colorPrimaryDarker"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/textview_nameinfo"
         android:layout_toRightOf="@+id/progressBar"
         android:layout_toEndOf="@+id/progressBar"
-        android:layout_marginBottom="142dp" />
+        android:layout_marginTop="32dp"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
-        android:text="Build Profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textAlignment="center"
-        android:layout_marginTop="43dp"
-        android:layout_below="@+id/progressBar"
-        android:layout_toRightOf="@+id/progressBar"
-        android:layout_toEndOf="@+id/progressBar" />
-
-    <TextView
-        android:text="Name"
+        android:text="Your Reminder App contacts use this number to find and send you reminders."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textviewName"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_alignBaseline="@+id/displayName"
-        android:layout_alignBottom="@+id/displayName"
-        android:layout_toRightOf="@+id/progressBar"
-        android:layout_toEndOf="@+id/progressBar" />
-
-    <TextView
-        android:text="Phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:layout_alignBaseline="@+id/displayPhone"
-        android:layout_alignBottom="@+id/displayPhone"
-        android:layout_alignLeft="@+id/textviewName"
-        android:layout_alignStart="@+id/textviewName" />
+        android:id="@+id/textView4"
+        android:textColor="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@+id/displayPhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
 
     <EditText
         android:id="@+id/displayName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapWords"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
-        android:layout_marginBottom="18dp"
         android:textSize="18sp"
-        android:textAlignment="center"
-        android:layout_above="@+id/displayPhone"
-        android:layout_marginStart="90dp" />
-
-    <EditText
-        android:id="@+id/displayPhone"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:hint="10 Digit Number"
-        android:inputType="textPassword|phone"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:selectAllOnFocus="false"
-        android:textAlignment="center"
-
+        android:textAlignment="viewStart"
+        android:text="Shivam Dhuria"
+        android:background="@color/colorPrimaryDarker"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/progressBar"
+        android:layout_toEndOf="@+id/progressBar"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 </RelativeLayout>

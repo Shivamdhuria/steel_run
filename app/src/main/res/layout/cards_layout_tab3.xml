@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:padding="16dp"
@@ -9,7 +9,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="187dp"
+        android:layout_height="201dp"
         card_view:cardCornerRadius="6dp"
         card_view:cardElevation="5dp"
         card_view:cardBackgroundColor="#FBF7DB"
@@ -17,7 +17,7 @@
         android:paddingRight="0dp">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="202dp"
             android:padding="16dp"
             >
@@ -37,24 +37,11 @@
                  android:text="Status"
                 android:layout_height="30dp"
                 android:textAlignment="center"
-                android:layout_alignBaseline="@+id/button_remove"
                 android:layout_alignBottom="@+id/button_remove"
                 android:layout_alignLeft="@+id/receiverName"
                 android:layout_alignStart="@+id/receiverName"
                 android:layout_alignRight="@+id/receiverName"
                 android:layout_alignEnd="@+id/receiverName" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/receiver_image"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:src="@drawable/profile"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"
-                android:elevation="7dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:layout_width="200dp"
@@ -69,16 +56,27 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/receiver_image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/profile"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                android:elevation="7dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
             <TextView
                 android:text="receiverName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/receiverName"
                 android:textStyle="normal|bold"
-                android:textAlignment="center"
-                android:layout_alignBottom="@+id/responseText"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/responseText"
+                android:layout_alignLeft="@+id/receiver_image"
+                android:layout_alignStart="@+id/receiver_image" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

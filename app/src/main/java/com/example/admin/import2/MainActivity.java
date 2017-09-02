@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.mukesh.tinydb.TinyDB;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     //Setting global Username and ID
     protected static String userName;
-    protected static String phoneNumber;
+    protected static String userphoneNumber;
     protected static String userID;
     protected static String userPicture;
 
@@ -154,6 +155,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                         finish();
                     } else {
                         userID = user.getUid();
+                        Log.d("Logging in userId...",userID);
+
+                        tinyDBM.putString("userId",userID);
                     }
                 }
             };
@@ -165,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 finish();
             } else {
                 userID = user.getUid();
+
             }
 
         }

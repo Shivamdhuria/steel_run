@@ -33,6 +33,7 @@ import static com.example.admin.import2.MainActivity.reminderMessage;
 import static com.example.admin.import2.MainActivity.reminderTime;
 import static com.example.admin.import2.MainActivity.tinyDBM;
 import static com.example.admin.import2.MainActivity.userID;
+import static com.example.admin.import2.MainActivity.userName;
 import static com.example.admin.import2.MainActivity.userPicture;
 
 public class PreviewActivity extends AppCompatActivity {
@@ -89,6 +90,7 @@ public class PreviewActivity extends AppCompatActivity {
           reminderDisplay.setText(MainActivity.reminderMessage);
            final String reminderTimeTimestamp =reminderDate+" "+reminderTime;
         final String picture = tinyDBM.getString("displayPicture");
+        userName=tinyDBM.getString("userNameDisplay");
         Log.d("reminderdate",reminderTimeTimestamp);
 
            convertTime(reminderTimeTimestamp);

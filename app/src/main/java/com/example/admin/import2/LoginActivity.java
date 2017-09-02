@@ -1,10 +1,9 @@
 package com.example.admin.import2;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,11 +24,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import static com.example.admin.import2.MainActivity.tinyDB;
+import java.util.Map;
+
 import static com.example.admin.import2.MainActivity.tinyDBM;
 import static com.example.admin.import2.MainActivity.userID;
 import static com.example.admin.import2.MainActivity.userName;
 import static com.example.admin.import2.MainActivity.userPicture;
+import static com.example.admin.import2.MainActivity.userphoneNumber;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -115,32 +116,42 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     userID=auth.getCurrentUser().getUid();
-                                    Log.d("cuid",userID);
+
                                     FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
                                      DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                                     Query query = mDatabase.child("users").orderByKey().equalTo(userID);
-                                    query.addValueEventListener(new ValueEventListener() {
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                             //   Log.d("Getting username",userName);
-                                                userName = ds.child("username").getValue(String.class);
-                                                Log.d("Getting userPicture","user pic");
-                                                userPicture = ds.child("picture").getValue(String.class);
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            String fetchName= snapshot.child("username").getValue(String.class);
+                                            String fetchPhone= snapshot.child("phone").getValue(String.class);
+                                            String fetchPicure= snapshot.child("userpicture").getValue(String.class);
+
+                                            //userName=fetchName;
+                                            tinyDBM.putString("userNameDisplay", fetchName);
+                                            tinyDBM.putString("phoneNumberDisplay", fetchPhone);
+                                            tinyDBM.putString("displayPicture",fetchPicure);
+                                            //Adding it to a string
+
+                                            Toast.makeText(LoginActivity.this, "Update", Toast.LENGTH_LONG).show();
 
 
 
+                                            //Displaying it on textview
 
-                                               // Tab2.textview_greet.setText("Hey There," +MainActivity.userName);
-                                            }
+
                                         }
 
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
-                                            Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
                                         }
                                     });
+
+
+
+
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();

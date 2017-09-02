@@ -1,21 +1,11 @@
 package com.example.admin.import2;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -25,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,34 +23,21 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Random;
 
-import static android.R.attr.data;
-import static android.R.attr.thumbnail;
 import static android.media.ThumbnailUtils.extractThumbnail;
 import static com.example.admin.import2.MainActivity.tinyDBM;
-import static com.example.admin.import2.MainActivity.userID;
 import static com.example.admin.import2.MainActivity.userPicture;
 
 public class Register extends AppCompatActivity {
@@ -75,7 +53,7 @@ public class Register extends AppCompatActivity {
 
     String countryCode;
     String phoneUpdated;
-     private Button button_profilepicture;
+     private ImageButton button_profilepicture;
     //a constant to track the file chooser intent
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri filePath;
@@ -117,8 +95,8 @@ public class Register extends AppCompatActivity {
         inputName = (EditText) findViewById(R.id.displayName);
         inputPhone = (EditText) findViewById(R.id.displayPhone);
         inputCountryCode = (EditText) findViewById(R.id.inputCountryCode);
-        btn_submit = (Button) findViewById(R.id.btn_submit);
-        button_profilepicture = (Button) findViewById(R.id.button_profilepicture);
+        btn_submit = (Button) findViewById(R.id.btn_edit);
+        button_profilepicture = (ImageButton) findViewById(R.id.button_profilepicture);
         String countryCode = GetCountryZipCode();
         Log.d("country code", countryCode);
         inputCountryCode.setText("+" + GetCountryZipCode());

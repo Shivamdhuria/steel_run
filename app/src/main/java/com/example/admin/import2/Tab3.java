@@ -27,8 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.example.admin.import2.MainActivity.userID;
 
@@ -43,6 +46,7 @@ public class Tab3 extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     TextView textviewEmpty;
+    TextView textView_TimeDate;
 
 
     String senderUID;
@@ -58,6 +62,7 @@ public class Tab3 extends Fragment {
 
 
         textviewEmpty = (TextView)v.findViewById(R.id.textViewEmpty);
+        textView_TimeDate=(TextView)v.findViewById(R.id.textView_TimeDate);
 
         senderUID = userID;
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -87,6 +92,7 @@ public class Tab3 extends Fragment {
                 holder2.setMessage(reminder.getReminderMessage());
                 holder2.setStatus(reminder.getStatus());
                 holder2.setName(reminder.getReceiverName());
+                holder2.setTimeDate(unixIntoDateTime(reminder.getTimestamp()));
 
                 holder2.setReceiver_image(reminder.getReceiverPicture());
                 holder2.button_remove.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +127,15 @@ public class Tab3 extends Fragment {
 
         //Returning the layout file after inflating
         return v;
+    }
+
+    public String unixIntoDateTime(String unix){
+        Long unixSeconds = Long.valueOf(unix);
+        Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
+        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
+        return formattedDate;
     }
 
 

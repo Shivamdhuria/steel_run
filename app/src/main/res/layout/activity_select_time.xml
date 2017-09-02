@@ -11,19 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="Time"
-            android:layout_width="match_parent"
+        <TimePicker
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/timeDisplay"
-            android:textSize="30sp"
-            android:layout_below="@+id/timePicker"
+            android:id="@+id/timePicker"
+            android:headerBackground="@android:color/holo_blue_bright"
+            android:numbersSelectorColor="@color/colorAccent"
+            android:numbersTextColor="@color/bg_register"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="50dp"
-            android:visibility="invisible" />
+            android:layout_alignParentTop="true" />
 
         <Button
             android:text="Review"
@@ -35,17 +32,18 @@
             android:textSize="18sp"
             android:layout_below="@+id/timeDisplay"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/timePicker"
-            android:headerBackground="@android:color/holo_blue_bright"
-            android:numbersSelectorColor="@color/colorAccent"
-            android:numbersTextColor="@color/bg_register"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_marginTop="46dp" />
+
+        <TextView
+            android:text="Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeDisplay"
+            android:textSize="30sp"
+            android:layout_marginTop="23dp"
+            android:layout_below="@+id/timePicker"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

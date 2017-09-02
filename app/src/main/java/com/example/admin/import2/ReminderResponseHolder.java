@@ -19,15 +19,21 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
     private final TextView mTextField;
     private final TextView mStatusField;
     private final TextView mReceiverNameField;
+    private final TextView mDateTimeField;
     public final Button button_remove;
     public final ImageView receiver_image;
 
+
+    public TextView getmDateTimeField() {
+        return mDateTimeField;
+    }
 
     public ReminderResponseHolder(View itemView) {
         super(itemView);
         mTextField = (TextView) itemView.findViewById(R.id.responseText);
         mStatusField = (TextView) itemView.findViewById(R.id.status);
         mReceiverNameField=(TextView)itemView.findViewById(R.id.receiverName);
+        mDateTimeField=(TextView)itemView.findViewById(R.id.textView_TimeDate);
         button_remove=(Button)itemView.findViewById(R.id.button_remove);
         receiver_image=(ImageView)itemView.findViewById(R.id.receiver_image);
 
@@ -39,6 +45,11 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
     public void setMessage(String message) {
 
         mTextField.setText(message);
+    }
+
+    public void setTimeDate(String date) {
+
+        mDateTimeField.setText(date);
     }
     public void setReceiver_image(String encodedImage) {
         if (!encodedImage.equals("null")) {

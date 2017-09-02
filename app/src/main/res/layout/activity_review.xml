@@ -16,17 +16,6 @@
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/profile"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#FF000000"
-        android:layout_below="@+id/progressBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp" />
-
     <ImageButton
         android:background="@null"
         android:layout_width="wrap_content"
@@ -110,5 +99,16 @@
         android:cursorVisible="false"
         android:focusable="false"
         android:focusableInTouchMode="false"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/profile"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#FF000000"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/textview_nameinfo"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

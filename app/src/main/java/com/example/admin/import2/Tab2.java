@@ -169,8 +169,9 @@ public class Tab2 extends Fragment {
                     //Setting the name,message and time
                     holder.setName(reminder.getSenderName());
                     holder.setMessage(reminder.getReminderMessage());
-                    holder.setmReminderTime(reminder.getReminderTime());
+                    holder.setmReminderTime(unixIntoTime(reminder.getTimestamp()));
                     holder.setmReminderDate(unixIntoDate(reminder.getTimestamp()));
+
 
                     holder.setSender_image(reminder.getSenderPicture());
                     Log.d("holder time", reminder.getTimestamp());
@@ -385,6 +386,15 @@ public class Tab2 extends Fragment {
         Long unixSeconds = Long.valueOf(unix);
         Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // the format of your date
+        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
+        return formattedDate;
+    }
+
+    public String unixIntoTime(String unix){
+        Long unixSeconds = Long.valueOf(unix);
+        Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a"); // the format of your date
         sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
         String formattedDate = sdf.format(date);
         return formattedDate;

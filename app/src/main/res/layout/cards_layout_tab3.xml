@@ -9,7 +9,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="201dp"
+        android:layout_height="202dp"
         card_view:cardCornerRadius="6dp"
         card_view:cardElevation="5dp"
         card_view:cardBackgroundColor="#FBF7DB"
@@ -18,10 +18,23 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="202dp"
-            android:padding="16dp"
-            >
+            android:padding="0dp"
+            android:layout_height="match_parent">
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/status"
+                 android:text="Status"
+                android:layout_height="30dp"
+                android:textAlignment="textEnd"
+                android:layout_alignBaseline="@+id/button_remove"
+                android:layout_alignBottom="@+id/button_remove"
+                android:layout_alignLeft="@+id/receiverName"
+                android:layout_alignStart="@+id/receiverName"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:paddingRight="5dp" />
 
             <Button
                 android:text="Remove"
@@ -29,19 +42,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/button_remove"
                 style="@style/Widget.AppCompat.Button"
-                android:layout_alignParentBottom="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/status"
-                 android:text="Status"
-                android:layout_height="30dp"
-                android:textAlignment="center"
-                android:layout_alignBottom="@+id/button_remove"
-                android:layout_alignLeft="@+id/receiverName"
-                android:layout_alignStart="@+id/receiverName"
-                android:layout_alignRight="@+id/receiverName"
-                android:layout_alignEnd="@+id/receiverName" />
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="200dp"
@@ -50,11 +55,10 @@
 
                 android:textSize="20sp"
                 android:text="Your reminder message will appear here"
-                android:layout_above="@+id/button_remove"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp" />
+                android:layout_marginTop="22dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/button_remove"
+                android:layout_alignStart="@+id/button_remove" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/receiver_image"
@@ -64,19 +68,25 @@
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"
                 android:elevation="7dp"
-                android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/responseText"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="19dp"
+                android:layout_marginEnd="19dp" />
 
             <TextView
                 android:text="receiverName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/receiverName"
                 android:textStyle="normal|bold"
-                android:layout_below="@+id/responseText"
                 android:layout_alignLeft="@+id/receiver_image"
-                android:layout_alignStart="@+id/receiver_image" />
+                android:layout_alignStart="@+id/receiver_image"
+                android:layout_above="@+id/status"
+                android:layout_below="@+id/responseText"
+                android:layout_alignRight="@+id/receiver_image"
+                android:layout_alignEnd="@+id/receiver_image"
+                android:textAlignment="center" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

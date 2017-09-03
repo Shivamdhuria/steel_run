@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -197,31 +198,66 @@ public class Tab1 extends Fragment {
         return v;
     }
 
+
+    //Trying to refesh in background
+    // All the methods in the following class are
+    // executed in the same order as they are defined.
+    class myAsyncTask extends AsyncTask<Void, Void, Void> {
+
+
+
+        // Executed on the UI thread before the
+        // time taking task begins
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(getActivity(), "Refreshing", Toast.LENGTH_SHORT).show();
+        }
+
+        // Executed on a special thread and all your
+        // time taking tasks should be inside this method
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    //User user = dataSnapshot.getValue(User.class);
+                    //Get map of users in datasnapshot
+                    phoneContactNumbers.clear();
+                    // Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
+                    getContacts();
+                    collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+                    sort();
+
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //Error in Reaching Database
+                    Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
+                }
+
+
+            });
+            return null;
+        }
+
+        // Executed on the UI thread after the
+        // time taking process is completed
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            Toast.makeText(getActivity(), "Sync completed!", Toast.LENGTH_SHORT).show();
+            setAdapter();
+        }
+    }
+
     private void RefreshContacts() {
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //User user = dataSnapshot.getValue(User.class);
-                //Get map of users in datasnapshot
-                phoneContactNumbers.clear();
-               // Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
-                getContacts();
-                collectUserNames((Map<String, Object>) dataSnapshot.getValue());
-                 sort();
-                setAdapter();
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Error in Reaching Database
-                Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
-            }
-
-
-        });
+        myAsyncTask fetchAndLoad = new myAsyncTask();
+        fetchAndLoad.execute();
     }
 
 

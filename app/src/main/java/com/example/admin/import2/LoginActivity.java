@@ -119,17 +119,20 @@ public class LoginActivity extends AppCompatActivity {
 
                                     FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
-                                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                                    Query query = mDatabase.child("users").orderByKey().equalTo(userID);
-                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        //Getting user info
+                                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+                                    Query query = mDatabase.child(userID);
+
+                                    query.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot snapshot) {
-                                            String fetchName= snapshot.child("username").getValue(String.class);
+                                           String fetchName= snapshot.child("username").getValue(String.class);
                                             String fetchPhone= snapshot.child("phone").getValue(String.class);
                                             String fetchPicure= snapshot.child("userpicture").getValue(String.class);
 
                                             //userName=fetchName;
-                                            tinyDBM.putString("userNameDisplay", fetchName);
+                                          //  Log.d("fetchName", fetchName);
+                                           tinyDBM.putString("userNameDisplay", fetchName);
                                             tinyDBM.putString("phoneNumberDisplay", fetchPhone);
                                             tinyDBM.putString("displayPicture",fetchPicure);
                                             //Adding it to a string

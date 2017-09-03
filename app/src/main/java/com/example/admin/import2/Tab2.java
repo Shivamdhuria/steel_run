@@ -222,28 +222,31 @@ public class Tab2 extends Fragment {
                         @Override
                         public void onClick(View v) {
 
-                            int position = holder.getAdapterPosition();
-                            Log.d("index", String.valueOf((position)));
+                            if(System.currentTimeMillis()>=Long.parseLong(reminder.getTimestamp())-5*60*1000) {
+
+                                int position = holder.getAdapterPosition();
+                                Log.d("index", String.valueOf((position)));
 
 
-                            String reminderKey = adapter.getRef(position).getKey();
-                            String senderKey = reminder.getSenderUID();
-                            update(senderKey, reminderKey, "Accepted");
+                                String reminderKey = adapter.getRef(position).getKey();
+                                String senderKey = reminder.getSenderUID();
+                                update(senderKey, reminderKey, "Accepted");
 
 
+                                Log.d("senderKEy", senderKey);
+                                adapter.getRef(position).removeValue();
+                                sendNotificationToUser(senderKey, "You have a new Response");
+                                adapter.notifyItemRemoved(position);
+
+                                // adapter.notifyItemRangeChanged(position, adapter.getItemCount());
 
 
+                                adapter.notifyDataSetChanged();
+                            }
+                            else {
+                                Toast.makeText(getActivity(), "Reminder can only be accepted after the event's intended time", Toast.LENGTH_LONG).show();
 
-                            Log.d("senderKEy", senderKey);
-                            adapter.getRef(position).removeValue();
-                            sendNotificationToUser(senderKey, "You have a new Response");
-                            adapter.notifyItemRemoved(position);
-
-                            // adapter.notifyItemRangeChanged(position, adapter.getItemCount());
-
-
-                            adapter.notifyDataSetChanged();
-
+                            }
 
                         }
                     });

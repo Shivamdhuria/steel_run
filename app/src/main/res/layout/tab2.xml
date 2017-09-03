@@ -24,7 +24,7 @@
         android:id="@+id/norem"
         android:textColor="@color/cardview_shadow_start_color"
         android:textSize="18sp"
-        android:layout_above="@+id/btn_profile"
+
         android:layout_marginBottom="305dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

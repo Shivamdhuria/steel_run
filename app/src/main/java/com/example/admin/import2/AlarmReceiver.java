@@ -38,7 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark_normal)
                         .setContentTitle("Event Reminder")
-                        .setContentText("5 mins to the Event")
+                        .setContentText("5 minutes to the Event")
                          .setDefaults(Notification.DEFAULT_SOUND)
                         .setContentIntent(pIntent);
 

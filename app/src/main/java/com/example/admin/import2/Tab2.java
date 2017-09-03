@@ -288,7 +288,10 @@ public class Tab2 extends Fragment {
 
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
         Long time = Long.parseLong(reminderTimeUnix);
-        Log.d("time set",time.toString());
+        Log.d("Time for Alarm",time.toString());
+        //Subtracting 5 min from alarm
+        time = Long.parseLong(reminderTimeUnix)-5*60*1000;
+        Log.d("Time for Alarm - 5min",time.toString());
 
         int intTime = time.intValue();
         Log.d("intTime", String.valueOf(intTime));

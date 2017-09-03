@@ -100,7 +100,7 @@ public class Tab2 extends Fragment {
         Log.d("Setting UID", userID);
         //receiverUID = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query alarmQuery = mDatabase.child("reminders").child(userID).child("active_reminders");
+
         Long currentTime = System.currentTimeMillis();
         Log.d("current time", String.valueOf(currentTime.toString()));
         String currentTimeString = String.valueOf(currentTime.toString());
@@ -153,12 +153,16 @@ public class Tab2 extends Fragment {
             query.keepSynced(true);
 
 
+            //query for reminders current time - 12 hours
+        Long time12HoursPrior = System.currentTimeMillis()-12*60*60*1000;
+        String stringTime12Prior = String.valueOf(time12HoursPrior);
+        Query query12HoursPrior = mDatabase.child("reminders").child(userID).child("active_reminders").orderByChild("timestamp").startAt(stringTime12Prior);
 
-            adapter = new FirebaseRecyclerAdapter<Reminder, ReminderHolder>(
+        adapter = new FirebaseRecyclerAdapter<Reminder, ReminderHolder>(
                     Reminder.class,
                     R.layout.cards_layout,
                     ReminderHolder.class,
-                    query) {
+                    query12HoursPrior) {
 
                
 

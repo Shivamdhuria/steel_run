@@ -69,7 +69,8 @@
                 android:layout_above="@+id/reminderDate"
                 android:layout_below="@+id/text"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:textStyle="normal|bold" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/receiver_image"

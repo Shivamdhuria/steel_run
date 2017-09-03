@@ -143,7 +143,7 @@ public class Tab1 extends Fragment {
             public void onRefresh() {
 
                 // Your code to refresh the list here.
-                swipeContainer.setRefreshing(false);
+
                 // once the network request has completed successfully.
 
 
@@ -227,9 +227,10 @@ public class Tab1 extends Fragment {
                     phoneContactNumbers.clear();
                     // Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
                     getContacts();
-                    collectUserNames((Map<String, Object>) dataSnapshot.getValue());
-                    sort();
 
+
+                    collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+                    setAdapter();
                 }
 
 
@@ -251,7 +252,8 @@ public class Tab1 extends Fragment {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             Toast.makeText(getActivity(), "Sync completed!", Toast.LENGTH_SHORT).show();
-            setAdapter();
+            swipeContainer.setRefreshing(false);
+
         }
     }
 

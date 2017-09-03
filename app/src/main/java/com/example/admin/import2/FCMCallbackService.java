@@ -45,6 +45,15 @@ public class FCMCallbackService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         Intent intent = new Intent(this, MainActivity.class);
+        if(title.equals("New Reminder")) {
+
+
+            intent.putExtra("tab", "1");
+        }
+        else {
+            intent.putExtra("tab", "2");
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);

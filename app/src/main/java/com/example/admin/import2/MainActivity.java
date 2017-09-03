@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        String position = intent.getStringExtra("tab");
+
 
 
 
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             Pager adapter = new Pager(getSupportFragmentManager());
 
 
+
+
             //Adding onTabSelectedListener to swipe views
             tabLayout.addOnTabSelectedListener(this);
 
@@ -137,6 +142,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 }
             });
             viewPager.setAdapter(adapter);
+
+        if(position!=null){
+            Log.d("Setting position....",position);
+
+            viewPager.setCurrentItem(Integer.parseInt(position));
+        }
+        else{
+            viewPager.setCurrentItem(0);
+        }
 
             //get firebase auth instance
             auth = FirebaseAuth.getInstance();
@@ -171,6 +185,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 userID = user.getUid();
 
             }
+
+
+
 
         }
 

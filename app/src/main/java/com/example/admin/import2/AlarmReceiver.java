@@ -33,6 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         WakeLocker wakelocker = new WakeLocker();
         wakelocker.acquire(context);
         Intent myIntent = new Intent(context, MainActivity.class);
+        intent.putExtra("tab", "1");
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)

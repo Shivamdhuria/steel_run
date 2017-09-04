@@ -10,7 +10,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.admin.import2.PreviewActivity">
+    tools:context="com.example.admin.import2.PreviewActivity"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             android:text="Cancel"
             android:layout_width="150dp"
             android:id="@+id/btn_cancel"
-            android:background="?android:attr/colorAccent"
+            android:background="@color/common_plus_signin_btn_text_dark_pressed"
             android:elevation="15dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/btn_approve"
@@ -38,14 +39,15 @@
             android:text="Approve"
             android:layout_width="150dp"
             android:id="@+id/btn_approve"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/black"
             android:elevation="15dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cv"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="79dp" />
+            android:layout_marginTop="79dp"
+            android:textColorLink="@color/colorAccent" />
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
@@ -82,14 +84,15 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/receiver_image"
                     android:src="@drawable/profile"
-                    app:civ_border_color="#FF000000"
+                    app:civ_border_color="@color/colorPrimary"
                     android:elevation="6dp"
                     android:layout_marginBottom="15dp"
                     android:layout_above="@+id/recepientName"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_height="120dp"
-                    android:layout_width="120dp" />
+                    android:layout_width="120dp"
+                    app:civ_border_width="1dp" />
 
                 <TextView
                     android:text="Your reminder message will appear here"
@@ -101,7 +104,8 @@
                     android:paddingRight="10dp"
                     android:layout_alignBottom="@+id/receiver_image"
                     android:layout_toRightOf="@+id/receiver_image"
-                    android:layout_toEndOf="@+id/receiver_image" />
+                    android:layout_toEndOf="@+id/receiver_image"
+                    android:textStyle="normal|italic" />
 
                 <TextView
                 android:text="6.60 P.M"
@@ -126,7 +130,8 @@
                     android:layout_marginBottom="27dp"
                     android:layout_above="@+id/dateDisplay"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:textStyle="normal|bold" />
 
             </RelativeLayout>
 
@@ -142,7 +147,8 @@
             android:layout_marginTop="33dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
 </RelativeLayout>

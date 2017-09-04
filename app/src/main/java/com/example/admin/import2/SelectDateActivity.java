@@ -27,8 +27,8 @@ public class SelectDateActivity extends AppCompatActivity {
         dateDisplay = (TextView)findViewById(R.id.dateDisplay);
         next2 =(Button)findViewById(R.id.button2);
         long dates = System.currentTimeMillis();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+         calendarView.setMinDate(dates);
+        SimpleDateFormat sdf = new SimpleDateFormat("d / M / yyyy");
         String dateString = sdf.format(dates);
         dateDisplay.setText("Date: "+dateString);
         date = dateString;
@@ -45,6 +45,7 @@ public class SelectDateActivity extends AppCompatActivity {
         next2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 MainActivity.reminderDate = date;
                 Toast.makeText(getApplication(), date, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SelectDateActivity.this, SelectTimeActivity.class));

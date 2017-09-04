@@ -31,7 +31,8 @@
                 android:background="@color/cardview_light_background"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/btn_logut_bg" />
 
             <Button
                 android:text="Accept"

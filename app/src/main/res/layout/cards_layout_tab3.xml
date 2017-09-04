@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/tools"
     android:padding="16dp"
     android:weightSum="1"
-    android:layout_height="250dp">
+    android:layout_height="250dp"
+    android:paddingTop="10dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -48,8 +49,6 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/receiver_image"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
                 android:src="@drawable/profile"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"
@@ -58,7 +57,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 card_view:civ_border_color="@color/colorPrimary"
-                card_view:civ_border_width="1dp" />
+                card_view:civ_border_width="1dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp" />
 
             <TextView
                 android:text="receiverName"
@@ -73,13 +74,12 @@
                 android:layout_alignLeft="@+id/receiver_image"
                 android:layout_alignStart="@+id/receiver_image" />
 
-            <Button
-                android:text="Remove"
+            <TextView
+                android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_remove"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_alignParentBottom="true"
+                android:id="@+id/textView_time"
+                android:layout_below="@+id/textView_TimeDate"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -88,13 +88,26 @@
                 android:layout_height="105dp"
                 android:id="@+id/responseText"
 
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="Your reminder message will appear here"
                 android:textStyle="normal|italic"
+                android:paddingEnd="10dp"
                 android:layout_above="@+id/button_remove"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:paddingEnd="10dp" />
+                android:padding="10dp" />
+
+            <Button
+                android:text="Remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_remove"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/common_plus_signin_btn_text_dark_pressed"
+                android:textColor="@color/btn_logut_bg" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

@@ -93,6 +93,7 @@ public class Tab3 extends Fragment {
                 holder2.setStatus(reminder.getStatus());
                 holder2.setName(reminder.getReceiverName());
                 holder2.setTimeDate(unixIntoDateTime(reminder.getTimestamp()));
+                holder2.setTime(unixIntoOnlyTime(reminder.getTimestamp()));
 
                 holder2.setReceiver_image(reminder.getReceiverPicture());
                 holder2.button_remove.setOnClickListener(new View.OnClickListener() {
@@ -132,11 +133,20 @@ public class Tab3 extends Fragment {
     public String unixIntoDateTime(String unix){
         Long unixSeconds = Long.valueOf(unix);
         Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM d, yyyy,HH:mm"); // the format of your date
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM d, yyyy"); // the format of your date
         sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
         String formattedDate = sdf.format(date);
         return formattedDate;
     }
+    public String unixIntoOnlyTime(String unix){
+        Long unixSeconds = Long.valueOf(unix);
+        Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a"); // the format of your date
+        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
+        return formattedDate;
+    }
+
 
 
 }

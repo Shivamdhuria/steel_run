@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import static com.example.admin.import2.MainActivity.reminderDate;
 import static com.example.admin.import2.MainActivity.reminderTime;
@@ -70,6 +71,14 @@ public class SelectTimeActivity extends AppCompatActivity {
         } Log.d("time in Epoch",Long.toString(date.getTime()));
         return date.getTime();
 
+    }
+    public String unixIntoDateTime(String unix){
+        Long unixSeconds = Long.valueOf(unix);
+        Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM d, yyyy"); // the format of your date
+        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
+        return formattedDate;
     }
 
 }

@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.example.admin.import2.MainActivity.recepientUID;
 import static com.example.admin.import2.MainActivity.reminderDate;
@@ -85,10 +86,11 @@ public class PreviewActivity extends AppCompatActivity {
 
             //Preview receivers name,time,data and Message from MainActivity
           recepientName.setText(MainActivity.recepientName);
-          dateDisplay.setText(MainActivity.reminderDate);
+
           timeDisplay.setText(MainActivity.reminderTime);
           reminderDisplay.setText(MainActivity.reminderMessage);
            final String reminderTimeTimestamp =reminderDate+" "+reminderTime;
+        dateDisplay.setText(unixIntoDate(convertTime(reminderTimeTimestamp)));
         final String picture = tinyDBM.getString("displayPicture");
         userName=tinyDBM.getString("userNameDisplay");
         Log.d("reminderdate",reminderTimeTimestamp);
@@ -157,7 +159,14 @@ public class PreviewActivity extends AppCompatActivity {
 
 
     }
-
+    public String unixIntoDate(String unix){
+        Long unixSeconds = Long.valueOf(unix);
+        Date date = new Date(unixSeconds); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM d, yyyy"); // the format of your date
+        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+        String formattedDate = sdf.format(date);
+        return formattedDate;
+    }
 
 
 

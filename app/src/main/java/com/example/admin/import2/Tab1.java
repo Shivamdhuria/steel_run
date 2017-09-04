@@ -75,12 +75,15 @@ public class Tab1 extends Fragment {
     SharedPreferences prefs;
     TextView textview_empty;
 
+    //custom adapter
+    CustomAdapter adapter;
+
     protected static ArrayList<String> cachedUsernames = new ArrayList<>();
     protected static ArrayList<String> cachedUIDs = new ArrayList<>();
     protected static ArrayList<String> cachedPictures = new ArrayList<>();
 
 
-    String receiverUID, receivername,receiverPicture;
+    String receiverUID, receivername, receiverPicture;
 
 
     //Overriden method onCreateView
@@ -92,12 +95,11 @@ public class Tab1 extends Fragment {
         //Create a new instance of TinyDB
 
         //use that instance to save data
-       tinyDB = new TinyDB(getActivity());
-        textview_empty= (TextView)v.findViewById(R.id.empty);
+        tinyDB = new TinyDB(getActivity());
+        textview_empty = (TextView) v.findViewById(R.id.empty);
 
 
-
-       // Log.d("catched Pictures ",cachedPictures.toString());
+        // Log.d("catched Pictures ",cachedPictures.toString());
 
 
         //get firebase auth instance
@@ -123,11 +125,12 @@ public class Tab1 extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.keepSynced(true);
         listView = (ListView) v.findViewById(R.id.listview);
-        cachedUsernames=tinyDB.getListString("usernames");
-        cachedUIDs=tinyDB.getListString("uids");
-        cachedPictures= tinyDB.getListString("userpictures");
+        cachedUsernames = tinyDB.getListString("usernames");
+        cachedUIDs = tinyDB.getListString("uids");
+        cachedPictures = tinyDB.getListString("userpictures");
         sort();
         setAdapter();
+
 
         //If no cached numes than collect names
         /*if(cachedUsernames.size()==0){
@@ -136,7 +139,7 @@ public class Tab1 extends Fragment {
 
         }*/
         // Lookup the swipe container view
-                swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -146,9 +149,15 @@ public class Tab1 extends Fragment {
 
                 // once the network request has completed successfully.
 
+                swipeContainer.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeContainer.setRefreshing(true);
+                    }
+                });
 
+                getContactsAndMatch();
 
-                RefreshContacts();
      }
 
 
@@ -164,7 +173,7 @@ public class Tab1 extends Fragment {
                 String s = Integer.toString(position);
                 receiverUID = cachedUIDs.get(position);
                 receivername = cachedUsernames.get(position);
-                receiverPicture=cachedPictures.get(position);
+                receiverPicture = cachedPictures.get(position);
 
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
@@ -187,7 +196,7 @@ public class Tab1 extends Fragment {
                     sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
                     i.putExtra(Intent.EXTRA_TEXT, sAux);
                     startActivity(Intent.createChooser(i, "Choose one"));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     //e.toString();
                 }
             }
@@ -202,65 +211,6 @@ public class Tab1 extends Fragment {
     //Trying to refesh in background
     // All the methods in the following class are
     // executed in the same order as they are defined.
-    class myAsyncTask extends AsyncTask<Void, Void, Void> {
-
-
-
-        // Executed on the UI thread before the
-        // time taking task begins
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(getActivity(), "Refreshing", Toast.LENGTH_SHORT).show();
-        }
-
-        // Executed on a special thread and all your
-        // time taking tasks should be inside this method
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    //User user = dataSnapshot.getValue(User.class);
-                    //Get map of users in datasnapshot
-                    phoneContactNumbers.clear();
-                    // Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
-                    getContacts();
-
-
-                    collectUserNames((Map<String, Object>) dataSnapshot.getValue());
-                    setAdapter();
-                }
-
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    //Error in Reaching Database
-                    Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
-                }
-
-
-            });
-            return null;
-        }
-
-        // Executed on the UI thread after the
-        // time taking process is completed
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            Toast.makeText(getActivity(), "Sync completed!", Toast.LENGTH_SHORT).show();
-            swipeContainer.setRefreshing(false);
-
-        }
-    }
-
-    private void RefreshContacts() {
-        myAsyncTask fetchAndLoad = new myAsyncTask();
-        fetchAndLoad.execute();
-    }
 
 
 
@@ -276,7 +226,7 @@ public class Tab1 extends Fragment {
         intent.putExtra("ReceiverName", receivername);
         MainActivity.recepientUID = receiverUID;
         MainActivity.recepientName = receivername;
-        MainActivity.receieverPicture= receiverPicture;
+        MainActivity.receieverPicture = receiverPicture;
 
         startActivity(intent);
 
@@ -284,6 +234,7 @@ public class Tab1 extends Fragment {
     }
 
     public void getContacts() {
+
         map = new HashMap<>();
         Cursor phones = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
         while (phones.moveToNext()) {
@@ -292,15 +243,15 @@ public class Tab1 extends Fragment {
             String locale = GetCountryZipCode();
 
 
-            Log.d("Phone formates",locale);
-        // String for =   formatNumber(phoneNumber,locale);
+            Log.d("Phone formates", locale);
+            // String for =   formatNumber(phoneNumber,locale);
             phoneNumber = phoneNumber.replaceAll("[()\\-\\s]", "").trim();
 
 
             if (phoneNumber.length() == 10) {
                 phoneNumber = locale + phoneNumber;
             }
-                //formatNumber(phoneNumber, String defaultCountryIso);
+            //formatNumber(phoneNumber, String defaultCountryIso);
             Log.d("Names", name);
             if (phoneNumber != null) {
                 map.put("name", name);
@@ -310,7 +261,7 @@ public class Tab1 extends Fragment {
 
             }
         }
-        Log.d("phoneContactNumbers",phoneContactNumbers.toString());
+        Log.d("phoneContactNumbers", phoneContactNumbers.toString());
         phones.close();
 
 
@@ -325,9 +276,11 @@ public class Tab1 extends Fragment {
 
     private void collectUserNames(Map<String, Object> users) {
 
+
         uid.clear();
         userNames.clear();
         userPictures.clear();
+
 
 
         //iterate through each user, ignoring their UID
@@ -355,80 +308,76 @@ public class Tab1 extends Fragment {
                         //Get usernames and append to list and array
                         userNames.add((String) singleUser.get("username"));
                         //get User Picures in byte 64 format string
-                        userPictures.add((String)singleUser.get("userpicture"));
-                        Log.d("collecte user picture",userPictures.toString());
+                        userPictures.add((String) singleUser.get("userpicture"));
+                        Log.d("collecte user picture", userPictures.toString());
 
                     }
                 }
             }
 
 
-
-
-
-
-
-
-
-
         }
-        tinyDB.putListString("usernames",userNames);
-        tinyDB.putListString("uids",uid);
-        tinyDB.putListString("userpictures",userPictures);
-        cachedUsernames= userNames;
-        cachedUIDs=uid;
-        cachedPictures=userPictures;
+
+        tinyDB.putListString("usernames", userNames);
+        tinyDB.putListString("uids", uid);
+        tinyDB.putListString("userpictures", userPictures);
+        cachedUsernames = userNames;
+        cachedUIDs = uid;
+        cachedPictures = userPictures;
         sort();
 
-        Log.d("cached Username ",cachedUsernames.toString());
-        Log.d("cached UIDs",cachedUIDs.toString());
-        Log.d("cached  User Pictures",userPictures.toString());
+        Log.d("cached Username ", cachedUsernames.toString());
+        Log.d("cached UIDs", cachedUIDs.toString());
+        Log.d("cached  User Pictures", userPictures.toString());
 
+        setAdapter();
+
+        swipeContainer.setRefreshing(false);
 
     }
 
-    private void setAdapter(){
+    private void setAdapter() {
 
         //if still empty
-        if(cachedUsernames.size()==0){
+        if (cachedUsernames.size() == 0) {
             textview_empty.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             textview_empty.setVisibility(View.INVISIBLE);
         }
-       // sort();
-      // ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames,cachedPictures);
+        // sort();
+        // ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, cachedUsernames,cachedPictures);
 
-       CustomAdapter adapter = new CustomAdapter(getActivity(),cachedUsernames,cachedPictures);
+        adapter = new CustomAdapter(getActivity(), cachedUsernames, cachedPictures);
         listView.setAdapter(adapter);
+
 
 
     }
 
     //functions to sort alphatically
-    private  void sort(){
+    private void sort() {
 
         String temp;
         String tempUid;
         String tempPic;
-        for(int i=0;i<cachedUsernames.size();i++){
+        for (int i = 0; i < cachedUsernames.size(); i++) {
 
-            for(int j=i+1;j<cachedUsernames.size();j++){
+            for (int j = i + 1; j < cachedUsernames.size(); j++) {
 
-                if(cachedUsernames.get(i).compareTo(cachedUsernames.get(j))<0){
+                if (cachedUsernames.get(i).compareTo(cachedUsernames.get(j)) < 0) {
 
-                    temp=cachedUsernames.get(i);
+                    temp = cachedUsernames.get(i);
                     cachedUsernames.set(i, cachedUsernames.get(j));
-                    cachedUsernames.set(j,temp );
+                    cachedUsernames.set(j, temp);
 
                     //Sort UID
-                    tempUid=cachedUIDs.get(i);
+                    tempUid = cachedUIDs.get(i);
                     cachedUIDs.set(i, cachedUIDs.get(j));
-                    cachedUIDs.set(j,tempUid );
+                    cachedUIDs.set(j, tempUid);
 
-                    tempPic=cachedPictures.get(i);
+                    tempPic = cachedPictures.get(i);
                     cachedPictures.set(i, cachedPictures.get(j));
-                    cachedPictures.set(j,tempPic );
+                    cachedPictures.set(j, tempPic);
 
                 }
             }
@@ -439,24 +388,58 @@ public class Tab1 extends Fragment {
 
     }
 
-    public String GetCountryZipCode(){
-        String CountryID="";
-        String CountryZipCode="";
+    public String GetCountryZipCode() {
+        String CountryID = "";
+        String CountryZipCode = "";
 
         TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         //getNetworkCountryIso
-        CountryID= manager.getSimCountryIso().toUpperCase();
-        String[] rl=this.getResources().getStringArray(R.array.CountryCodes);
-        for(int i=0;i<rl.length;i++){
-            String[] g=rl[i].split(",");
-            if(g[1].trim().equals(CountryID.trim())){
-                CountryZipCode=g[0];
+        CountryID = manager.getSimCountryIso().toUpperCase();
+        String[] rl = this.getResources().getStringArray(R.array.CountryCodes);
+        for (int i = 0; i < rl.length; i++) {
+            String[] g = rl[i].split(",");
+            if (g[1].trim().equals(CountryID.trim())) {
+                CountryZipCode = g[0];
                 break;
             }
         }
-        String add="+"+CountryZipCode;
+        String add = "+" + CountryZipCode;
 
         return add;
     }
+
+
+    private void getContactsAndMatch(){
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //User user = dataSnapshot.getValue(User.class);
+                //Get map of users in datasnapshot
+                phoneContactNumbers.clear();
+                // Toast.makeText(getActivity(), "Contacts Synced!", Toast.LENGTH_SHORT).show();
+                getContacts();
+
+                collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Error in Reaching Database
+                //    Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+    }
+
+
+
+
+
 }
 

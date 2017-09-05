@@ -13,10 +13,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/invitebutton">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true">
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
@@ -25,7 +22,7 @@
         android:layout_above="@+id/invitebutton"
         android:clickable="true"/>
 
-        </FrameLayout>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button

@@ -166,7 +166,7 @@ public class Tab1 extends Fragment {
                 receivername = cachedUsernames.get(position);
                 receiverPicture = cachedPictures.get(position);
 
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                 Log.v("log_tag", "List Item Click");
                 NewReminder();
             }
@@ -183,7 +183,7 @@ public class Tab1 extends Fragment {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("text/plain");
                     i.putExtra(Intent.EXTRA_SUBJECT, "Reminder App");
-                    String sAux = "\nTry This Amazing application\n\n";
+                    String sAux = "\nTry This Amazing application,LINK NOT ADDED YET\n\n";
                     sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
                     i.putExtra(Intent.EXTRA_TEXT, sAux);
                     startActivity(Intent.createChooser(i, "Choose one"));
@@ -264,7 +264,7 @@ public class Tab1 extends Fragment {
 
             }
         }
-        Log.d("phoneContactNumbers", phoneContactNumbers.toString());
+       // Log.d("phoneContactNumbers", phoneContactNumbers.toString());
         phones.close();
 
 
@@ -312,7 +312,7 @@ public class Tab1 extends Fragment {
                         userNames.add((String) singleUser.get("username"));
                         //get User Picures in byte 64 format string
                         userPictures.add((String) singleUser.get("userpicture"));
-                        Log.d("collecte user picture", userPictures.toString());
+                      //  Log.d("collecte user picture", userPictures.toString());
 
                     }
                 }

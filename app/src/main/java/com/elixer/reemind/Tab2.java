@@ -222,7 +222,7 @@ public class Tab2 extends Fragment {
 
                                 String reminderKey = adapter.getRef(position).getKey();
                                 String senderKey = reminder.getSenderUID();
-                                update(senderKey, reminderKey, "Accepted");
+                                update(senderKey, reminderKey, "Completed");
 
 
                                 Log.d("senderKEy", senderKey);

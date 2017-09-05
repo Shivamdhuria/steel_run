@@ -35,7 +35,7 @@
                 android:textColor="@color/btn_logut_bg" />
 
             <Button
-                android:text="Accept"
+                android:text="Done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/button_confirm"

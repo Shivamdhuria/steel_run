@@ -47,7 +47,7 @@ public class SelectDateActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 MainActivity.reminderDate = date;
-                Toast.makeText(getApplication(), date, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getApplication(), date, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SelectDateActivity.this, SelectTimeActivity.class));
             }
         });

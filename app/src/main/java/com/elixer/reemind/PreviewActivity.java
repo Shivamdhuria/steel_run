@@ -99,7 +99,7 @@ public class PreviewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID, MainActivity.userName, picture, MainActivity.recepientUID, MainActivity.recepientName, MainActivity.receieverPicture, MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Waiting...",receiverUID_status);
+                Reminder reminder = new Reminder(MainActivity.reminderMessage, userID, MainActivity.userName, picture, MainActivity.recepientUID, MainActivity.recepientName, MainActivity.receieverPicture, MainActivity.reminderTime,convertTime(reminderTimeTimestamp),"Reminder Sent",receiverUID_status);
                 Toast.makeText(getApplicationContext(), MainActivity.userName,Toast.LENGTH_SHORT).show();
 
                 String Key = mDatabase.child("reminders").child(userID).child("responses").push().getKey();
@@ -111,8 +111,9 @@ public class PreviewActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("tab", "2");
                 startActivity(intent);
-                sendNotificationToUser(recepientUID,"You have a new Reminders");
+                sendNotificationToUser(recepientUID,"You have a new Reminder");
             }
         });
 

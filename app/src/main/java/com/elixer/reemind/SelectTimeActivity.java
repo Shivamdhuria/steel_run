@@ -43,7 +43,7 @@ public class SelectTimeActivity extends AppCompatActivity {
                 //Setting time
                 MainActivity.reminderTime= Integer.toString(hourOfDay)+":"+Integer.toString(minute);
                 //Toast.makeText(getApplicationContext(), MainActivity.reminderTime, Toast.LENGTH_SHORT).show();
-                timeDisplay.setText("Time"+"   " + MainActivity.reminderTime);
+                timeDisplay.setText("Time:"+"   " + MainActivity.reminderTime);
                 i=1;
             }
         });
@@ -53,10 +53,10 @@ public class SelectTimeActivity extends AppCompatActivity {
                 if (i == 1) {
                     reminderTimeTimestamp = reminderDate + " " + reminderTime;
 
-                    if (convertTime(reminderTimeTimestamp) > currentTime+5*60*1000) {
+                    if (convertTime(reminderTimeTimestamp) > currentTime+6*60*1000) {
                         startActivity(new Intent(SelectTimeActivity.this, PreviewActivity.class));
                     } else {
-                        Toast.makeText(getApplicationContext(), "Reminder time should be greater than atleast 5 mins greter than current time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Reminder time should be atleast 5 mins greater than the current time", Toast.LENGTH_SHORT).show();
                     }
                 } else{
                     Toast.makeText(getApplicationContext(), "Select Time", Toast.LENGTH_SHORT).show();

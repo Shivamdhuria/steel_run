@@ -74,26 +74,12 @@
                     android:id="@+id/dateDisplay"
                     android:textSize="14sp"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignLeft="@+id/receiver_image"
-                    android:layout_alignStart="@+id/receiver_image"
                     android:layout_marginBottom="12dp"
                     android:textAlignment="viewStart"
                     android:layout_alignRight="@+id/reminderDisplay"
-                    android:layout_alignEnd="@+id/reminderDisplay" />
-
-                <TextView
-                    android:text="Your reminder message will appear here"
-                    android:layout_width="250dp"
-                    android:layout_height="105dp"
-                    android:id="@+id/reminderDisplay"
-                    android:textSize="24sp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="10dp"
-                    android:layout_alignBottom="@+id/receiver_image"
-                    android:layout_toRightOf="@+id/receiver_image"
-                    android:textStyle="normal|italic"
-                    android:layout_alignRight="@+id/timeDisplay"
-                    android:layout_alignEnd="@+id/timeDisplay" />
+                    android:layout_alignEnd="@+id/reminderDisplay"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                 android:text="6.60 P.M"
@@ -108,17 +94,20 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="13dp" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/receiver_image"
-                    android:src="@drawable/profile"
-                    app:civ_border_color="@color/colorPrimary"
-                    android:elevation="6dp"
-                    android:layout_height="120dp"
-                    android:layout_width="120dp"
-                    app:civ_border_width="1dp"
+                <TextView
+                    android:text="Your reminder message will appear here"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reminderDisplay"
+                    android:textSize="24sp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="10dp"
+                    android:textStyle="normal|italic"
+                    android:paddingTop="10dp"
                     android:layout_below="@+id/timeDisplay"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/receiver_image" />
 
                 <TextView
                     android:text="Receiver Name"
@@ -128,10 +117,24 @@
                     android:textSize="18sp"
                     android:textAlignment="center"
                     android:textStyle="normal|bold"
+                    android:paddingTop="10dp"
                     android:layout_below="@+id/receiver_image"
-                    android:layout_toLeftOf="@+id/reminderDisplay"
-                    android:layout_toStartOf="@+id/reminderDisplay"
-                    android:paddingTop="5dp" />
+                    android:layout_alignRight="@+id/receiver_image"
+                    android:layout_alignEnd="@+id/receiver_image"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/receiver_image"
+                    android:src="@drawable/profile"
+                    app:civ_border_color="@color/colorPrimary"
+                    android:elevation="6dp"
+                    android:layout_height="120dp"
+                    android:layout_width="120dp"
+                    app:civ_border_width="1dp"
+                    android:layout_alignTop="@+id/reminderDisplay"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
             </RelativeLayout>
 

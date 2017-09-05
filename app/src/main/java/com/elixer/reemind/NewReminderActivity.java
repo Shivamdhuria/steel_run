@@ -52,13 +52,24 @@ public class NewReminderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                MainActivity.reminderMessage = editReminderMessage.getText().toString();
-                Log.d("Reminder message", MainActivity.reminderMessage);
-                Toast.makeText(getApplication(), MainActivity.reminderMessage, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewReminderActivity.this, SelectDateActivity.class));
+                if(editReminderMessage.getText().toString().length()==0) {
+                    Toast.makeText(getApplication(), "Reminder message cannot be empty", Toast.LENGTH_SHORT).show();
+                }
 
+                else if (editReminderMessage.getText().toString().length()>40){
+                    Toast.makeText(getApplication(), "Reminder can only be 40 characters long", Toast.LENGTH_SHORT).show();
+
+                }
+
+                else{
+                    MainActivity.reminderMessage = editReminderMessage.getText().toString();
+                    Log.d("Reminder message", MainActivity.reminderMessage);
+                    //    Toast.makeText(getApplication(), MainActivity.reminderMessage, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(NewReminderActivity.this, SelectDateActivity.class));
+                }
             }
         });
+
 
 
       

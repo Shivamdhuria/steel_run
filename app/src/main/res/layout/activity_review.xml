@@ -16,18 +16,6 @@
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
 
-    <ImageButton
-        android:background="@null"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/camera"
-        android:id="@+id/button_profilepicture"
-        android:layout_alignBottom="@+id/profile_image"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="100dp"
-        android:layout_marginEnd="100dp" />
-
     <TextView
         android:text="This is not your username.This name appears to your Reminder App contacts."
         android:layout_width="wrap_content"
@@ -78,6 +66,19 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="13dp" />
 
+    <ImageButton
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/camera"
+        android:id="@+id/button_profilepicture"
+        android:layout_marginRight="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_alignBottom="@+id/profile_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="4dp" />
+
     <EditText
         android:id="@+id/displayName"
         android:layout_width="match_parent"
@@ -92,13 +93,24 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/progressBar"
-        android:layout_toEndOf="@+id/progressBar"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/progressBar"
+        android:layout_toEndOf="@+id/progressBar" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        android:id="@+id/imageButton_Name"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/profile_image"
+        android:layout_toEndOf="@+id/profile_image" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
@@ -107,8 +119,8 @@
         android:src="@drawable/profile"
         app:civ_border_width="1dp"
         app:civ_border_color="#FF000000"
-        android:layout_marginBottom="40dp"
-        android:layout_above="@+id/textview_nameinfo"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/progressBar"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

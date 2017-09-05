@@ -33,6 +33,7 @@ public class ReviewActivity extends AppCompatActivity {
     TextView displayName;
     TextView displayPhone;
     ImageView icon;
+    private ImageButton imageButtonEditName;
     private ImageButton button_profilepicture;
     private static final int PICK_IMAGE_REQUEST = 1;
     Bitmap ThumbImage;
@@ -45,6 +46,7 @@ public class ReviewActivity extends AppCompatActivity {
         displayName = (TextView) findViewById(R.id.displayName);
         icon = (ImageView) findViewById(R.id.profile_image);
         button_profilepicture = (ImageButton) findViewById(R.id.button_profilepicture);
+        imageButtonEditName =(ImageButton)findViewById(R.id.imageButton_Name);
 
         displayPhone = (TextView) findViewById(R.id.displayPhone);
         displayName.setText(tinyDBM.getString("userNameDisplay"));
@@ -60,6 +62,17 @@ public class ReviewActivity extends AppCompatActivity {
             icon.setImageBitmap(decodedByte);
 
         }
+
+        imageButtonEditName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EditUserName.class);
+                startActivity(intent);
+
+            }
+        });
+
+
         button_profilepicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,10 +136,10 @@ public class ReviewActivity extends AppCompatActivity {
         base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
 
         // we finally have our base64 string version of the image, save it.
-        mDatabase.child("users").child(userID).setValue(base64Image);
+        mDatabase.child("users").child(userID).child("userpicture").setValue(base64Image);
         userPicture = base64Image;
         tinyDBM.putString("displayPicture",base64Image);
-
+        Toast.makeText(this, "Display picture changed",Toast.LENGTH_LONG).show();
         System.out.println("Stored image with length: " + bytes.length);
         Log.d("userID",userID);
     }

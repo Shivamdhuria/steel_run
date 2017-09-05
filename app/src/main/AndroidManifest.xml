@@ -13,18 +13,20 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:configChanges="orientation"
-        android:screenOrientation="portrait"
         android:name=".Persistance"
         android:allowBackup="true"
+        android:configChanges="orientation"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <activity android:name=".MainActivity"
+
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,13 +34,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SignupActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".NewReminderActivity"
-            android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".NewReminderActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".SelectDateActivity" />
         <activity
             android:name=".SelectTimeActivity"
@@ -46,8 +48,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".PreviewActivity" />
 
-        <receiver android:name=".AlarmReceiver"></receiver>
-
+        <receiver android:name=".AlarmReceiver" />
         <receiver
             android:name=".BootUpReceiver"
             android:enabled="true"
@@ -58,7 +59,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-
         //Using this for alarm manager
         <receiver android:name=".NotificationPublisher" />
 
@@ -73,17 +73,23 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ReviewActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".ReviewActivity" />
+
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!--Include the AdActivity configChanges and theme. -->
+        <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".EditUserName"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

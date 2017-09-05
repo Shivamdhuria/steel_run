@@ -114,8 +114,9 @@ public class Tab2 extends Fragment {
 
                 String demo = reminder.getTimestamp();
                 //email fetched from database
-                setAlarm(demo);
-                Log.d("alarms array", alarms.toString());
+
+                Log.d("DEm........", demo);
+               setAlarm(demo);
             }
 
             @Override
@@ -291,7 +292,7 @@ public class Tab2 extends Fragment {
     }
 
     public void setAlarm(String reminderTimeUnix){
-        Toast.makeText(getActivity(), "Setting", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getActivity(), "Setting", Toast.LENGTH_LONG).show();
 
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
         Long time = Long.parseLong(reminderTimeUnix);

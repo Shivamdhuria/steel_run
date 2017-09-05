@@ -26,6 +26,9 @@ public class SelectTimeActivity extends AppCompatActivity {
     TimePicker timePicker;
     TextView   timeDisplay;
     Button btn_review;
+    protected String reminderTimeTimestamp;
+    //checker to see if time selected
+    int i =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,27 +38,38 @@ public class SelectTimeActivity extends AppCompatActivity {
 
         timeDisplay = (TextView)findViewById(R.id.timeDisplay);
         btn_review = (Button)findViewById(R.id.btn_review);
+
+        //In case user doesn't select time
+
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 //Setting time
                 MainActivity.reminderTime= Integer.toString(hourOfDay)+":"+Integer.toString(minute);
-                Toast.makeText(getApplicationContext(), MainActivity.reminderTime, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), MainActivity.reminderTime, Toast.LENGTH_SHORT).show();
                 timeDisplay.setText("Time"+"   " +MainActivity.reminderTime);
+                i=1;
             }
         });
         btn_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String reminderTimeTimestamp =reminderDate+" "+reminderTime;
+                if (i == 1) {
+                    reminderTimeTimestamp = reminderDate + " " + reminderTime;
 
-                if( convertTime(reminderTimeTimestamp)>currentTime) {
-                    startActivity(new Intent(SelectTimeActivity.this, PreviewActivity.class));
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Reminder time should be greater than current time", Toast.LENGTH_SHORT).show();
+                    if (convertTime(reminderTimeTimestamp) > currentTime+5*60*1000) {
+                        startActivity(new Intent(SelectTimeActivity.this, PreviewActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Reminder time should be greater than atleast 5 mins greter than current time", Toast.LENGTH_SHORT).show();
+                    }
+                } else{
+                    Toast.makeText(getApplicationContext(), "Select Time", Toast.LENGTH_SHORT).show();
+
                 }
             }
+
+
+
         });
 
 

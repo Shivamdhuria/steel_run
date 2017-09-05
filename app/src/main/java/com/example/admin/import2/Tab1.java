@@ -146,7 +146,7 @@ public class Tab1 extends Fragment {
             public void onRefresh() {
 
                 // Your code to refresh the list here.
-
+                Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
                 // once the network request has completed successfully.
 
                 swipeContainer.post(new Runnable() {
@@ -281,7 +281,7 @@ public class Tab1 extends Fragment {
         userNames.clear();
         userPictures.clear();
 
-
+        swipeContainer.setRefreshing(true);
 
         //iterate through each user, ignoring their UID
         for (Map.Entry<String, Object> entry : users.entrySet()) {
@@ -329,7 +329,7 @@ public class Tab1 extends Fragment {
         Log.d("cached Username ", cachedUsernames.toString());
         Log.d("cached UIDs", cachedUIDs.toString());
         Log.d("cached  User Pictures", userPictures.toString());
-
+        Toast.makeText(getActivity(), "Updated!", Toast.LENGTH_SHORT).show();
         setAdapter();
 
         swipeContainer.setRefreshing(false);
@@ -429,8 +429,8 @@ public class Tab1 extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Error in Reaching Database
-                //    Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
-                //  Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(getActivity(), "Sync Failed!", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(getActivity(), "Check your internet Connection", Toast.LENGTH_SHORT).show();
             }
 
 

@@ -9,22 +9,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.admin.import2.NewReminderActivity"
+    tools:context="com.elixer.reemind.NewReminderActivity"
     android:padding="0dp">
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/reminderDisplay"
-        android:hint="Reminder"
-        android:textSize="22sp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/receiver_image"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Next"
@@ -61,7 +48,8 @@
         android:layout_marginTop="19dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/recepientname"
-        android:layout_alignStart="@+id/recepientname" />
+        android:layout_alignStart="@+id/recepientname"
+        android:paddingLeft="10dp" />
 
     <TextView
         android:text="TextView"
@@ -76,7 +64,24 @@
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/reminderDisplay" />
+        android:layout_above="@+id/reminderDisplay"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/reminderDisplay"
+        android:hint="Reminder"
+        android:textSize="22sp"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/receiver_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="10dp"
+        android:layout_alignLeft="@+id/recepientname"
+        android:layout_alignStart="@+id/recepientname" />
 
 
 </RelativeLayout>

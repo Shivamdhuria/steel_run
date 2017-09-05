@@ -53,13 +53,13 @@
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            ads:adUnitId="ca-app-pub-9779122488530772/2860555885"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/pager"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

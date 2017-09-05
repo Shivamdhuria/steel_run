@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:303280092175:android:4c5bbc671e85f640",
+        "mobilesdk_app_id": "1:303280092175:android:15421eb05a6a9887",
         "android_client_info": {
-          "package_name": "com.example.admin.import2"
+          "package_name": "com.elixer.reemind"
         }
       },
       "oauth_client": [
         {
-          "client_id": "303280092175-489lfk6hf6s0n340alvpgofoej58ud3l.apps.googleusercontent.com",
+          "client_id": "303280092175-o7s7jgecuos4hn2mik1cr59qe30j42lb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.admin.import2",
+            "package_name": "com.elixer.reemind",
             "certificate_hash": "ecb21dd3f63b325f5e41978a245e271e76fe63cc"
           }
         },

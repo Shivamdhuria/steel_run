@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected static FirebaseAuth auth;
     DatabaseReference mDatabase;
     protected static TinyDB tinyDBM;
+    //for adview
+    private AdView mAdView;
+    private Button btnFullscreenAd;
 
 
 
@@ -83,6 +88,16 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         String position = intent.getStringExtra("tab");
+
+        //Admob
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+
+                .build();
+        mAdView.loadAd(adRequest);
+
+
+
 
 
 
@@ -244,6 +259,32 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         this.finish();
+    }
+
+    //everything for as pause
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 
 }

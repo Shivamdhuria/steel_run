@@ -288,11 +288,13 @@ public class Tab2 extends Fragment {
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
         Long time = Long.parseLong(reminderTimeUnix);
         Log.d("Time for Alarm",time.toString());
+        //unique id for cancellation
+        int intTime = time.intValue();
         //Subtracting 5 min from alarm
         time = Long.parseLong(reminderTimeUnix)-5*60*1000;
         Log.d("Time for Alarm - 5min",time.toString());
 
-        int intTime = time.intValue();
+
         Log.d("intTime", String.valueOf(intTime));
         Date date = new Date(time); // *1000 is to convert seconds to milliseconds
 
@@ -340,7 +342,7 @@ public class Tab2 extends Fragment {
     }
 
     public void cancelAlarm(String reminderTimeUnix) {
-        Toast.makeText(getActivity(), "Cancelling", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Cancelling Reminder", Toast.LENGTH_LONG).show();
 
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
         Long time = Long.parseLong(reminderTimeUnix);

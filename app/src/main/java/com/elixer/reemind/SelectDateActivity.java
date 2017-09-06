@@ -30,15 +30,16 @@ public class SelectDateActivity extends AppCompatActivity {
          calendarView.setMinDate(dates);
         SimpleDateFormat sdf = new SimpleDateFormat("d / M / yyyy");
         String dateString = sdf.format(dates);
-        dateDisplay.setText("Date: "+dateString);
+        dateDisplay.setText("Date: ");
         date = dateString;
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
-                i1 = i1+1;
-                dateDisplay.setText("Date: " + i2 + " / " + i1 + " / " + i);
-                date = Integer.toString(i2)+"/"+Integer.toString(i1)+"/"+Integer.toString(i);
+
+                    i1 = i1 + 1;
+                    dateDisplay.setText(+i2 + " / " + i1 + " / " + i);
+                    date = Integer.toString(i2) + "/" + Integer.toString(i1) + "/" + Integer.toString(i);
 
             }
         });
@@ -46,9 +47,14 @@ public class SelectDateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                MainActivity.reminderDate = date;
-             //   Toast.makeText(getApplication(), date, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(SelectDateActivity.this, SelectTimeActivity.class));
+                if (dateDisplay.getText().toString().equals("Date: ")) {
+                    Toast.makeText(getApplication(), "Date not selected", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    MainActivity.reminderDate = date;
+                    //   Toast.makeText(getApplication(), date, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SelectDateActivity.this, SelectTimeActivity.class));
+                }
             }
         });
 

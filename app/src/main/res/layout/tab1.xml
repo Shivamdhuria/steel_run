@@ -20,7 +20,9 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/invitebutton"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:dividerHeight="1dp"
+        android:divider="@drawable/list_divider"/>
 
 
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -66,7 +66,8 @@ public class ReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EditUserName.class);
-                startActivity(intent);
+                startActivityForResult(intent,RESULT_OK);
+
 
             }
         });
@@ -158,6 +159,14 @@ public class ReviewActivity extends AppCompatActivity {
         // Start the Intent
         Log.d("pick image request", String.valueOf(PICK_IMAGE_REQUEST));
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+    }
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        displayName.setText(tinyDBM.getString("userNameDisplay"));
+        super.onResume();
+        //Refresh your stuff here
+        displayName.setText(tinyDBM.getString("userNameDisplay"));
     }
 }
 

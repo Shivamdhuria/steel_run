@@ -126,12 +126,12 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/receiver_image"
-                    android:src="@drawable/profile"
+                    android:src="@drawable/profileb"
                     app:civ_border_color="@color/colorPrimary"
                     android:elevation="6dp"
                     android:layout_height="120dp"
                     android:layout_width="120dp"
-                    app:civ_border_width="1dp"
+                    app:civ_border_width="0dp"
                     android:layout_alignTop="@+id/reminderDisplay"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />

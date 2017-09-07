@@ -53,7 +53,7 @@ public class SelectTimeActivity extends AppCompatActivity {
                 if (i == 1) {
                     reminderTimeTimestamp = reminderDate + " " + reminderTime;
 
-                    if (convertTime(reminderTimeTimestamp) > currentTime+6*60*1000) {
+                    if (convertTime(reminderTimeTimestamp) > currentTime+5*60*1000) {
                         startActivity(new Intent(SelectTimeActivity.this, PreviewActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Reminder time should be atleast 5 mins greater than the current time", Toast.LENGTH_SHORT).show();

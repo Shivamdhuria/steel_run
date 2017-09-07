@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         Intent intent = getIntent();
         String position = intent.getStringExtra("tab");
 
+
         //Admob
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+           // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             tinyDBM=new TinyDB(this);
 
 

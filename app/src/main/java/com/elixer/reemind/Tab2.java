@@ -5,6 +5,7 @@ package com.elixer.reemind;
  */
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -282,47 +283,54 @@ public class Tab2 extends Fragment {
 
     }
 
-    public void setAlarm(String reminderTimeUnix){
+    public void setAlarm(String reminderTimeUnix) {
 //        Toast.makeText(getActivity(), "Setting", Toast.LENGTH_LONG).show();
 
-        Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
+
         Long time = Long.parseLong(reminderTimeUnix);
-        Log.d("Time for Alarm",time.toString());
+        Log.d("Time for Alarm", time.toString());
         //unique id for cancellation
         int intTime = time.intValue();
         //Subtracting 5 min from alarm
-        time = Long.parseLong(reminderTimeUnix)-5*60*1000;
-        Log.d("Time for Alarm - 5min",time.toString());
+        time = Long.parseLong(reminderTimeUnix) - 5 * 60 * 1000;
+        Log.d("Time for Alarm - 5min", time.toString());
+        if(getActivity()== null){
+            ///nothing
 
-
-        Log.d("intTime", String.valueOf(intTime));
-        Date date = new Date(time); // *1000 is to convert seconds to milliseconds
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss z"); // the format of your date
-        sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
-        String formattedDate = sdf.format(date);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        Log.d("time setting", formattedDate);
-
-        //calendar.setTimeInMillis(time);
-        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-        if (Build.VERSION.SDK_INT >= 23) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
-            Log.d("alarm time set",time.toString());
-        }else if (Build.VERSION.SDK_INT >= 19) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
         }
-            Log.d("alarm","set");
+        else {
+            if (time > System.currentTimeMillis()) {
 
+                Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
+                Log.d("intTime", String.valueOf(intTime));
+                Date date = new Date(time); // *1000 is to convert seconds to milliseconds
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss z"); // the format of your date
+                sdf.setTimeZone(TimeZone.getDefault()); // give a timezone reference for formating (see comment at the bottom
+                String formattedDate = sdf.format(date);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+                //calendar.setTimeInMillis(time);
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    Log.d("alarm time set", time.toString());
+                } else if (Build.VERSION.SDK_INT >= 19) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                } else {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
+                Log.d("alarm", "set");
+            } else {
+                Log.d("no alarm.....", "No Alarm set");
+            }
+        }
     }
 
     public static void sendNotificationToUser(String receiver, final String message) {
@@ -403,6 +411,8 @@ public class Tab2 extends Fragment {
         String formattedDate = sdf.format(date);
         return formattedDate;
     }
+
+
 
 
 

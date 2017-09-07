@@ -39,7 +39,7 @@ public class EditUserName extends AppCompatActivity {
                 FirebaseUser user = auth.getCurrentUser();
                 userID = user.getUid();
                 mDatabase.child("users").child(userID).child("username").setValue(name);
-                startActivity(new Intent(getApplicationContext(), ReviewActivity.class));
+                setResult(RESULT_OK);
                 finish();
             }
         });

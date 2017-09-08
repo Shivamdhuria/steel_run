@@ -43,7 +43,7 @@ public class SelectTimeActivity extends AppCompatActivity {
                 //Setting time
                 MainActivity.reminderTime= Integer.toString(hourOfDay)+":"+Integer.toString(minute);
                 //Toast.makeText(getApplicationContext(), MainActivity.reminderTime, Toast.LENGTH_SHORT).show();
-                timeDisplay.setText("Time:"+"   " + MainActivity.reminderTime);
+                timeDisplay.setText((String.format("%02d:%02d", hourOfDay, minute)));
                 i=1;
             }
         });

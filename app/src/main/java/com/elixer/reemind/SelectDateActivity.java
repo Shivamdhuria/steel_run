@@ -1,7 +1,6 @@
 package com.elixer.reemind;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,6 +10,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 
 public class SelectDateActivity extends AppCompatActivity {
     CalendarView calendarView;

@@ -15,7 +15,7 @@
         android:textSize="14sp"
         android:text="You have no new Reminders"
         android:textAlignment="center"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <TextView
         android:text="You have no Reminders"

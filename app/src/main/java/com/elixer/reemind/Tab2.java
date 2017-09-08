@@ -5,7 +5,6 @@ package com.elixer.reemind;
  */
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -162,6 +161,12 @@ public class Tab2 extends Fragment {
                 @Override
                 protected void populateViewHolder(final ReminderHolder holder, final Reminder reminder, final int index) {
                     //Making textview Dissapear
+                    if(index==0){
+                        emptyTextView.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                       emptyTextView.setVisibility(View.INVISIBLE);
+                    }
 
                     //Setting the name,message and time
                     holder.setName(reminder.getSenderName());

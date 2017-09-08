@@ -117,7 +117,11 @@ public class Tab2 extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Reminder reminder = dataSnapshot.getValue(Reminder.class);
 
+                String demo = reminder.getTimestamp();
+                //email fetched from database
+                cancelAlarm(demo);
             }
 
             @Override

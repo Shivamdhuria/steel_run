@@ -22,6 +22,8 @@ import com.google.firebase.database.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 import static com.elixer.reemind.MainActivity.userID;
@@ -101,6 +103,17 @@ public class Tab3 extends Fragment {
                         int position = holder2.getAdapterPosition();
                         Log.d("index", String.valueOf((position)));
 
+                        //scheduleNotification(getNotification("5 second delay"), 5000);
+                        //Setting alarm
+
+
+                        String reminderKey = adapter.getRef(position).getKey();
+                        String receiverKey = reminder.getReceiverUID();
+                        removeFromActiveReminders(receiverKey,reminderKey);
+
+
+
+
 
                         adapter.getRef(position).removeValue();
 
@@ -109,9 +122,11 @@ public class Tab3 extends Fragment {
 
                         adapter.notifyDataSetChanged();
 
-
+                        removeFromActiveReminders(receiverKey,reminderKey);
 
                     }
+
+
                 });
 
 
@@ -142,6 +157,29 @@ public class Tab3 extends Fragment {
         return formattedDate;
     }
 
+
+    public static void sendNotificationToUser(String receiver, final String message) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("notificationRequests");
+        Map notification = new HashMap<>();
+        notification.put("title","New Response");
+        notification.put("receiverUID", receiver);
+        notification.put("body", message);
+
+
+        ref.push().setValue(notification);
+
+
+
+
+
+    }
+    public void removeFromActiveReminders(String receiverKey,String reminderKey){
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("reminders").child(receiverKey).child("active_reminders").child(reminderKey).removeValue();
+
+
+    }
 
 
 

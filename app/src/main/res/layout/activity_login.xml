@@ -62,13 +62,12 @@
             android:textColor="@android:color/black" />
 
         <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/progressBar"
-            android:layout_width="349dp"
-            android:layout_height="26dp"
-            android:layout_gravity="center|bottom"
-            android:layout_marginBottom="20dp"
-            android:visibility="gone"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_reset_password"

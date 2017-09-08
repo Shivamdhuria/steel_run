@@ -96,14 +96,15 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/displayPhone"
-        android:layout_toLeftOf="@+id/displayPhone"
-        android:layout_toStartOf="@+id/displayPhone" />
+        android:layout_toStartOf="@+id/displayPhone"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Name"
@@ -128,5 +129,19 @@
         android:layout_above="@+id/displayName"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:text="Your Reemind App contacts use this number to find you"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/displayPhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" />
 
 </RelativeLayout>

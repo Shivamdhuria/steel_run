@@ -79,7 +79,14 @@ public class Tab3 extends Fragment {
             @Override
             protected void populateViewHolder(final ReminderResponseHolder holder2, final Reminder reminder, final int position) {
                 Log.d("int he loop", senderUID);
-
+                Log.d("position..........", String.valueOf(position));
+                //Display textview if position 1
+                if(position==0){
+                    textviewEmpty.setVisibility(View.VISIBLE);
+                }
+                else{
+                    textviewEmpty.setVisibility(View.INVISIBLE);
+                }
                 holder2.setMessage(reminder.getReminderMessage());
                 holder2.setStatus(reminder.getStatus());
                 holder2.setName(reminder.getReceiverName());
@@ -111,12 +118,9 @@ public class Tab3 extends Fragment {
             }
         };
 
-        if (adapter.getItemCount() == 0) {
-            textviewEmpty.setVisibility(View.VISIBLE);
-        }
 
-            recyclerView.setAdapter(adapter);
 
+        recyclerView.setAdapter(adapter);
         //Returning the layout file after inflating
         return v;
     }
@@ -137,6 +141,7 @@ public class Tab3 extends Fragment {
         String formattedDate = sdf.format(date);
         return formattedDate;
     }
+
 
 
 

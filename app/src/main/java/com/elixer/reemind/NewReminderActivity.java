@@ -56,8 +56,8 @@ public class NewReminderActivity extends AppCompatActivity {
                     Toast.makeText(getApplication(), "Reminder message cannot be empty", Toast.LENGTH_SHORT).show();
                 }
 
-                else if (editReminderMessage.getText().toString().length()>40){
-                    Toast.makeText(getApplication(), "Reminder can only be 40 characters long", Toast.LENGTH_SHORT).show();
+                else if (editReminderMessage.getText().toString().length()>20){
+                    Toast.makeText(getApplication(), "Reminder can only be 30 characters long", Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -82,57 +82,59 @@ public class Tab3 extends Fragment {
             protected void populateViewHolder(final ReminderResponseHolder holder2, final Reminder reminder, final int position) {
                 Log.d("int he loop", senderUID);
                 Log.d("position..........", String.valueOf(position));
-                //Display textview if position 1
-                if(position==0){
-                    textviewEmpty.setVisibility(View.VISIBLE);
-                }
-                else{
-                    textviewEmpty.setVisibility(View.INVISIBLE);
-                }
-                holder2.setMessage(reminder.getReminderMessage());
-                holder2.setStatus(reminder.getStatus());
-                holder2.setName(reminder.getReceiverName());
-                holder2.setTimeDate(unixIntoDateTime(reminder.getTimestamp()));
-                holder2.setTime(unixIntoOnlyTime(reminder.getTimestamp()));
 
-                holder2.setReceiver_image(reminder.getReceiverPicture());
-                holder2.button_remove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                try {
 
-                        int position = holder2.getAdapterPosition();
-                        Log.d("index", String.valueOf((position)));
-
-                        //scheduleNotification(getNotification("5 second delay"), 5000);
-                        //Setting alarm
-
-
-                        String reminderKey = adapter.getRef(position).getKey();
-                        String receiverKey = reminder.getReceiverUID();
-                        removeFromActiveReminders(receiverKey,reminderKey);
-
-
-
-
-
-                        adapter.getRef(position).removeValue();
-
-                        adapter.notifyItemRemoved(position);
-
-
-                        adapter.notifyDataSetChanged();
-
-                        removeFromActiveReminders(receiverKey,reminderKey);
-
+                    //Display textview if position 1
+                    if (position == 0) {
+                        textviewEmpty.setVisibility(View.VISIBLE);
+                    } else {
+                        textviewEmpty.setVisibility(View.INVISIBLE);
                     }
+                    holder2.setMessage(reminder.getReminderMessage());
+                    holder2.setStatus(reminder.getStatus());
+                    holder2.setName(reminder.getReceiverName());
+                    holder2.setTimeDate(unixIntoDateTime(reminder.getTimestamp()));
+                    holder2.setTime(unixIntoOnlyTime(reminder.getTimestamp()));
+
+                    holder2.setReceiver_image(reminder.getReceiverPicture());
+                    holder2.button_remove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            int position = holder2.getAdapterPosition();
+                            Log.d("index", String.valueOf((position)));
+
+                            //scheduleNotification(getNotification("5 second delay"), 5000);
+                            //Setting alarm
 
 
-                });
+                            String reminderKey = adapter.getRef(position).getKey();
+                            String receiverKey = reminder.getReceiverUID();
+                            String status = reminder.getStatus();
+                            removeFromActiveReminders(receiverKey, reminderKey, status);
 
 
+                            adapter.getRef(position).removeValue();
+
+                            adapter.notifyItemRemoved(position);
+
+
+                            adapter.notifyDataSetChanged();
+
+
+                        }
+
+
+                    });
+
+
+                }catch (Exception er){
+                    adapter.getRef(position).removeValue();
+
+                }
             }
-        };
-
+            };
 
 
         recyclerView.setAdapter(adapter);
@@ -173,14 +175,17 @@ public class Tab3 extends Fragment {
 
 
     }
-    public void removeFromActiveReminders(String receiverKey,String reminderKey){
+    public void removeFromActiveReminders(String receiverKey,String reminderKey,String status){
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("reminders").child(receiverKey).child("active_reminders").child(reminderKey).removeValue();
+        if(status.equals("Reminder Sent")) {
+            mDatabase.child("reminders").child(receiverKey).child("active_reminders").child(reminderKey).removeValue();
+            //To check if remmoved from active reminders or not
 
-
+        }else{
+        //nothing
+        }
     }
-
 
 
 }

@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         String position = intent.getStringExtra("tab");
 
 
+
+
         //Admob
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -274,5 +276,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         }
         super.onDestroy();
     }
+
 
 }

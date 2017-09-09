@@ -359,24 +359,29 @@ public class Tab2 extends Fragment {
     }
 
     public void cancelAlarm(String reminderTimeUnix) {
-        Toast.makeText(getActivity(), "Cancelling Reminder", Toast.LENGTH_LONG).show();
 
-        Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
-        Long time = Long.parseLong(reminderTimeUnix);
+        try {
+            Toast.makeText(getActivity(), "Cancelling Reminder", Toast.LENGTH_LONG).show();
 
-
-        int intTime = time.intValue();
-        Log.d("cancelling",time.toString());
-        Log.d("int time", String.valueOf(intTime));
+            Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
+            Long time = Long.parseLong(reminderTimeUnix);
 
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            int intTime = time.intValue();
+            Log.d("cancelling", time.toString());
+            Log.d("int time", String.valueOf(intTime));
 
 
-        //calendar.setTimeInMillis(time);
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), intTime, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        alarmManager.cancel(pendingIntent);
+
+            //calendar.setTimeInMillis(time);
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+            alarmManager.cancel(pendingIntent);
+        }catch (Exception er){
+            //failed alarm
+        }
 
     }
 

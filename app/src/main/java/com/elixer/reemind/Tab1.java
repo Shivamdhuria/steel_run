@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -140,14 +141,17 @@ public class Tab1 extends Fragment {
                 Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
                 // once the network request has completed successfully.
 
-                swipeContainer.post(new Runnable() {
+                        swipeContainer.setRefreshing(true);
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        swipeContainer.setRefreshing(true);
-                    }
-                });
 
-                getContactsAndMatch();
+                        getContactsAndMatch();
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 5000);
+
+
 
      }
 

@@ -29,12 +29,14 @@
                 android:id="@+id/status"
                  android:text="Status"
                 android:layout_height="30dp"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 android:paddingRight="10dp"
                 android:layout_alignBottom="@+id/button_remove"
+                android:paddingTop="5dp"
+                android:layout_alignLeft="@+id/receiverName"
+                android:layout_alignStart="@+id/receiverName"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:paddingTop="5dp" />
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:text="TextView"

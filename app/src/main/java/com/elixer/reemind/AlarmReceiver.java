@@ -7,8 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 /**
  * Created by Admin on 7/30/2017.
@@ -22,7 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
 
        /* NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -31,8 +33,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         notificationManager.notify(id, notification);
 
         */
-        WakeLocker wakelocker = new WakeLocker();
-        wakelocker.acquire(context);
+        // WakeLocker wakelocker = new WakeLocker();
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
+
+        wakeLock.acquire(30000);
         Intent myIntent = new Intent(context, MainActivity.class);
         intent.putExtra("tab", "1");
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -44,18 +49,27 @@ public class AlarmReceiver extends BroadcastReceiver {
                         .setAutoCancel(true)
                         .setContentTitle("Event Reminder")
                         .setContentText("5 minutes to the Event")
-                         .setDefaults(Notification.DEFAULT_SOUND)
+                         .setSound(Uri.parse("android.resource://"
+                                 + context.getPackageName() + "/" + R.raw.bells))
+                            .setVibrate(new long[] { 0,1000,1000, 1000, 1000 })
+                                .setLights(Color.YELLOW, 3000, 3000)
+
                         .setContentIntent(pIntent);
 
-          //Gets an instance of the NotificationManager service//
 
+        //Gets an instance of the NotificationManager service//
+                //mBuilder.setOnlyAlertOnce(true);
         NotificationManager mNotificationManager =
 
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = mBuilder.build();
+       notification.flags |= Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
 
 
-        mNotificationManager.notify(001, mBuilder.build());
-        wakelocker.release();
-        Log.d("BUilding","alarm");
+        mNotificationManager.notify(001,notification);
+
+
     }
-}
+
+
+    }

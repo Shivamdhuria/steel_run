@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
-    private Button btnSignup, btnLogin, btnReset;
+    private Button btnSignup, btnLogin, btnReset,googleSingIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +56,17 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup = (Button) findViewById(R.id.btn_signup);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
+        googleSingIn=(Button)findViewById(R.id.sign_in_button);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+
+        googleSingIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class ReviewActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     Bitmap ThumbImage;
     String base64Image;
+    Button button_signout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ReviewActivity extends AppCompatActivity {
         icon = (ImageView) findViewById(R.id.profile_image);
         button_profilepicture = (ImageButton) findViewById(R.id.button_profilepicture);
         imageButtonEditName =(ImageButton)findViewById(R.id.imageButton_Name);
+        button_signout=(Button)findViewById(R.id.btn_signout);
 
         displayPhone = (TextView) findViewById(R.id.displayPhone);
         displayName.setText(tinyDBM.getString("userNameDisplay"));
@@ -69,6 +72,13 @@ public class ReviewActivity extends AppCompatActivity {
                 startActivityForResult(intent,RESULT_OK);
 
 
+            }
+        });
+
+        button_signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
             }
         });
 
@@ -168,6 +178,14 @@ public class ReviewActivity extends AppCompatActivity {
         //Refresh your stuff here
         displayName.setText(tinyDBM.getString("userNameDisplay"));
     }
+
+    public void signOut() {
+        auth.signOut();
+        startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
+    }
+
+
 }
 
 

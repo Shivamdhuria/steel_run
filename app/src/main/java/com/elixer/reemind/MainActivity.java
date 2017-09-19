@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -239,17 +240,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         else if (id == R.id.action_signout) {
             //Actions here
 
-           signOut();
+            Toast.makeText(getApplicationContext(), "Pull down in Tab 1 to refresh contacts!", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    public void signOut() {
-        auth.signOut();
-        startActivity(new Intent(this, LoginActivity.class));
-        this.finish();
-    }
+
 
     //everything for as pause
 
@@ -276,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         }
         super.onDestroy();
     }
+
 
 
 }

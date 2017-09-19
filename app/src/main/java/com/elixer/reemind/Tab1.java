@@ -121,6 +121,7 @@ public class Tab1 extends Fragment {
         cachedUIDs = tinyDB.getListString("uids");
         cachedPictures = tinyDB.getListString("userpictures");
         sort();
+
         setAdapter();
 
 
@@ -145,11 +146,10 @@ public class Tab1 extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         getContactsAndMatch();
                         swipeContainer.setRefreshing(false);
                     }
-                }, 5000);
+                }, 10000);
 
 
 
@@ -288,7 +288,7 @@ public class Tab1 extends Fragment {
         userNames.clear();
         userPictures.clear();
 
-        swipeContainer.setRefreshing(true);
+
 
         //iterate through each user, ignoring their UID
         for (Map.Entry<String, Object> entry : users.entrySet()) {
@@ -323,23 +323,13 @@ public class Tab1 extends Fragment {
             }
 
 
+
+
         }
 
-        tinyDB.putListString("usernames", userNames);
-        tinyDB.putListString("uids", uid);
-        tinyDB.putListString("userpictures", userPictures);
-        cachedUsernames = userNames;
-        cachedUIDs = uid;
-        cachedPictures = userPictures;
-        sort();
 
-        Log.d("cached Username ", cachedUsernames.toString());
-        Log.d("cached UIDs", cachedUIDs.toString());
-        Log.d("cached  User Pictures", userPictures.toString());
-        Toast.makeText(getActivity(), "Updated!", Toast.LENGTH_SHORT).show();
-        setAdapter();
 
-        swipeContainer.setRefreshing(false);
+
 
     }
 
@@ -429,6 +419,25 @@ public class Tab1 extends Fragment {
                 getContacts();
 
                 collectUserNames((Map<String, Object>) dataSnapshot.getValue());
+
+
+                tinyDB.putListString("usernames", userNames);
+                tinyDB.putListString("uids", uid);
+                tinyDB.putListString("userpictures", userPictures);
+                cachedUsernames = userNames;
+                cachedUIDs = uid;
+                cachedPictures = userPictures;
+                sort();
+
+                Log.d("cached Username ", cachedUsernames.toString());
+                Log.d("cached UIDs", cachedUIDs.toString());
+                Log.d("cached  User Pictures", userPictures.toString());
+
+
+                Toast.makeText(getActivity(), "Updated!", Toast.LENGTH_SHORT).show();
+
+                setAdapter();
+                swipeContainer.setRefreshing(false);
 
             }
 

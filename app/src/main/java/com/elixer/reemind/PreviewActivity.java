@@ -1,8 +1,11 @@
 package com.elixer.reemind;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -105,8 +108,12 @@ public class PreviewActivity extends AppCompatActivity {
                 String Key = mDatabase.child("reminders").child(userID).child("responses").push().getKey();
                 mDatabase.child("reminders").child(userID).child("responses").child(Key).setValue(reminder);
                 mDatabase.child("reminders").child(recepientUID).child("active_reminders").child(Key).setValue(reminder);
-                Toast.makeText(getApplicationContext(),"Reminder Sent",Toast.LENGTH_SHORT).show();
-
+                if(isNetworkAvailable()) {
+                    Toast.makeText(getApplicationContext(), "Reminder Sent", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Reminder will be sent when internet connection is resumed", Toast.LENGTH_SHORT).show();
+                }
 
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -114,6 +121,7 @@ public class PreviewActivity extends AppCompatActivity {
                 intent.putExtra("tab", "2");
                 startActivity(intent);
                 sendNotificationToUser(recepientUID,"You have a new Reminder");
+
             }
         });
 
@@ -166,5 +174,10 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

@@ -1,9 +1,12 @@
 package com.elixer.reemind;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -123,9 +126,14 @@ public class ReviewActivity extends AppCompatActivity {
                 ThumbImage = ThumbnailUtils.extractThumbnail(selectedImage, 320, 320);
                icon=(ImageView)findViewById(R.id.profile_image);
                 icon.setImageBitmap(ThumbImage);
+                if(isNetworkAvailable()) {
 
-                ConvertAndUpload(ThumbImage);
-
+                    ConvertAndUpload(ThumbImage);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Something went wrong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Check your internet connection", Toast.LENGTH_LONG).show();
+                }
 
 
 
@@ -218,6 +226,13 @@ public class ReviewActivity extends AppCompatActivity {
         auth.signOut();
         startActivity(new Intent(this, LoginActivity.class));
         this.finish();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 

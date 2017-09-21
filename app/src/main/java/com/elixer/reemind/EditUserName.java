@@ -1,5 +1,8 @@
 package com.elixer.reemind;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,31 +37,43 @@ public class EditUserName extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name = String.valueOf(editText.getText());
-                Toast.makeText(EditUserName.this,"Updating", Toast.LENGTH_LONG).show();
+                if(isNetworkAvailable()) {
+                    final String name = String.valueOf(editText.getText());
+                    Toast.makeText(EditUserName.this, "Updating", Toast.LENGTH_LONG).show();
 
-                DatabaseReference mDatabase ;
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                FirebaseUser user = auth.getCurrentUser();
-                userID = user.getUid();
-                mDatabase.child("users").child(userID).child("username").setValue(name,new DatabaseReference.CompletionListener() {
-                    public void onComplete(DatabaseError error, DatabaseReference ref) {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        if(error == null){
-                        tinyDBM.putString("userNameDisplay", name);
+                    DatabaseReference mDatabase;
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    FirebaseUser user = auth.getCurrentUser();
+                    userID = user.getUid();
+                    mDatabase.child("users").child(userID).child("username").setValue(name, new DatabaseReference.CompletionListener() {
+                        public void onComplete(DatabaseError error, DatabaseReference ref) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            if (error == null) {
+                                tinyDBM.putString("userNameDisplay", name);
 
-                        setResult(RESULT_OK);
-                        finish();}
-                        else{
-                            Toast.makeText(EditUserName.this,"Something went wrong!", Toast.LENGTH_LONG).show();
-                            Toast.makeText(EditUserName.this,"Check your internet connection", Toast.LENGTH_LONG).show();
+                                setResult(RESULT_OK);
+                                finish();
+                            } else {
+                                Toast.makeText(EditUserName.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(EditUserName.this, "Check your internet connection", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else{
+                    Toast.makeText(EditUserName.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditUserName.this, "Check your internet connection", Toast.LENGTH_LONG).show();
+                }
 
 
             }
         });
 
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

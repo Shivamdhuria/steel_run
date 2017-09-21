@@ -37,31 +37,36 @@ public class EditPhoneNumber extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String phone = String.valueOf(editPhone.getText());
-                Toast.makeText(EditPhoneNumber.this,"Updating", Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.VISIBLE);
-                DatabaseReference mDatabase ;
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                FirebaseUser user = auth.getCurrentUser();
-                userID = user.getUid();
-                mDatabase.child("users").child(userID).child("phone").setValue(phone, new DatabaseReference.CompletionListener() {
-                    public void onComplete(DatabaseError error, DatabaseReference ref) {
+                if (isNetworkAvailable()) {
 
-                        progressBar.setVisibility(View.INVISIBLE);
-                        if(error == null) {
-                            tinyDBM.putString("phoneNumberDisplay",phone);
-                            setResult(RESULT_OK);
-                            finish();
+                    final String phone = String.valueOf(editPhone.getText());
+                    Toast.makeText(EditPhoneNumber.this, "Updating", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    DatabaseReference mDatabase;
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    FirebaseUser user = auth.getCurrentUser();
+                    userID = user.getUid();
+                    mDatabase.child("users").child(userID).child("phone").setValue(phone, new DatabaseReference.CompletionListener() {
+                        public void onComplete(DatabaseError error, DatabaseReference ref) {
+
+                            progressBar.setVisibility(View.INVISIBLE);
+                            if (error == null) {
+                                tinyDBM.putString("phoneNumberDisplay", phone);
+                                setResult(RESULT_OK);
+                                finish();
+                            } else {
+                                Toast.makeText(EditPhoneNumber.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(EditPhoneNumber.this, "Check your internet connection", Toast.LENGTH_LONG).show();
+                            }
+
                         }
-                        else{
-                            Toast.makeText(EditPhoneNumber.this,"Something went wrong!", Toast.LENGTH_LONG).show();
-                            Toast.makeText(EditPhoneNumber.this,"Check your internet connection", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                });
+                    });
 
 
+                } else {
+                    Toast.makeText(EditPhoneNumber.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditPhoneNumber.this, "Check your internet connection", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

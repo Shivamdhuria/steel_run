@@ -8,14 +8,6 @@
     tools:context="com.elixer.reemind.LoginActivity"
     android:background="@color/colorPrimary">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone" />
-
     <TextView
         android:text="This is not your username.This name appears to your Reminder App contacts."
         android:layout_width="wrap_content"
@@ -30,7 +22,7 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:id="@+id/displayPhone"
+        android:id="@+id/displayPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="12 Digit Number"
@@ -61,7 +53,7 @@
         android:textColor="@color/white"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:layout_below="@+id/displayPhone"
+        android:layout_below="@+id/displayPhoneNumber"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="13dp" />
@@ -130,16 +122,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="@string/btn_login"
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textview_nameinfo"
-        android:layout_toRightOf="@+id/progressBar"
-        android:layout_toEndOf="@+id/progressBar"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="11dp"
-        android:id="@+id/textView6" />
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        android:id="@+id/imageButton_Phone"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButton_Name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progressBar2"
+        android:visibility="gone" />
 
 </RelativeLayout>

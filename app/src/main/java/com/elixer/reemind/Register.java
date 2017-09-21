@@ -90,8 +90,8 @@ public class Register extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = auth.getCurrentUser();
         userID = user.getUid();
-        inputName = (EditText) findViewById(R.id.displayName);
-        inputPhone = (EditText) findViewById(R.id.displayPhone);
+        inputName = (EditText) findViewById(R.id.displayPhoneNumber);
+        inputPhone = (EditText) findViewById(R.id.displayPhoneNumber);
         inputCountryCode = (EditText) findViewById(R.id.inputCountryCode);
         btn_submit = (Button) findViewById(R.id.btn_edit);
         button_profilepicture = (ImageButton) findViewById(R.id.button_profilepicture);

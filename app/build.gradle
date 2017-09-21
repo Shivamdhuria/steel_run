@@ -52,6 +52,8 @@ dependencies {
 
     compile 'com.google.android.gms:play-services-appindexing:9.2.0'
     compile 'com.google.android.gms:play-services-ads:9.2.0'
+
+    compile 'com.mobapphome.library:mah-android-updater:1.1.7'
 }
 
 

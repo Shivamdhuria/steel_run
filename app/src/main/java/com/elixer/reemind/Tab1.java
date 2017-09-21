@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -68,7 +70,7 @@ public class Tab1 extends Fragment {
     TextView textview_empty;
 
     //custom adapter
-    CustomAdapter adapter;
+    protected static CustomAdapter adapter;
 
     protected static ArrayList<String> cachedUsernames = new ArrayList<>();
     protected static ArrayList<String> cachedUIDs = new ArrayList<>();
@@ -250,7 +252,7 @@ public class Tab1 extends Fragment {
             String locale = GetCountryZipCode();
 
 
-            Log.d("Phone formates", locale);
+           // Log.d("Phone formates", locale);
             // String for =   formatNumber(phoneNumber,locale);
             phoneNumber = phoneNumber.replaceAll("[()\\-\\s]", "").trim();
 
@@ -259,7 +261,7 @@ public class Tab1 extends Fragment {
                 phoneNumber = locale + phoneNumber;
             }
             //formatNumber(phoneNumber, String defaultCountryIso);
-            Log.d("Names", name);
+         //   Log.d("Names", name);
             if (phoneNumber != null) {
                 map.put("name", name);
                 map.put("phone", phoneNumber);
@@ -429,13 +431,13 @@ public class Tab1 extends Fragment {
                 cachedPictures = userPictures;
                 sort();
 
-                Log.d("cached Username ", cachedUsernames.toString());
-                Log.d("cached UIDs", cachedUIDs.toString());
-                Log.d("cached  User Pictures", userPictures.toString());
+              //  Log.d("cached Username ", cachedUsernames.toString());
+                //Log.d("cached UIDs", cachedUIDs.toString());
+                //Log.d("cached  User Pictures", userPictures.toString());
 
 
                 Toast.makeText(getActivity(), "Updated!", Toast.LENGTH_SHORT).show();
-
+                adapter.notifyDataSetChanged();
                 setAdapter();
                 swipeContainer.setRefreshing(false);
 
@@ -451,6 +453,13 @@ public class Tab1 extends Fragment {
 
 
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 

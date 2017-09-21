@@ -9,18 +9,19 @@
     android:background="@color/colorPrimary">
 
     <Button
-        android:id="@+id/btn_Confirm"
+        android:id="@+id/btn_Confirm2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:text="Confirm"
         android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toEndOf="@+id/progressBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Name"
+        android:text="Phone "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textviewName"
@@ -30,24 +31,24 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="54dp" />
+        android:layout_marginTop="63dp" />
 
     <EditText
-        android:id="@+id/displayName"
+        android:id="@+id/displayPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:textSize="20sp"
-        android:text="Name will be displayed"
+        android:text="Phone Number"
         android:textAlignment="center"
         android:layout_alignBaseline="@+id/textviewName"
         android:layout_alignBottom="@+id/textviewName"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textviewName"
-        android:layout_toRightOf="@+id/textviewName" />
+        android:layout_toRightOf="@+id/textviewName"
+        android:layout_toEndOf="@+id/textviewName" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -55,8 +56,22 @@
         android:layout_height="30dp"
         android:layout_gravity="center|bottom"
         android:visibility="invisible"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/displayName"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/textviewName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:text="Contact Number with Country Code example, +910000000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/displayPhoneNumber"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/displayPhoneNumber"
+        android:layout_alignStart="@+id/displayPhoneNumber"
+        android:paddingTop="15dp" />
 
 </RelativeLayout>

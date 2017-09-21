@@ -131,17 +131,17 @@
         android:layout_marginBottom="16dp" />
 
     <TextView
-        android:text="Your Reemind App contacts use this number to find you"
+        android:text="Your Reemind App contacts uses this number to find you"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
         android:textSize="18sp"
         android:textColor="@color/white"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/displayPhone"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_above="@+id/btn_edit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp" />
+        android:layout_marginBottom="17dp" />
 
 </RelativeLayout>

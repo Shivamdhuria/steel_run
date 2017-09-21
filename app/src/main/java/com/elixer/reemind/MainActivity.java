@@ -239,8 +239,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         //Add Below if you want to do actions when you click action_home
         else if (id == R.id.action_signout) {
             //Actions here
-
-            Toast.makeText(getApplicationContext(), "Pull down in Tab 1 to refresh contacts!", Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+            myIntent.putExtra("tab", "0");
+            startActivity(myIntent);
+            Toast.makeText(getApplicationContext(), "Pull down to refresh contacts!", Toast.LENGTH_LONG).show();
             return true;
         }
 

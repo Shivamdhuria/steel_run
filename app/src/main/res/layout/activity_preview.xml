@@ -25,21 +25,22 @@
             android:text="Cancel"
             android:layout_width="150dp"
             android:id="@+id/btn_cancel"
-            android:background="@color/common_plus_signin_btn_text_dark_pressed"
+            android:background="@drawable/mybuttonred"
             android:elevation="15dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/btn_approve"
             android:layout_alignBottom="@+id/btn_approve"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/white" />
 
         <Button
 
             android:text="Approve"
             android:layout_width="150dp"
             android:id="@+id/btn_approve"
-            android:background="@color/colorAccent"
+            android:background="@drawable/mybutton"
             android:textColor="@android:color/black"
             android:elevation="15dp"
             android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
                     android:textSize="18sp"
                     android:textAlignment="center"
                     android:textStyle="normal|bold"
-                    android:paddingTop="10dp"
+                    android:paddingTop="14dp"
                     android:layout_below="@+id/receiver_image"
                     android:layout_alignRight="@+id/receiver_image"
                     android:layout_alignEnd="@+id/receiver_image"

@@ -80,8 +80,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:paddingLeft="10dp"
-        android:layout_alignLeft="@+id/recepientname"
-        android:layout_alignStart="@+id/recepientname" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingRight="10dp" />
 
 
 </RelativeLayout>

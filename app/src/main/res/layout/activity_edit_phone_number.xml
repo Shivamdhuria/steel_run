@@ -47,8 +47,9 @@
         android:layout_alignBottom="@+id/textviewName"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textviewName"
         android:layout_toRightOf="@+id/textviewName"
-        android:layout_toEndOf="@+id/textviewName" />
+        android:layout_marginLeft="20dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"

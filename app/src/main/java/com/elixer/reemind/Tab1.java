@@ -188,9 +188,9 @@ public class Tab1 extends Fragment {
                 try {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("text/plain");
-                    i.putExtra(Intent.EXTRA_SUBJECT, "Reminder App");
-                    String sAux = "\nTry This Amazing application,LINK NOT ADDED YET\n\n";
-                    sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Reemind App");
+                    String sAux = "\nSendable Reminders\n\n";
+                    sAux = sAux + "https://play.google.com/store/apps/details?id=com.elixer.reemind \n\n";
                     i.putExtra(Intent.EXTRA_TEXT, sAux);
                     startActivity(Intent.createChooser(i, "Choose one"));
                 } catch (Exception e) {

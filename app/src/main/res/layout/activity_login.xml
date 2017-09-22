@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="108dp"
             android:layout_height="127dp"
-            app:srcCompat="@drawable/icon_small"
+            app:srcCompat="@drawable/iconnew"
             android:id="@+id/imageView3" />
 
         <EditText

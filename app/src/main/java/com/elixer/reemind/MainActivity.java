@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             viewPager.setCurrentItem(Integer.parseInt(position));
         }
         else{
-            viewPager.setCurrentItem(0);
+            viewPager.setCurrentItem(1);
         }
 
             //get firebase auth instance

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 /**
  * Created by Admin on 7/30/2017.
@@ -40,6 +41,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         wakeLock.acquire(30000);
         Intent myIntent = new Intent(context, MainActivity.class);
         intent.putExtra("tab", "1");
+        Log.d("......inent","tab1");
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -63,7 +65,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = mBuilder.build();
-       notification.flags |= Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
+       notification.flags |= Notification.FLAG_INSISTENT ;
 
 
         mNotificationManager.notify(001,notification);

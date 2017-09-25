@@ -39,7 +39,7 @@ public class EditUserName extends AppCompatActivity {
             public void onClick(View v) {
                 if(isNetworkAvailable()) {
                     final String name = String.valueOf(editText.getText());
-                    Toast.makeText(EditUserName.this, "Updating", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(EditUserName.this, "Updating", Toast.LENGTH_LONG).show();
 
                     DatabaseReference mDatabase;
                     mDatabase = FirebaseDatabase.getInstance().getReference();

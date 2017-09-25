@@ -1,6 +1,9 @@
 package com.elixer.reemind;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -87,73 +90,86 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (isNetworkAvailable()) {
 
-                progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
 
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                progressBar.setVisibility(View.GONE);
-                                if (!task.isSuccessful()) {
-                                    // there was an error
-                                    if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
+                    //authenticate user
+                    auth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    // If sign in fails, display a message to the user. If sign in succeeds
+                                    // the auth state listener will be notified and logic to handle the
+                                    // signed in user can be handled in the listener.
+                                    progressBar.setVisibility(View.GONE);
+                                    if (!task.isSuccessful()) {
+                                        // there was an error
+                                        if (password.length() < 6) {
+                                            inputPassword.setError(getString(R.string.minimum_password));
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        }
                                     } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                                    }
-                                } else {
-                                    userID=auth.getCurrentUser().getUid();
+                                        userID = auth.getCurrentUser().getUid();
 
-                                    FirebaseMessaging.getInstance().subscribeToTopic(userID);
+                                        FirebaseMessaging.getInstance().subscribeToTopic(userID);
 
                                         //Getting user info
-                                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-                                    Query query = mDatabase.child(userID);
+                                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+                                        Query query = mDatabase.child(userID);
 
-                                    query.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot snapshot) {
-                                           String fetchName= snapshot.child("username").getValue(String.class);
-                                            String fetchPhone= snapshot.child("phone").getValue(String.class);
-                                            String fetchPicure= snapshot.child("userpicture").getValue(String.class);
+                                        query.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapshot) {
+                                                String fetchName = snapshot.child("username").getValue(String.class);
+                                                String fetchPhone = snapshot.child("phone").getValue(String.class);
+                                                String fetchPicure = snapshot.child("userpicture").getValue(String.class);
 
-                                            //userName=fetchName;
-                                          //  Log.d("fetchName", fetchName);
-                                           tinyDBM.putString("userNameDisplay", fetchName);
-                                            tinyDBM.putString("phoneNumberDisplay", fetchPhone);
-                                            tinyDBM.putString("displayPicture",fetchPicure);
-                                            //Adding it to a string
+                                                //userName=fetchName;
+                                                //  Log.d("fetchName", fetchName);
+                                                tinyDBM.putString("userNameDisplay", fetchName);
+                                                tinyDBM.putString("phoneNumberDisplay", fetchPhone);
+                                                tinyDBM.putString("displayPicture", fetchPicure);
+                                                //Adding it to a string
 
-                                            Toast.makeText(LoginActivity.this, "Update", Toast.LENGTH_LONG).show();
-
-
-
-                                            //Displaying it on textview
+                                              //  Toast.makeText(LoginActivity.this, "Update", Toast.LENGTH_LONG).show();
 
 
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
+                                                //Displaying it on textview
 
 
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
 
 
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.putExtra("tab", "0");
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }else{
+                    Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    @Override
+    public void onBackPressed() {
+// empty so nothing happens
     }
 }

@@ -53,12 +53,17 @@ public class CustomAdapter  extends BaseAdapter {
        name.setText(listItem.get(position));
        // Log.d("encoded",listIcon.get(0).toString());
        String encodedImage = listIcon.get(position);
+
+        try{
         if (!encodedImage.equals("null")) {
 
 
             byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             icon.setImageBitmap(decodedByte);
+
+        }}
+        catch (Exception er){
 
         }
 

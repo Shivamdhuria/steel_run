@@ -51,16 +51,6 @@
         android:layout_toRightOf="@+id/textviewName"
         android:layout_marginLeft="20dp" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:visibility="invisible"
-        android:layout_below="@+id/textviewName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
-
     <TextView
         android:text="Contact Number with Country Code example, +910000000000"
         android:layout_width="wrap_content"
@@ -74,5 +64,15 @@
         android:layout_alignLeft="@+id/displayPhoneNumber"
         android:layout_alignStart="@+id/displayPhoneNumber"
         android:paddingTop="15dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:visibility="invisible"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -224,8 +224,10 @@ public class ReviewActivity extends AppCompatActivity {
 
     public void signOut() {
         auth.signOut();
-        startActivity(new Intent(this, LoginActivity.class));
-        this.finish();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        ReviewActivity.this.finish();
+
+
     }
 
     private boolean isNetworkAvailable() {
@@ -233,6 +235,9 @@ public class ReviewActivity extends AppCompatActivity {
                 = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    private void killActivity() {
+        finish();
     }
 
 

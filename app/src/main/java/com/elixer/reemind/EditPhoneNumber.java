@@ -40,7 +40,7 @@ public class EditPhoneNumber extends AppCompatActivity {
                 if (isNetworkAvailable()) {
 
                     final String phone = String.valueOf(editPhone.getText());
-                    Toast.makeText(EditPhoneNumber.this, "Updating", Toast.LENGTH_LONG).show();
+                   //Toast.makeText(EditPhoneNumber.this, "Updating", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.VISIBLE);
                     DatabaseReference mDatabase;
                     mDatabase = FirebaseDatabase.getInstance().getReference();

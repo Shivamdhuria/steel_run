@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -25,6 +28,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -62,6 +66,7 @@ public class Register extends AppCompatActivity {
     Bitmap ThumbImage;
     Uri imageUri;
     protected String base64Image="null";
+    ProgressBar progressBar;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -90,8 +95,8 @@ public class Register extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = auth.getCurrentUser();
         userID = user.getUid();
-        inputName = (EditText) findViewById(R.id.displayPhoneNumber);
-        inputPhone = (EditText) findViewById(R.id.displayPhoneNumber);
+        inputName = (EditText) findViewById(R.id.displayName);
+        inputPhone = (EditText) findViewById(R.id.displayPhone);
         inputCountryCode = (EditText) findViewById(R.id.inputCountryCode);
         btn_submit = (Button) findViewById(R.id.btn_edit);
         button_profilepicture = (ImageButton) findViewById(R.id.button_profilepicture);
@@ -99,6 +104,7 @@ public class Register extends AppCompatActivity {
         Log.d("country code", countryCode);
         inputCountryCode.setText("+" + GetCountryZipCode());
         tinyDBM.putString("displayPicture","null");
+        progressBar=(ProgressBar)findViewById(R.id.progressBar4) ;
 
 
 
@@ -108,7 +114,8 @@ public class Register extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = inputName.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+                final String name = inputName.getText().toString();
                 String phone = inputPhone.getText().toString();
                 MainActivity.tokenID = FirebaseInstanceId.getInstance().getToken();
                 //Handling exceptions
@@ -130,22 +137,41 @@ public class Register extends AppCompatActivity {
                 String countryCodeInput = inputCountryCode.getText().toString();
                 phoneUpdated = countryCodeInput + phone;
                 //Saving name and phonen umber in Database
-                tinyDBM.putString("userNameDisplay", name);
-                tinyDBM.putString("phoneNumberDisplay", phoneUpdated);
+
                 Log.d("phone upload", phoneUpdated);
                 Log.d("phone nmber update", phoneUpdated);
                 // Creating new user node,
                 User user = new User(name, phoneUpdated, MainActivity.tokenID,base64Image);
 
+                if(isNetworkAvailable()) {
+
+                    mDatabase.child("users").child(userID).setValue(user,new DatabaseReference.CompletionListener() {
+                        public void onComplete(DatabaseError error, DatabaseReference ref) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            if (error == null) {
+                                tinyDBM.putString("userNameDisplay", name);
+                                tinyDBM.putString("phoneNumberDisplay", phoneUpdated);
+                                userPicture = base64Image;
+                                tinyDBM.putString("displayPicture", base64Image);
+
+                                Toast.makeText(getApplicationContext(), "Info Updated", Toast.LENGTH_SHORT).show();
+                                FirebaseMessaging.getInstance().subscribeToTopic(userID);
+
+                                Intent intent = new Intent(Register.this, MainActivity.class);
+
+                                intent.putExtra("tab", "0");
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
 
 
-                mDatabase.child("users").child(userID).setValue(user);
-                Toast.makeText(getApplicationContext(), "Info Updated", Toast.LENGTH_SHORT).show();
 
-                Log.d("fcm ", MainActivity.tokenID);
-                FirebaseMessaging.getInstance().subscribeToTopic(userID);
-                startActivity(new Intent(Register.this, MainActivity.class));
-                finish();
+                }
 
 
             }
@@ -181,7 +207,14 @@ public class Register extends AppCompatActivity {
                 ThumbImage = ThumbnailUtils.extractThumbnail(selectedImage, 320, 320);
                 imageview_profliepicture=(ImageView)findViewById(R.id.profile_image);
                 imageview_profliepicture.setImageBitmap(ThumbImage);
-                ConvertAndUpload(ThumbImage);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8; // shrink it down otherwise we will use stupid amounts of memory
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ThumbImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] bytes = baos.toByteArray();
+                base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+
 
 
 
@@ -201,7 +234,7 @@ public class Register extends AppCompatActivity {
             }
 
         }else {
-            Toast.makeText(this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You haven't picked an Image",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -212,21 +245,33 @@ public class Register extends AppCompatActivity {
         userID = user.getUid();
 
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8; // shrink it down otherwise we will use stupid amounts of memory
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        thumbImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-        base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
 
         // we finally have our base64 string version of the image, save it.
-        mDatabase.child("users").child(userID).setValue(base64Image);
-        userPicture = base64Image;
-        tinyDBM.putString("displayPicture",base64Image);
 
-        System.out.println("Stored image with length: " + bytes.length);
-        Log.d("userID",userID);
+        if(isNetworkAvailable()) {
+            mDatabase.child("users").child(userID).setValue(base64Image, new DatabaseReference.CompletionListener() {
+                public void onComplete(DatabaseError error, DatabaseReference ref) {
+
+                    if (error == null) {
+
+                        userPicture = base64Image;
+                        tinyDBM.putString("displayPicture", base64Image);
+                        Toast.makeText(getApplicationContext(), "Picture Uploaded", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+
+
+        }
+        else{
+            Toast.makeText(this, "Picture couldn't be uploaded!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Check your internet connection", Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -302,5 +347,12 @@ public class Register extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

@@ -48,7 +48,7 @@ public class SelectDateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (dateDisplay.getText().toString().equals("Date: ")) {
+                if (dateDisplay.getText().toString().equals("Date")) {
                     Toast.makeText(getApplication(), "Date not selected", Toast.LENGTH_SHORT).show();
                 } else {
 

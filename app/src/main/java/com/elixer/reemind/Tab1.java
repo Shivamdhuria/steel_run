@@ -123,7 +123,6 @@ public class Tab1 extends Fragment {
         cachedUIDs = tinyDB.getListString("uids");
         cachedPictures = tinyDB.getListString("userpictures");
         sort();
-
         setAdapter();
 
 
@@ -148,7 +147,12 @@ public class Tab1 extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        getContactsAndMatch();
+                        try {
+                            getContactsAndMatch();
+                        }
+                        catch (Exception er){
+                            Log.d("Exceptoin", String.valueOf(er));
+                        }
                         swipeContainer.setRefreshing(false);
                     }
                 }, 10000);

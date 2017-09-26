@@ -203,7 +203,7 @@ public class Tab2 extends Fragment {
 
                             String reminderKey = adapter.getRef(position).getKey();
                             String senderKey = reminder.getSenderUID();
-                            update(senderKey, reminderKey, "Rejected");
+                            update(senderKey, reminderKey, "Cancelled");
 
                             Log.d("senderKEy", senderKey);
                             adapter.getRef(position).removeValue();

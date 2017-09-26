@@ -69,7 +69,7 @@ public class ReminderResponseHolder extends RecyclerView.ViewHolder {
 
     public void setStatus(String status) {
         if(status.equals("Completed")){
-            mStatusField.setTextColor(Color.BLUE);
+            mStatusField.setTextColor(Color.parseColor("#19B5FE"));
         }
         if(status.equals("Rejected")){
             mStatusField.setTextColor(Color.RED);

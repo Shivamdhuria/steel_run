@@ -31,7 +31,7 @@ public class SelectDateActivity extends AppCompatActivity {
          calendarView.setMinDate(dates);
         SimpleDateFormat sdf = new SimpleDateFormat("d / M / yyyy");
         String dateString = sdf.format(dates);
-        dateDisplay.setText("Date: ");
+        dateDisplay.setText("Date");
         date = dateString;
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

@@ -327,6 +327,7 @@ public class Tab2 extends Fragment {
 
                 //calendar.setTimeInMillis(time);
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
                 if (Build.VERSION.SDK_INT >= 23) {
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                     Log.d("alarm time set", time.toString());
